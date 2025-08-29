@@ -1,15 +1,13 @@
-
-
 .footerContainer {
   width: 100%;
   background: #fff;
-  border-top: 1px solid #e5e7eb;
+  border-top: 0.0625rem solid #e5e7eb; 
 }
 
 .footerContentWrapper {
-  max-width: 1280px;
+  max-width: 80rem; 
   margin: 0 auto;
-  padding: 3.5rem 1.5rem;
+  padding: 3.5rem 1rem; 
 }
 
 .footerGrid {
@@ -18,19 +16,14 @@
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 768px) {
-  .footerGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
 /* Brand Section */
 
- .brandLogoWrapper {
+.brandLogoWrapper {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-} 
+}
 
 .logoIconWrapper {
   display: flex;
@@ -39,7 +32,6 @@
   justify-content: center;
   align-items: center;
   background: #eff6ff;
-  border-radius: 9999px;
 }
 
 .brandDescription {
@@ -66,9 +58,6 @@
 .socialIconLink {
   display: inline-flex;
   padding: 0.5rem;
-  border-radius: 9999px;
-  border: 1px solid #e5e7eb;
-  transition: all 0.2s;
 }
 
 .socialIconLink:hover {
@@ -84,7 +73,6 @@
 
 /* Newsletter Section */
 
-
 .newsletterDescription {
   margin-top: 0.5rem;
   color: #4b5563;
@@ -97,17 +85,12 @@
   gap: 0.75rem;
 }
 
-@media (min-width: 640px) {
-  .newsletterForm {
-    flex-direction: row;
-  }
-}
 
 .emailInput {
   flex: 1;
   height: 2.75rem;
   padding: 0 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 0.0625rem solid #d1d5db; 
   border-radius: 0.375rem;
   font-size: 0.875rem;
   color: #111827;
@@ -116,7 +99,7 @@
 .emailInput:focus {
   border-color: #2563eb;
   outline: none;
-  box-shadow: 0 0 0 2px #2563eb;
+  box-shadow: 0 0 0 0.125rem #2563eb; 
 }
 
 .subscribeButton {
@@ -126,15 +109,21 @@
   background: #f97316;
   color: #fff;
   font-weight: 500;
-  transition: background 0.2s;
   border: none;
 }
 
 .subscribeButton:hover {
   background: #ea580c;
 }
+ 
 
-.subscribeButton:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px #f97316;
+@media (min-width: 640px) { 
+  .newsletterForm {
+    flex-direction: row;
+  }
+}
+@media (min-width: 760px) { 
+  .footerGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
