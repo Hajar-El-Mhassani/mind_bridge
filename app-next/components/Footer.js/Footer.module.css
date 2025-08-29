@@ -26,11 +26,11 @@
 
 /* Brand Section */
 
-.brandLogoWrapper {
+ .brandLogoWrapper {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-}
+} 
 
 .logoIconWrapper {
   display: flex;
@@ -40,22 +40,6 @@
   align-items: center;
   background: #eff6ff;
   border-radius: 9999px;
-}
-
-.logoIcon {
-  height: 1.5rem;
-  width: 1.5rem;
-  color: #2563eb;
-}
-
-.brandTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #111827;
-}
-
-.brandHighlight {
-  color: #2563eb;
 }
 
 .brandDescription {

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Footer.module.css";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,7 +10,12 @@ export default function Footer() {
           {/* BrandSection  */}
           <div className={styles.brandSection}>
             <div className={styles.brandLogoWrapper}>
-              "Logo of page is here"
+              <Image
+                src="/footer/logo.png"
+                alt="Logo of page"
+                width={160}
+                height={40}
+              />
             </div>
 
             <p className={styles.brandDescription}>
@@ -35,10 +41,8 @@ export default function Footer() {
               MindBridge.
             </p>
 
-            <form  className={styles.newsletterForm}>
-              <label htmlFor="email" className="sr-only">
-                Your email address
-              </label>
+            <form className={styles.newsletterForm}>
+
               <input
                 id="email"
                 name="email"
