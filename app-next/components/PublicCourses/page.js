@@ -1,12 +1,12 @@
-import Footer from "../Footer.js/page";
+import Footer from "../Footer.js/Footer";
+import CourseHeader from "./CourseHeader";
 
 export default function PublicCourses() {
   return (
     <div>
-      <div>"Navbar"</div>
-      <div>"Top of page "</div>
-      <div>"Search and Sort Section "</div>
-      <div>"Cards"</div>
+      <div>"Navbar - Hajar's Code"</div>
+     <CourseHeader/>
+      <div>" Cards - Maksym's code"</div>
 
       <Footer/>
       {/* - - - - - - -Border - - - - - - - */}
