@@ -55,11 +55,12 @@
   display: inline-flex;
   padding: 0.5rem;
   border-radius: 0.375rem;
-  transition: background 0.2s;
 }
 
 .socialIconLink:hover {
-  background: #f9fafb;
+  background: #bcdaf8;
+
+  
 }
 
 /* Newsletter Section */
