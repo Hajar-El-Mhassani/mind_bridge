@@ -29,7 +29,7 @@ export default function Footer() {
   return (
     <footer className={styles.footerContainer}>
       <div className={styles.footerContentWrapper}>
-        <div className={styles.footerGrid}>
+        <div className={styles.footer}>
           {/* BrandSection  */}
           <div className={styles.brandSection}>
             <div className={styles.brandLogoWrapper}>
