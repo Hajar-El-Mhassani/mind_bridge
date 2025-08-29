@@ -6,8 +6,3 @@ export default function NestedPage() {
 
 
 
-// export default function PublicCourses() {
-//   return <div>
-//     {/* - - - - - - -Border - - - - - - - */}
-//   </div>;
-// }
