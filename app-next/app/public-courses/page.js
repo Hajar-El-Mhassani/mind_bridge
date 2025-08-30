@@ -1,7 +1,17 @@
-import TestPage from "@/components/TestPage/TestPage";
-import PublicCourses from "@/components/PublicCourses/page";
-export default function NestedPage() {
-  return <PublicCourses/>;
+
+import CourseHeader from "@/components/PublicCourses/CourseHeader";
+import Footer from "@/components/Footer.js/Footer";
+export default function PublicCourses() {
+  return (
+    <div>
+      <div>"Navbar - Hajar's Code"</div>
+      <CourseHeader />
+      <div>" Cards - Maksym's code"</div>
+
+      <Footer />
+      {/* - - - - - - -Border - - - - - - - */}
+    </div>
+  );
 }
 
 
