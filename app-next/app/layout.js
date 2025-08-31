@@ -1,4 +1,6 @@
 import "./globals.css";
+import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/NavBar/Navbar";
 
 export const metadata = {
   title: "MindBridge — Share your expertise",
@@ -11,10 +13,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <Navbar />
         {children}
         <Footer />
       </body>
-
     </html>
   );
 }

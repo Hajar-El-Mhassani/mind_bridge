@@ -9,7 +9,7 @@ import styles from "./Navbar.module.css";
 
 const NAV = [
   { href: "/", label: "Home" },
-  { href: "/courses", label: "Courses" },
+  { href: "public-courses", label: "Courses" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact Us" },
 ];
