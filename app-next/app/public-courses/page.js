@@ -8,7 +8,7 @@ export default function PublicCourses() {
       <CourseHeader />
       <div>" Cards - Maksym's code"</div>
 
-      <Footer />
+      
       {/* - - - - - - -Border - - - - - - - */}
     </div>
   );
