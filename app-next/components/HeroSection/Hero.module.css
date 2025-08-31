@@ -1,0 +1,130 @@
+/* Section background */
+.hero {
+  background: #f1f7ff;
+}
+
+/* Grid container with responsive column gap + safe shrinking */
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  /* add responsive horizontal padding so content doesn't hug edges */
+  padding: 48px clamp(16px, 5vw, 48px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-areas: "copy media";
+
+  /* space between left & right columns  */
+  column-gap: clamp(24px, 6vw, 96px);
+  row-gap: 28px;
+
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* allow children to shrink (prevents overflow) */
+.copy {
+  grid-area: copy;
+  min-width: 0;
+}
+.media {
+  grid-area: media;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Text */
+.title {
+  margin: 0 0 16px;
+  font-size: 2rem;
+  line-height: 1.2;
+  color: #0f172a;
+  letter-spacing: 0.06em;
+  overflow-wrap: anywhere;
+}
+.lead {
+  color: #475569;
+  margin: 0 0 22px;
+  max-width: 62ch;
+  letter-spacing: 0.08em;
+  overflow-wrap: anywhere;
+}
+.brand1 {
+  color: #677182;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.brand2 {
+  color: #004f7d;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+/* Buttons: responsive, no overflow */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 100%;
+  justify-content: flex-start;
+}
+
+.btn {
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 3rem;
+  padding: 12px 16px; /* slightly slimmer padding */
+  text-align: center;
+  border: 1px solid transparent;
+
+  /* smaller + don’t stretch to fill row */
+  flex: 0 1 190px;
+  min-width: 0;
+}
+
+.primary {
+  background: #497d00;
+  color: #fff;
+}
+.primary:hover {
+  background: #178dcf;
+}
+.ghost {
+  background: #fff;
+  color: #0f172a;
+  border: 1px solid #cfd8e3;
+}
+.ghost:hover {
+  border-color: #98a6b8;
+}
+
+/* Image */
+.art {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+}
+
+.highlight {
+  color: oklch(0.88 0.17 91.84);
+  font-weight: 700; /* was 600 */
+}
+/* Mobile: image first, full-width buttons */
+@media (max-width: 700px) {
+  .wrap {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "media"
+      "copy";
+  }
+  .btn {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .title {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+}

@@ -1,0 +1,161 @@
+/* Fixed navbar full width */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  /* optional divider */
+}
+
+/* Inner container with logo + right section */
+.bar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  min-height: 50px; /* SMALL header height */
+  padding: 0 14px; /* a bit tighter horizontally */
+  box-sizing: border-box;
+}
+
+/* Logo — smaller so it fits a 40px bar */
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+}
+.logo {
+  height: 30px;
+  width: auto;
+} /* was 40px */
+
+/* Right side: nav + login + burger */
+.right {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
+  align-items: center;
+  gap: 16px; /* tighter gap */
+}
+
+/* Desktop links */
+.links {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 20px;
+
+  font-weight: normal;
+}
+
+.link {
+  text-decoration: none;
+  color: #677182;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+}
+
+.link:hover {
+  color: #07a4ff;
+}
+.linkActive {
+  color: #07a4ff;
+}
+
+/* Desktop login — compact */
+.loginBtn {
+  text-decoration: none;
+  font-weight: 600;
+  color: #fff;
+  background: #004f7d;
+  padding: 5px 10px; /* was 6px 12px */
+  border-radius: 8px;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+.loginBtn:hover {
+  background: #0b5ed7;
+}
+.icon {
+  margin-right: 6px;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+/* Burger — smaller to match bar */
+.burger {
+  display: none;
+  width: 28px;
+  height: 28px; /* was 36x36 */
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.burger span {
+  width: 16px;
+  height: 2px;
+  background: #010102;
+  display: block;
+}
+
+/* Mobile dropdown aligned under the 40px bar */
+.mobile {
+  position: absolute;
+  top: 40px; /* match .bar min-height */
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  display: grid;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  z-index: 40;
+}
+.mItem {
+  text-decoration: none;
+  color: #111827;
+  font-weight: 400;
+  padding: 8px 6px;
+  border-radius: 6px;
+}
+.mItem:hover {
+  background: #f3f4f6;
+}
+.mLogin {
+  text-align: center;
+  background: #2d9cdb;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Spacer so content isn’t hidden under the fixed 40px header */
+.spacer {
+  height: 40px;
+} /* was 64px */
+
+/* Responsive */
+@media (max-width: 980px) {
+  .links,
+  .loginBtn {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+}
+@media (max-width: 520px) {
+  .logo {
+    height: 22px;
+  }
+}
