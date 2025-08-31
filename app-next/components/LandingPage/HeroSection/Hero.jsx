@@ -7,7 +7,6 @@ export default function Hero() {
   return (
     <section className={styles.hero} id="home">
       <div className={styles.wrap}>
-        {/* Left: text */}
         <div className={styles.copy}>
           <h1 className={styles.title}>
             Share Your{" "}
@@ -25,7 +24,10 @@ export default function Hero() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="/courses" className={`${styles.btn} ${styles.primary}`}>
+            <Link
+              href="/public-courses"
+              className={`${styles.btn} ${styles.primary}`}
+            >
               Explore Courses
             </Link>
             <Link
