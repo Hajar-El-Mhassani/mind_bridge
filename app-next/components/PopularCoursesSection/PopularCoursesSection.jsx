@@ -10,7 +10,7 @@ export default function PopularCoursesSection() {
                 
                 <div className={styles.courseCard}>
                     <Image
-                        src="/images/courses/course-1.png"
+                        src="git/courses/course-1.png"
                         alt="Mastering Modern Web Development"
                         width={406}
                         height={192}
@@ -29,7 +29,7 @@ export default function PopularCoursesSection() {
 
                 <div className={styles.courseCard}>
                     <Image
-                        src="/images/courses/course-2.png"
+                        src="/courses/course-2.png"
                         alt="Introduction to Data Science with Python"
                         width={406}
                         height={192}
@@ -48,7 +48,7 @@ export default function PopularCoursesSection() {
 
                 <div className={styles.courseCard}>
                     <Image
-                        src="/images/courses/course-3.png"
+                        src="/courses/course-3.png"
                         alt="Creative Graphic Design Fundamentals"
                         width={406}
                         height={192}
