@@ -2,10 +2,16 @@ import HYFLogo from "@/assets/hyf.svg";
 import Image from "next/image";
 import "./HomePage.css";
 import Hero from "../HeroSection/Hero";
+import WhyChooseSection from '../WhyChooseSection/WhyChooseSection.jsx';
+import PopularCoursesSection from '../PopularCoursesSection/PopularCoursesSection.jsx';
 
-// Feel free to replace the content of this component with your own
-function HomePage() {
-  return <Hero />;
+export default function HomePage() {
+    return (
+        <div>
+            <Hero />
+            <WhyChooseSection />
+            <PopularCoursesSection />
+          </div>
+    );
 }
-
-export default HomePage;
+   
