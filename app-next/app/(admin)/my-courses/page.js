@@ -1,5 +1,5 @@
 import MyCourses from "@/components/MyCourses/MyCourses";
-export default function PublicCourses() {
+export default function MyCoursesPage() {
   return (
     <div>
       <MyCourses/>

@@ -2,18 +2,10 @@ import React from "react";
 import styles from "./MyCourses.module.css";
 import MyCoursesList from "./MyCoursesList.jsx";
 import StatesCard from "./StatesCard";
-import SideBar from "./SideBar";
 
 export default function MyCourses() {
-
-
-
   return (
     <div>
-      <div>
-        <SideBar/>
-      </div>
-
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>My Courses</h1>
