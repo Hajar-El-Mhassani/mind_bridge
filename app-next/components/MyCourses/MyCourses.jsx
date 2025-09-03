@@ -1,23 +1,42 @@
 import React from "react";
 import styles from "./MyCourses.module.css";
 import MyCoursesList from "./MyCoursesList.jsx";
+import StatsCard from "./StatesCard";
 
 export default function MyCourses() {
   return (
     <div className={styles.container}>
-      {/* title of page is here */}
       <header className={styles.header}>
         <h1 className={styles.title}>My Courses</h1>
       </header>
 
       {/* main section on top to show courses category  */}
       <section className={styles.statsSection}>
-        <div> 4 boxes with short info is here </div>
+        <StatsCard />
       </section>
 
       {/* in this section we can see search - sort and add new  */}
-      <section className={styles.filtersSection}>
-        <div> same as public courses use div and flexbox here  </div>
+      <section>
+        <div className={styles.filtersSection}>
+          <div>
+            <input
+              type="text"
+              className={styles.searchInput}
+              placeholder="Search courses..."
+            />
+
+            <select className={styles.filterSelect}>
+              <option value="all">Category: All</option>
+              <option value="tech">Technology</option>
+              <option value="business">Business</option>
+              <option value="arts">Arts</option>
+            </select>
+          </div>
+          <div>
+            {" "}
+            <button className="add-course-btn">＋ Add New Course</button>
+          </div>
+        </div>
       </section>
 
       <section className={styles.listSection}>

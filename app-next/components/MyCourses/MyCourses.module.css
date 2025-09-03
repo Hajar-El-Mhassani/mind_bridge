@@ -26,13 +26,28 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1rem;
+  background-color: blue;
 }
 
 /* Filters Section */
+
 .filtersSection {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+ align-items:center;
+ justify-content: space-between;
+
+}
+
+.add-course-btn{
+  margin-left:auto;
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
 }
 
 @media (min-width: 48rem) {
