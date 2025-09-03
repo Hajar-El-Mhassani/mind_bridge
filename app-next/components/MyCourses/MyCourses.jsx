@@ -7,6 +7,9 @@ export default function MyCourses() {
   return (
     <div>
       <div className={styles.container}>
+        <div>
+
+        </div>
         <header className={styles.header}>
           <h1 className={styles.title}>My Courses</h1>
         </header>
@@ -16,7 +19,7 @@ export default function MyCourses() {
           <StatesCard />
         </section>
 
-        {/* in this section we can see search - sort and add new  */}
+        {/* Filter - Search and adding new course are in this section  */}
         <section>
           <div className={styles.FiltersContainer}>
             <div>

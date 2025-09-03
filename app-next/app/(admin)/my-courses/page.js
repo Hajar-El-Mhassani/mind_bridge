@@ -1,8 +1,10 @@
 import MyCourses from "@/components/MyCourses/MyCourses";
+import TopBar from "@/components/TopBar/TopBar";
 export default function MyCoursesPage() {
   return (
     <div>
-      <MyCourses/>
+      <TopBar />
+      <MyCourses />
     </div>
   );
 }
