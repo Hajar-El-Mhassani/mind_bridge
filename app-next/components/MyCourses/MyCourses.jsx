@@ -17,7 +17,7 @@ export default function MyCourses() {
 
       {/* in this section we can see search - sort and add new  */}
       <section>
-        <div className={styles.filtersSection}>
+        <div className={styles.FiltersContainer}>
           <div>
             <input
               type="text"
@@ -34,7 +34,7 @@ export default function MyCourses() {
           </div>
           <div>
             {" "}
-            <button className="add-course-btn">＋ Add New Course</button>
+            <button className={styles.addCourseBtn}>＋ Add New Course</button>
           </div>
         </div>
       </section>
