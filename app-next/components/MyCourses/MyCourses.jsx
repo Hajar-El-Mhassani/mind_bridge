@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./MyCourses.module.css";
 import MyCoursesList from "./MyCoursesList.jsx";
-import StatsCard from "./StatesCard";
+import StatesCard from "./StatesCard";
 
 export default function MyCourses() {
+
+
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -12,7 +15,7 @@ export default function MyCourses() {
 
       {/* main section on top to show courses category  */}
       <section className={styles.statsSection}>
-        <StatsCard />
+        <StatesCard />
       </section>
 
       {/* in this section we can see search - sort and add new  */}
@@ -22,12 +25,14 @@ export default function MyCourses() {
             <input
               type="text"
               className={styles.searchInput}
-              placeholder="Search courses..."
+              placeholder="Filter courses..."
             />
 
             <select className={styles.filterSelect}>
-              <option value="all">Category: All</option>
-              <option value="tech">Technology</option>
+              <option value="all">Category</option>
+              <option value="tech">Programming</option>
+              <option value="tech">Data Sinence</option>
+              <option value="tech">Design</option>
               <option value="business">Business</option>
               <option value="arts">Arts</option>
             </select>

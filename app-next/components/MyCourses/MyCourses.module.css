@@ -21,18 +21,63 @@
   color: #111827;
 }
 
-/* Stats Section */
-.statsSection {
+/* states Section */
+.statesSection {
+      width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1rem;
-  background-color: blue;
+  height: 3rem;
+  margin-bottom: 4rem;
+  border:#6b7280 0.2 rem
 }
+
+.statesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: 1rem;
+}
+
+.stateCard {
+  background: #ffffff;
+  border:#ebeced solid 0.01rem;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.04);
+}
+.stateTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.stateTitle {
+  font-size: 0.95rem;
+  color: #374151;
+}
+.iconPlaceholder {
+  width: 22px;
+  height: 22px;
+  border:black solid 0.01px;
+  border-radius: 6px;
+}
+.stateValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+}
+.stateSubtitle {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+
 
 /* Filters Section */
 
 .FiltersContainer {
   display: flex;
+  flex-direction: row;
   flex-wrap: nowrap;       
   gap: 2rem;
   justify-content: space-between; 
@@ -46,6 +91,7 @@
   border: 0.0625rem solid #d1d5db;
   border-radius: 0.375rem;
   font-size: 0.9rem;
+  width: 20rem;
 }
 
 .filterSelect {
@@ -68,7 +114,7 @@
 
 
 @media (min-width: 48rem) {
-  .filtersSection {
+  .FiltersContainer {
     flex-direction: row;
     align-items: center;
   }

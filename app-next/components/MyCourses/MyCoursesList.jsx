@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./MyCourses.module.css";
 
 export default function MyCoursesList() {
 
@@ -78,8 +79,8 @@ export default function MyCoursesList() {
     ];
 
   return (
-    <div>
-      <p>Courses cards are here to show </p>
+    <div >
+      *********Cards are here******************
     </div>
   );
 }
