@@ -2,51 +2,58 @@ import React from "react";
 import styles from "./MyCourses.module.css";
 import MyCoursesList from "./MyCoursesList.jsx";
 import StatesCard from "./StatesCard";
+import SideBar from "./SideBar";
 
 export default function MyCourses() {
 
 
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>My Courses</h1>
-      </header>
+    <div>
+      <div>
+        <SideBar/>
+      </div>
 
-      {/* main section on top to show courses category  */}
-      <section className={styles.statsSection}>
-        <StatesCard />
-      </section>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>My Courses</h1>
+        </header>
 
-      {/* in this section we can see search - sort and add new  */}
-      <section>
-        <div className={styles.FiltersContainer}>
-          <div>
-            <input
-              type="text"
-              className={styles.searchInput}
-              placeholder="Filter courses..."
-            />
+        {/* main section on top to show courses category  */}
+        <section className={styles.statsSection}>
+          <StatesCard />
+        </section>
 
-            <select className={styles.filterSelect}>
-              <option value="all">Category</option>
-              <option value="tech">Programming</option>
-              <option value="tech">Data Sinence</option>
-              <option value="tech">Design</option>
-              <option value="business">Business</option>
-              <option value="arts">Arts</option>
-            </select>
+        {/* in this section we can see search - sort and add new  */}
+        <section>
+          <div className={styles.FiltersContainer}>
+            <div>
+              <input
+                type="text"
+                className={styles.searchInput}
+                placeholder="Filter courses..."
+              />
+
+              <select className={styles.filterSelect}>
+                <option value="all">Category</option>
+                <option value="tech">Programming</option>
+                <option value="tech">Data Sinence</option>
+                <option value="tech">Design</option>
+                <option value="business">Business</option>
+                <option value="arts">Arts</option>
+              </select>
+            </div>
+            <div>
+              {" "}
+              <button className={styles.addCourseBtn}>＋ Add New Course</button>
+            </div>
           </div>
-          <div>
-            {" "}
-            <button className={styles.addCourseBtn}>＋ Add New Course</button>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className={styles.listSection}>
-        <MyCoursesList />
-      </section>
+        <section className={styles.listSection}>
+          <MyCoursesList />
+        </section>
+      </div>
     </div>
   );
 }
