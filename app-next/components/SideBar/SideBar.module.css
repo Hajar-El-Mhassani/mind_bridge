@@ -35,6 +35,12 @@
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease;
 }
+.icon {
+  font-size: 1rem;
+  color: #6b7280;
+  flex-shrink: 0;
+  padding-right: 0.75rem;
+}
 
 .navItem:hover {
   background: #e5e7eb;

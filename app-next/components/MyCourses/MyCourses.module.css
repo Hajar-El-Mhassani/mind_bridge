@@ -57,8 +57,8 @@
 .iconPlaceholder {
   width: 22px;
   height: 22px;
-  border:black solid 0.01px;
-  border-radius: 6px;
+  color: #374151;
+
 }
 .stateValue {
   font-size: 1.5rem;

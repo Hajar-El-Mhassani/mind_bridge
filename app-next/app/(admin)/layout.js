@@ -1,5 +1,6 @@
 import SideBar from "@/components/SideBar/SideBar";
 import "../globals.css";
+import styles from "@/app/(admin)/admin.module.css"
 
 export const metadata = {
   title: "MindBridge — Share your expertise",
@@ -12,9 +13,13 @@ export default function AdminLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <SideBar/>
-        {children}
-        </body>
+        <div className={styles.adminContainer}>
+          <div>
+            <SideBar />
+          </div>
+          <div className={styles.adminContentPanel}>{children}</div>
+        </div>
+      </body>
     </html>
   );
 }

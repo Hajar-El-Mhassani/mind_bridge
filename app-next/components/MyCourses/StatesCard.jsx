@@ -1,8 +1,15 @@
 import React from "react";
 import styles from "./MyCourses.module.css";
+import { FaBook, FaCheckCircle, FaRegFileAlt, FaUsers } from "react-icons/fa";
 
 export default function statesCard({states=[]}) {
 
+  const ICONS = {
+    total: <FaBook />,
+    published: <FaCheckCircle />,
+    draft: <FaRegFileAlt />,
+    enroll: <FaUsers />,
+  };
 
  const stateeMock = [
    {
@@ -40,7 +47,8 @@ export default function statesCard({states=[]}) {
           <div className={styles.stateTitleRow}>
             <div className={styles.stateTitle}>{s.title}</div>
 
-            <div className={styles.iconPlaceholder} aria-hidden />
+            <div className={styles.iconPlaceholder}>{ICONS[s.id]}</div>
+            
           </div>
           <div className={styles.stateValue}>{s.value}</div>
           <div className={styles.stateSubtitle}>{s.subtitle}</div>

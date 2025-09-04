@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./SideBar.module.css";
+import { FaUser, FaBookOpen, FaPlusCircle, FaEnvelope } from "react-icons/fa";
 
 const NAV_ITEMS = [
   { href: "/profile", label: "Profile" },
@@ -12,8 +13,15 @@ const NAV_ITEMS = [
 ];
 
 export default function SideBar() {
-  const pathname = usePathname();
+  
+const NAV_ITEMS = [
+  { href: "/profile", label: "Profile", icon: <FaUser /> },
+  { href: "/my-courses", label: "My Courses", icon: <FaBookOpen /> },
+  { href: "/add-course", label: "Add Course", icon: <FaPlusCircle /> },
+  { href: "/contact-us", label: "Contact Us", icon: <FaEnvelope /> },
+];
 
+const pathname = usePathname();
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logoWrapper}>
@@ -38,7 +46,8 @@ export default function SideBar() {
               href={item.href}
               className={`${styles.navItem} ${active ? styles.active : ""}`}
             >
-              {item.label}
+              <span className={styles.icon}>{item.icon}</span>
+              <span>{item.label}</span>
             </Link>
           );
         })}
