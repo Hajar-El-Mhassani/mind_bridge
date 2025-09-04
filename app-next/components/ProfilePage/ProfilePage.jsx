@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "./ProfilePage.module.css";
 import Image from "next/image";
 import ProfileCard from "./ProfileCard";
+import Switch from "../General/Switch";
 import {
   FiUser,
   FiMail,
@@ -10,6 +11,10 @@ import {
   FiCalendar,
   FiBriefcase,
 } from "react-icons/fi";
+
+const handleSwitchChange = (settingName, value) => {
+  console.log(`${settingName} changed to:`, value);
+};
 
 export default function ProfilePage() {
   const [user, setUser] = useState(null);
@@ -62,13 +67,13 @@ export default function ProfilePage() {
             <p>{user.email}</p>
           </div>
         </div>
-        <button className={styles.editButton} aria-label="Edit user profile">
+        <button className={styles.pageButton} aria-label="Edit user profile">
           Edit Profile
         </button>
       </section>
 
       <section
-        className={styles.profileDetails}
+        className={styles.section}
         aria-labelledby="user-profile-details"
       >
         <h2>Personal Information</h2>
@@ -98,6 +103,56 @@ export default function ProfilePage() {
             name="Role"
             content={user.role || "Not specified"}
           />
+        </div>
+      </section>
+      <section
+        className={styles.section}
+        aria-labelledby="user-profile-activity"
+      >
+        <h2>Account Settings</h2>
+        <div className={styles.settingsRow}>
+          <div className={styles.settingsCard}>
+            <h3>Account Security</h3>
+            <div className={styles.settingsCardOption}>
+              <p>Password</p>
+              <button className={styles.pageButton}>Change Password</button>
+            </div>
+            <div className={styles.settingsCardOption}>
+              <p>Two-Factor Authentication</p>
+              <Switch
+                initialState={false}
+                onChange={(value) => handleSwitchChange("2FA", value)}
+              />
+            </div>
+            <div className={styles.settingsCardOption}>
+              <p>Recent Activity</p>
+              <button className={styles.pageButton}>View Activity</button>
+            </div>
+          </div>
+          <div className={styles.settingsCard}>
+            <h3>Notification Preferences</h3>
+            <div className={styles.settingsCardOption}>
+              <p>Email Notifications</p>
+              <Switch
+                initialState={true}
+                onChange={(value) => handleSwitchChange("email", value)}
+              />
+            </div>
+            <div className={styles.settingsCardOption}>
+              <p>SMS Notifications</p>
+              <Switch
+                initialState={false}
+                onChange={(value) => handleSwitchChange("sms", value)}
+              />
+            </div>
+            <div className={styles.settingsCardOption}>
+              <p>In-app Notifications</p>
+              <Switch
+                initialState={true}
+                onChange={(value) => handleSwitchChange("inApp", value)}
+              />
+            </div>
+          </div>
         </div>
       </section>
     </main>
