@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./MyCourses.module.css";
-import MyCoursesList from "./MyCoursesList.jsx";
+import MyCoursesGrid from "./MyCoursesGrid";
 import StatesCard from "./StatesCard";
 
 export default function MyCourses() {
@@ -46,7 +46,7 @@ export default function MyCourses() {
         </section>
 
         <section className={styles.listSection}>
-          <MyCoursesList />
+          <MyCoursesGrid />
         </section>
       </div>
     </div>
