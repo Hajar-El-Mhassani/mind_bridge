@@ -155,13 +155,13 @@
 }
 
 .category {
-  width: 15%;
+  width: 4rem;
   margin-bottom: 0.5rem;
-  padding: 4px 10px;
   font-size: 12px;
-  background: #b8b9ba;
+  background: #cacbcd;
   color: #fff;
   border-radius: 999px;
+  padding: 0.3rem 0.5rem;
 }
 
 .content {
@@ -194,11 +194,10 @@
 .statusPublished {
   background-color: green;
   width: 25%;
-
   font-size: 15px;
   color: #fff;
   border-radius: 999px;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.5rem;
 }
 .status {
   background-color: #b8b9ba;
@@ -207,7 +206,7 @@
   font-size: 15px;
   color: #fff;
   border-radius: 999px;
-  padding: 0.3rem;
+  padding: 0.3rem 0.5rem;
 }
 
 .btnContainer {

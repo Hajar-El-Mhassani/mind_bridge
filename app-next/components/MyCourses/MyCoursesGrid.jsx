@@ -83,7 +83,7 @@ const courses = [
     status: "Published",
   },
   {
-    category: "Go",
+    category: "Web Dev",
     imageUrl:
       "https://newline.tech/wp-content/uploads/2023/07/Profession_-Backend-Developer.png",
     header: "Go for Backend Services",
