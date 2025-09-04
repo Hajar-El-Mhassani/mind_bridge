@@ -23,13 +23,13 @@
 
 /* states Section */
 .statesSection {
-      width: 100%;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1rem;
   height: 3rem;
   margin-bottom: 4rem;
-  border:#6b7280 0.2 rem
+  border: #6b7280 0.2 rem;
 }
 
 .statesGrid {
@@ -40,7 +40,7 @@
 
 .stateCard {
   background: #ffffff;
-  border:#ebeced solid 0.01rem;
+  border: #ebeced solid 0.01rem;
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.04);
@@ -58,7 +58,6 @@
   width: 22px;
   height: 22px;
   color: #374151;
-
 }
 .stateValue {
   font-size: 1.5rem;
@@ -71,16 +70,14 @@
   color: #6b7280;
 }
 
-
-
 /* Filters Section */
 
 .FiltersContainer {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;       
+  flex-wrap: nowrap;
   gap: 2rem;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
@@ -102,8 +99,8 @@
   background: #fff;
   margin-left: 0.5rem;
 }
-.addCourseBtn{
-  margin-left:auto;
+.addCourseBtn {
+  margin-left: auto;
   padding: 0.75rem;
   border: 0.0625rem solid #d1d5db;
   border-radius: 0.375rem;
@@ -111,7 +108,6 @@
   color: white;
   background-color: rgb(49, 49, 231);
 }
-
 
 @media (min-width: 48rem) {
   .FiltersContainer {
@@ -131,7 +127,7 @@
 /**********************************************************/
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 24px;
 }
@@ -159,8 +155,8 @@
 }
 
 .category {
- width: 15%;
- margin-bottom: 0.5rem;
+  width: 15%;
+  margin-bottom: 0.5rem;
   padding: 4px 10px;
   font-size: 12px;
   background: #b8b9ba;
@@ -182,32 +178,65 @@
   color: #6b7280;
   font-size: 13px;
 }
-.detailContainer{
+.detailContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 1rem;
   text-align: center;
+  align-items: center;
+  border-top: 1px solid #b8b9ba;
+  margin: 0 0.75rem;
 }
-.enrolled{
+.enrolled {
   color: #6b7280;
   font: 12px;
 }
-.status{
-  background-color:green;
+.statusPublished {
+  background-color: green;
   width: 25%;
-   padding: 4px 10px;
+
   font-size: 15px;
   color: #fff;
   border-radius: 999px;
-  
+  padding: 0.5rem 1rem;
 }
-.button {
+.status {
+  background-color: #b8b9ba;
+  width: 25%;
+  padding: 0.5rem 1rem;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.3rem;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-top: 1px solid #b8b9ba;
+  padding: 1rem;
+}
+.btnEdit {
   align-self: center;
-  background: #111827;
+  background: white;
+  color: black;
+  border: 1px solid #b8b9ba;
+  border-radius: 0.375rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+  margin-top: auto;
+}
+.btnDelete {
+  align-self: center;
+  background: rgb(182, 54, 54);
   color: #fff;
   border: none;
-  border-radius: 999px;
+  border-radius: 0.375rem;
   padding: 8px 16px;
   cursor: pointer;
   font-size: 14px;
