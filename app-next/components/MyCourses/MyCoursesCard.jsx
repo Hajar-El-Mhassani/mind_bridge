@@ -6,8 +6,9 @@ export default function CourseCard({ imageUrl, category, header, created_by, enr
       <div className={styles.imageWrapper}>
         <img className={styles.image} src={imageUrl} alt={header} />
       </div>
+     
       <div className={styles.content}>
-        <span className={styles.category}>{category}</span>
+        <div className={styles.category}>{category}</div>
         <h3 className={styles.title}>{header}</h3>
         <p className={styles.creator}>By {created_by}</p>
       </div>

@@ -159,12 +159,11 @@
 }
 
 .category {
-  position: absolute;
-  top: 12px;
-  left: 12px;
+ width: 15%;
+ margin-bottom: 0.5rem;
   padding: 4px 10px;
   font-size: 12px;
-  background: #111827;
+  background: #b8b9ba;
   color: #fff;
   border-radius: 999px;
 }
@@ -196,10 +195,11 @@
 }
 .status{
   background-color:green;
-  color:white;
- padding:0.2rem;
-  text-align: center;
-  height: auto;
+  width: 25%;
+   padding: 4px 10px;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 999px;
   
 }
 .button {
