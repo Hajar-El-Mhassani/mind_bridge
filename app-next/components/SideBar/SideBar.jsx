@@ -5,13 +5,6 @@ import { usePathname } from "next/navigation";
 import styles from "./SideBar.module.css";
 import { FaUser, FaBookOpen, FaPlusCircle, FaEnvelope } from "react-icons/fa";
 
-const NAV_ITEMS = [
-  { href: "/profile", label: "Profile" },
-  { href: "/my-courses", label: "My Courses" },
-  { href: "/add-course", label: "Add Course" },
-  { href: "/contact-us", label: "Contact Us" },
-];
-
 export default function SideBar() {
   
 const NAV_ITEMS = [

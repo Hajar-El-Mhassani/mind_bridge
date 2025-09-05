@@ -188,6 +188,9 @@
 .title {
   margin: 0 0 6px;
   font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .creator {
