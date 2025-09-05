@@ -1,0 +1,36 @@
+/** @param {import('knex').Knex} knex */
+export async function seed(knex) {
+  // Clear existing rows
+  await knex("users").del();
+
+  // Insert sample users
+  await knex("users")
+    .insert([
+      {
+        id: 1,
+        name: "Alice Johnson",
+        email: "alice@example.com",
+        password: "hashed_password1", // normally bcrypt hash
+        created_at: knex.fn.now(),
+        updated_at: knex.fn.now(),
+      },
+      {
+        id: 2,
+        name: "Bob Smith",
+        email: "bob@example.com",
+        password: "hashed_password2",
+        created_at: knex.fn.now(),
+        updated_at: knex.fn.now(),
+      },
+      {
+        id: 3,
+        name: "Charlie Brown",
+        email: "charlie@example.com",
+        password: "hashed_password3",
+        created_at: knex.fn.now(),
+        updated_at: knex.fn.now(),
+      },
+    ])
+    .onConflict("id")
+    .ignore();
+}

@@ -3,7 +3,11 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import morgan from "morgan";
+import { StatusCodes } from "http-status-codes";
 import db from "./database_client.js";
+import usersRouter from "./routers/users.js";
+import coursesRouter from "./routers/courses.js";
+import lessonsRouter from "./routers/lessons.js";
 
 const app = express();
 app.use(cors());
@@ -20,11 +24,15 @@ apiRouter.get("/health", async (_req, res) => {
     res.status(500).json({ ok: false, error: e.message });
   }
 });
-// demo: get all users
-apiRouter.get("/users", async (_req, res) => {
-  const users = await db("users").select("*");
-  res.json(users);
-});
+
+// This is the router for the users
+apiRouter.use("/", usersRouter);
+
+// This is the router for the courses
+apiRouter.use("/", coursesRouter);
+
+// This is the router for the lessons
+apiRouter.use("/", lessonsRouter);
 
 app.use("/api", apiRouter);
 app.listen(process.env.API_PORT || 3001, () => {
