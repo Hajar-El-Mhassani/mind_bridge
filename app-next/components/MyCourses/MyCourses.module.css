@@ -10,9 +10,11 @@
 
 /* Header */
 .header {
-  display: flex;
+   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 
 .title {
@@ -27,9 +29,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1rem;
-  height: 3rem;
-  margin-bottom: 4rem;
-  border: #6b7280 0.2 rem;
+
+  margin-bottom: 3rem;
+ 
 }
 
 .statsGrid {
@@ -43,7 +45,7 @@
   border: #ebeced solid 0.01rem;
   border-radius: 8px;
   padding: 1rem;
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 0 0 1px rgba(150, 150, 151, 0.04);
 }
 .statTitleRow {
   display: flex;
@@ -75,20 +77,22 @@
 .FiltersContainer {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 2rem;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
 .searchInput {
-  flex: 1 1 15rem;
+  flex: 1 1 auto;
+  min-width: 12rem;
+  max-width: 100%;
   padding: 0.75rem;
   border: 0.0625rem solid #d1d5db;
   border-radius: 0.375rem;
   font-size: 0.9rem;
   width: 20rem;
+  gap:2rem;
 }
 
 .filterSelect {
@@ -97,24 +101,46 @@
   border-radius: 0.375rem;
   font-size: 0.9rem;
   background: #fff;
-  margin-left: 0.5rem;
+  margin-left: 1.2rem;
+  flex:0 0 auto;
 }
 .addCourseBtn {
-  margin-left: auto;
+  /* margin-left: auto; */
   padding: 0.75rem;
   border: 0.0625rem solid #d1d5db;
   border-radius: 0.375rem;
   font-size: 0.9rem;
   color: white;
   background-color: rgb(49, 49, 231);
+    flex:0 0 auto;
+
 }
 
-@media (min-width: 48rem) {
+@media (max-width: 768px) {
   .FiltersContainer {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
+    gap:0.5rem;
+  }
+
+  .searchInput,
+  .filterSelect,
+  .addCourseBtn {
+    width: 100%;
+    margin-left: 0;
+    gap:0.5rem;
   }
 }
+
+
+
+/* @media (min-width: 48rem) {
+  .FiltersContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+} */
 
 /* List Section */
 .listSection {

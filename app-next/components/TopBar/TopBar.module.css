@@ -1,26 +1,27 @@
+
 .topbar {
-  height: 3rem;
+  height: auto;
   background: #fff;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
   flex-direction: row;
-  justify-content:flex-end;
+  justify-content: flex-end;
   align-items: center;
   z-index: 1000;
-  padding: 0.5rem;
- gap:3rem;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .searchBox {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex: 1;
-  max-width: 20%;
+  flex: 1 1 250px;
+  max-width: 400px;
   background: #f3f4f6;
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
-  padding: 0.5rem;
 }
 
 .searchIcon {
@@ -36,16 +37,18 @@
   font-size: 0.9rem;
 }
 
-.logOutContainer{
-    display: flex;
-    flex-direction: row;
-    gap:0.3rem
+.logOutContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
 }
+
 .logoutBtn {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background:#fff;
+  background: #fff;
   color: rgb(45, 43, 43);
   border: 1px solid #e5e7eb;
   padding: 0.4rem 0.8rem;
@@ -53,14 +56,34 @@
   cursor: pointer;
   font-size: 0.9rem;
   transition: 0.2s;
+  white-space: nowrap;
 }
 
 .logoutBtn:hover {
   background: gray;
   color: #fff;
 }
-.profilePicContainer{
-    width: 1.5rem;
-    border-radius: 50%;
-    background-color: aqua;
+
+.profilePicContainer {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: aqua;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .searchBox {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .logOutContainer {
+    justify-content: center;
+  }
 }
