@@ -14,9 +14,14 @@ export default function TopBar() {
           className={styles.searchInput}
         />
       </div>
-      <button className={styles.logoutBtn}>
-        <FaSignOutAlt /> Logout
-      </button>
+      <div className={styles.logOutContainer}>
+        <button className={styles.logoutBtn}>
+          <FaSignOutAlt /> Logout
+        </button>
+        <div className={styles.profilePicContainer}>
+          <img className={styles.profilePic} />
+        </div>
+      </div>
     </div>
   );
 }

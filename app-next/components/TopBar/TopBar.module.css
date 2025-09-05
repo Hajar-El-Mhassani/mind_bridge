@@ -1,17 +1,14 @@
 .topbar {
-  position: fixed;
-  top: 0;
-  left: 20rem;
-  right:0;
   height: 3rem;
   background: #fff;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
-  justify-content:space-evenly;
+  flex-direction: row;
+  justify-content:flex-end;
   align-items: center;
-  /* padding: 0 1.5rem; */
   z-index: 1000;
-  margin:0;
+  padding: 0.5rem;
+ gap:3rem;
 }
 
 .searchBox {
@@ -19,10 +16,11 @@
   align-items: center;
   gap: 0.5rem;
   flex: 1;
-  max-width: 400px;
+  max-width: 20%;
   background: #f3f4f6;
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
 .searchIcon {
@@ -38,6 +36,11 @@
   font-size: 0.9rem;
 }
 
+.logOutContainer{
+    display: flex;
+    flex-direction: row;
+    gap:0.3rem
+}
 .logoutBtn {
   display: flex;
   align-items: center;
@@ -55,4 +58,9 @@
 .logoutBtn:hover {
   background: gray;
   color: #fff;
+}
+.profilePicContainer{
+    width: 1.5rem;
+    border-radius: 50%;
+    background-color: aqua;
 }

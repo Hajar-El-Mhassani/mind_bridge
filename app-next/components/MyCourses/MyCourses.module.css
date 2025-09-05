@@ -21,8 +21,8 @@
   color: #111827;
 }
 
-/* states Section */
-.statesSection {
+/* stats Section */
+.statsSection {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
@@ -32,25 +32,25 @@
   border: #6b7280 0.2 rem;
 }
 
-.statesGrid {
+.statsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
   gap: 1rem;
 }
 
-.stateCard {
+.statCard {
   background: #ffffff;
   border: #ebeced solid 0.01rem;
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.04);
 }
-.stateTitleRow {
+.statTitleRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.stateTitle {
+.statTitle {
   font-size: 0.95rem;
   color: #374151;
 }
@@ -59,12 +59,12 @@
   height: 22px;
   color: #374151;
 }
-.stateValue {
+.statValue {
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 0.6rem;
 }
-.stateSubtitle {
+.statSubtitle {
   margin-top: 0.35rem;
   font-size: 0.85rem;
   color: #6b7280;
@@ -197,7 +197,7 @@
   font-size: 15px;
   color: #fff;
   border-radius: 999px;
-  padding: 0.3rem 0.5rem;
+  padding: 0.5rem 0.5rem;
 }
 .status {
   background-color: #b8b9ba;
@@ -206,7 +206,7 @@
   font-size: 15px;
   color: #fff;
   border-radius: 999px;
-  padding: 0.3rem 0.5rem;
+  padding: 0.3rem;
 }
 
 .btnContainer {

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./MyCourses.module.css";
 import { FaBook, FaCheckCircle, FaRegFileAlt, FaUsers } from "react-icons/fa";
 
-export default function statesCard({states=[]}) {
+export default function statsCard({stats=[]}) {
 
   const ICONS = {
     total: <FaBook />,
@@ -11,7 +11,7 @@ export default function statesCard({states=[]}) {
     enroll: <FaUsers />,
   };
 
- const stateeMock = [
+ const stateMock = [
    {
      id: "total",
      title: "Total Courses",
@@ -38,20 +38,20 @@ export default function statesCard({states=[]}) {
    },
  ];
 
-  const data = states.length ? states : stateeMock;
+  const data = stats.length ? stats : stateMock;
 
   return (
-    <div className={styles.statesSection}>
+    <div className={styles.statsSection}>
       {data.map((s) => (
-        <div key={s.id} className={styles.stateCard}>
-          <div className={styles.stateTitleRow}>
-            <div className={styles.stateTitle}>{s.title}</div>
+        <div key={s.id} className={styles.statCard}>
+          <div className={styles.statTitleRow}>
+            <div className={styles.statTitle}>{s.title}</div>
 
             <div className={styles.iconPlaceholder}>{ICONS[s.id]}</div>
             
           </div>
-          <div className={styles.stateValue}>{s.value}</div>
-          <div className={styles.stateSubtitle}>{s.subtitle}</div>
+          <div className={styles.statValue}>{s.value}</div>
+          <div className={styles.statSubtitle}>{s.subtitle}</div>
         </div>
       ))}
     </div>

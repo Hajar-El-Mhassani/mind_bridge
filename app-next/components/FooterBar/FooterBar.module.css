@@ -1,16 +1,16 @@
 .footerContainer {
-  width: 100%;
   background: #fff;
   border-top: 0.0625rem solid #e5e7eb;
+  flex: display;
+  flex-direction: row;
 
 }
 .footerContentWrapper {
   display: flex;
   flex-direction: row;
-  max-width: 80rem;
   margin: 0 auto;
   padding: 3.5rem 1rem;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   gap :5rem;
 }
@@ -19,6 +19,7 @@
 .footerlinks {
   display: flex;
   gap: 1.5rem;
+  text-align: center;
 }
 
 .footerlinks a {
@@ -32,12 +33,14 @@
 
 /* Social Section */
 .socialSection {
+
   display: flex;
   flex-direction: column;
+  text-align: center;
  
 }
 .sectionTitle {
-  padding-right: 6rem;
+  
   font-size: 1.125rem;
   font-weight: 600;
   color: #111827;
@@ -46,7 +49,7 @@
 .socialIconsWrapper {
   display: flex;
   gap: 1.25rem;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .socialIconLink {
@@ -60,74 +63,15 @@
   
 }
 
-/* Newsletter Section */
-.newsletterDescription {
-  margin-top: 0.5rem;
-  color: #4b5563;
-}
-
-.newsletterForm {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.emailInput {
-  flex: 1;
-  height: 2.75rem;
-  padding: 0 0.75rem;
-  border: 0.0625rem solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  color: #111827;
-}
-
-.emailInput:focus {
-  border-color: #2563eb;
-  outline: none;
-  box-shadow: 0 0 0 0.125rem #2563eb;
-}
-
-.subscribeButton {
-  height: 2.75rem;
-  padding: 0 1.25rem;
-  border-radius: 0.375rem;
-  background: #f97316;
-  color: #fff;
-  font-weight: 500;
-  border: none;
-}
-
-.subscribeButton:hover {
-  background: #ea580c;
-}
-
 /* ---------------- RESPONSIVE ---------------- */
 
 @media (min-width: 640px) {
   .footer {
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
+   
   }
 
-  .brandSection {
-    flex: 1 1 100%;
-  }
-
-  .socialSection {
-    text-align: center;
-    flex: 1 1 45%;
-  }
-
-  .newsletterSection {
-    flex: 1 1 45%;
-  }
-
-  .newsletterForm {
-    flex-direction: row;
-  }
 }
 
 @media (max-width: 639px) {
@@ -136,22 +80,9 @@
     align-items: center;
   }
 
-  .brandDescription {
-    margin-left: auto;
-    margin-right: auto;
-  }
 
   .socialIconsWrapper {
     justify-content: center;
-  }
-
-  .newsletterForm {
-    align-items: center;
-  }
-
-  .emailInput {
-    width: 100%;
-    max-width: 18rem;
   }
 }
 
@@ -163,9 +94,5 @@
     gap: 2rem;
   }
 
-  .brandSection,
-  .socialSection,
-  .newsletterSection {
-    flex: 1 1 30%;
-  }
+
 }

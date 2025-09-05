@@ -1,22 +1,20 @@
 import React from "react";
 import styles from "./MyCourses.module.css";
 import MyCoursesGrid from "./MyCoursesGrid";
-import StatesCard from "./StatesCard";
+import StatsCard from "./StatsCard";
 
 export default function MyCourses() {
   return (
     <div>
       <div className={styles.container}>
-        <div>
-
-        </div>
+        <div></div>
         <header className={styles.header}>
           <h1 className={styles.title}>My Courses</h1>
         </header>
 
         {/* main section on top to show courses category  */}
         <section className={styles.statsSection}>
-          <StatesCard />
+          <StatsCard />
         </section>
 
         {/* Filter - Search and adding new course are in this section  */}
