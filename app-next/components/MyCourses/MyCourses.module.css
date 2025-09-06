@@ -1,0 +1,268 @@
+/* Container */
+.container {
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Header */
+.header {
+   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* stats Section */
+.statsSection {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+
+  margin-bottom: 3rem;
+ 
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: 1rem;
+}
+
+.statCard {
+  background: #ffffff;
+  border: #ebeced solid 0.01rem;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 0 1px rgba(150, 150, 151, 0.04);
+}
+.statTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.statTitle {
+  font-size: 0.95rem;
+  color: #374151;
+}
+.iconPlaceholder {
+  width: 22px;
+  height: 22px;
+  color: #374151;
+}
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+}
+.statSubtitle {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Filters Section */
+
+.FiltersContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.searchInput {
+  flex: 1 1 auto;
+  min-width: 12rem;
+  max-width: 100%;
+  padding: 0.75rem;
+  border: 0.0625rem solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  width: 20rem;
+  gap:2rem;
+}
+
+.filterSelect {
+  padding: 0.75rem;
+  border: 0.0625rem solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  background: #fff;
+  margin-left: 1.2rem;
+  flex:0 0 auto;
+}
+.addCourseBtn {
+  padding: 0.75rem;
+  border: 0.0625rem solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  color: white;
+  background-color: rgb(49, 49, 231);
+    flex:0 0 auto;
+
+}
+
+@media (max-width: 768px) {
+  .FiltersContainer {
+    flex-direction: column;
+    align-items: stretch;
+    gap:0.5rem;
+  }
+
+  .searchInput,
+  .filterSelect,
+  .addCourseBtn {
+    width: 100%;
+    margin-left: 0;
+    gap:0.5rem;
+  }
+}
+
+
+
+/* List Section */
+.listSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+
+/******************* Cards Grid stylesheet *****************/
+/**********************************************************/
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.imageWrapper {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.category {
+  width: 4rem;
+  margin-bottom: 0.5rem;
+  font-size: 12px;
+  background: #cacbcd;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.3rem 0.5rem;
+}
+
+.content {
+  padding: 16px;
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.creator {
+  margin: 0 0 10px;
+  color: #6b7280;
+  font-size: 13px;
+}
+.detailContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  border-top: 1px solid #b8b9ba;
+  margin: 0 0.75rem;
+}
+.enrolled {
+  color: #6b7280;
+  font: 12px;
+}
+.statusPublished {
+  background-color: green;
+  width: 25%;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.5rem 0.5rem;
+}
+.status {
+  background-color: #b8b9ba;
+  width: 25%;
+  padding: 0.5rem 1rem;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.3rem;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-top: 1px solid #b8b9ba;
+  padding: 1rem;
+}
+.btnEdit {
+  align-self: center;
+  background: white;
+  color: black;
+  border: 1px solid #b8b9ba;
+  border-radius: 0.375rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+  margin-top: auto;
+}
+.btnDelete {
+  align-self: center;
+  background: rgb(182, 54, 54);
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+  margin-top: auto;
+}
+
+.button:hover {
+  background: #374151;
+}
