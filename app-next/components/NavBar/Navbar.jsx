@@ -14,7 +14,7 @@ const NAV = [
   { href: "/contact", label: "Contact Us" },
 ];
 
-const DESKTOP_BP = 980; // must match your CSS @media (max-width: 980px)
+const DESKTOP_BP = 980;
 
 export default function Navbar() {
   const pathname = usePathname();
