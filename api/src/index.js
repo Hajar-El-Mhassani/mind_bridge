@@ -15,6 +15,11 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 const apiRouter = express.Router();
 
+// Serve user images in url : hhtp://localhost:3001/uploads/users/image.jpg
+app.use("/uploads/users", express.static("uploads/users"));
+// Serve course images
+app.use("/uploads/courses", express.static("uploads/courses"));
+
 // health check endpoint
 apiRouter.get("/health", async (_req, res) => {
   try {
