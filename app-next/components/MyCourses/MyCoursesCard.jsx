@@ -1,7 +1,7 @@
 import styles from "./MyCourses.module.css";
 import { FaEdit, FaUsers, FaTrash } from "react-icons/fa";
 
-export default function CourseCard({
+export default function MyCourseCard({
   imageUrl,
   category,
   header,
