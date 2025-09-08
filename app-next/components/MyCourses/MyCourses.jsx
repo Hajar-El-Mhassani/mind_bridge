@@ -1,10 +1,29 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import styles from "./MyCourses.module.css";
 import MyCoursesGrid from "./MyCoursesGrid";
 import StatsCard from "./StatsCard";
 import { FaSearch } from "react-icons/fa";
 
 export default function MyCourses() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("/data/user.json");
+        const userData = await response.json();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <div>
       <div className={styles.container}>
@@ -15,7 +34,7 @@ export default function MyCourses() {
 
         {/* main section on top to show courses category  */}
         <section className={styles.statsSection}>
-          <StatsCard />
+          <StatsCard currentUser={user} />
         </section>
 
         {/* Filter - Search and adding new course are in this section  */}
