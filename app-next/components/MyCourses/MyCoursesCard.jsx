@@ -1,41 +1,23 @@
 import styles from "./MyCourses.module.css";
 import { FaEdit, FaUsers, FaTrash } from "react-icons/fa";
 
-export default function MyCourseCard({
-  imageUrl,
-  category,
-  header,
-  //   created_by,
-  enrolled,
-  status,
-}) {
+export default function MyCourseCard({ image, category, title, status }) {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
-        <img className={styles.image} src={imageUrl} alt={header} />
+        <img className={styles.image} src={image} alt={title} />
       </div>
 
       <div className={styles.content}>
         <div className={styles.category}>{category}</div>
-        <h3 className={styles.title}>{header}</h3>
+        <h3 className={styles.title}>{title}</h3>
       </div>
       <div className={styles.detailContainer}>
-        {/* <p className={styles.enrolled}>
-          <FaUsers /> {enrolled} enrolled
-        </p> */}
-        {/* <div
-          className={
-            status === "Published" ? styles.statusPublished : styles.status 
-          }
-        >
-          {" "}
-          {status}
-        </div> */}
         <div
           className={
-            status === "Published"
+            status === "published"
               ? styles.statusPublished
-              : status === "Draft"
+              : status === "draft"
               ? styles.statusDraft
               : styles.statusArchived
           }
