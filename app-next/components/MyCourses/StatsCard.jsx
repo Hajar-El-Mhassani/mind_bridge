@@ -19,8 +19,10 @@ export default function StatsCard({ currentUser }) {
       }
     };
 
-    fetchStatsData();
-  }, []);
+    if (currentUser != null) {
+      fetchStatsData();
+    }
+  }, [currentUser]);
 
   const ICONS = {
     total: <FaBook />,
