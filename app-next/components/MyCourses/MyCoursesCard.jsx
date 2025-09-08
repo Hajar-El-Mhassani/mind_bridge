@@ -5,7 +5,7 @@ export default function MyCourseCard({
   imageUrl,
   category,
   header,
-//   created_by,
+  //   created_by,
   enrolled,
   status,
 }) {
@@ -18,18 +18,28 @@ export default function MyCourseCard({
       <div className={styles.content}>
         <div className={styles.category}>{category}</div>
         <h3 className={styles.title}>{header}</h3>
-        {/* <p className={styles.creator}>By {created_by}</p> */}
       </div>
       <div className={styles.detailContainer}>
-        <p className={styles.enrolled}>
+        {/* <p className={styles.enrolled}>
           <FaUsers /> {enrolled} enrolled
-        </p>
-        <div
+        </p> */}
+        {/* <div
           className={
             status === "Published" ? styles.statusPublished : styles.status 
           }
         >
           {" "}
+          {status}
+        </div> */}
+        <div
+          className={
+            status === "Published"
+              ? styles.statusPublished
+              : status === "Draft"
+              ? styles.statusDraft
+              : styles.statusArchived
+          }
+        >
           {status}
         </div>
       </div>
