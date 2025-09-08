@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./MyCourses.module.css";
 import MyCoursesGrid from "./MyCoursesGrid";
 import StatsCard from "./StatsCard";
+import { FaSearch } from "react-icons/fa";
 
 export default function MyCourses() {
   return (
@@ -20,13 +21,15 @@ export default function MyCourses() {
         {/* Filter - Search and adding new course are in this section  */}
         <section>
           <div className={styles.FiltersContainer}>
-            <div>
-              <input
-                type="text"
-                className={styles.searchInput}
-                placeholder="Filter courses..."
-              />
-
+            <div className={styles.searchFilterGroup}>
+              <div className={styles.searchWrapper}>
+                <FaSearch className={styles.searchIcon} />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Filter courses..."
+                />
+              </div>
               <select className={styles.filterSelect}>
                 <option value="all">Category</option>
                 <option value="tech">Programming</option>
@@ -37,7 +40,6 @@ export default function MyCourses() {
               </select>
             </div>
             <div>
-              {" "}
               <button className={styles.addCourseBtn}>＋ Add New Course</button>
             </div>
           </div>
