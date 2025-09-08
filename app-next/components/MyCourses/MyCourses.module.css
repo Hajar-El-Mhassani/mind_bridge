@@ -29,7 +29,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1rem;
-
   margin-bottom: 3rem;
  
 }
@@ -192,12 +191,12 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+/* 
 .creator {
   margin: 0 0 10px;
   color: #6b7280;
   font-size: 13px;
-}
+} */
 .detailContainer {
   display: flex;
   flex-direction: row;
@@ -207,24 +206,24 @@
   border-top: 1px solid #b8b9ba;
   margin: 0 0.75rem;
 }
-.enrolled {
+/* .enrolled {
   color: #6b7280;
   font: 12px;
-}
+} */
 .statusPublished {
-  background-color: green;
+  background-color:white;
   width: 25%;
   font-size: 15px;
-  color: #fff;
+  color:green;
   border-radius: 999px;
   padding: 0.5rem 0.5rem;
 }
 .status {
-  background-color: #b8b9ba;
+  background-color:white;
   width: 25%;
   padding: 0.5rem 1rem;
   font-size: 15px;
-  color: #fff;
+  color: #b8b9ba;
   border-radius: 999px;
   padding: 0.3rem;
 }
