@@ -11,10 +11,11 @@ export default function MyCourses() {
   const [courses, setCourses] = useState([]);
   const [loadingState, setLoadingState] = useState("LOADING");
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All");
 
   const fetchMyCourses = async () => {
     const myCoursesResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses?search=${search}`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses?search=${search}&category=${category}`
     )
       .then((response) => response.json())
       .catch((e) => {
@@ -43,13 +44,15 @@ export default function MyCourses() {
       fetchUserData();
     }
     fetchMyCourses();
-  }, [search]);
+  }, [search, category]);
 
   let message = "";
   if (loadingState === "LOADING") {
     message = "Loading your courses...";
   } else if (loadingState === "LOADING_FAILED") {
     message = "Unable to fetch your courses!";
+  } else if (courses.length === 0) {
+    message = "No courses found";
   }
 
   return (
@@ -78,13 +81,12 @@ export default function MyCourses() {
                   placeholder="Filter courses..."
                 />
               </div>
-              <select className={styles.filterSelect}>
-                <option value="all">All</option>
-                <option value="tech">Programming</option>
-                <option value="tech">Data Sinence</option>
-                <option value="tech">Design</option>
-                <option value="business">Business</option>
-                <option value="arts">Arts</option>
+              <select className={styles.filterSelect} value={category} onChange={(e) => setCategory(e.target.value)}>
+                <option value="All">All</option>
+                <option value="Programming">Programming</option>
+                <option value="Data Science">Data Sinence</option>
+                <option value="Databases">Databases</option>
+                <option value="Web Development">Web Development</option>
               </select>
             </div>
             <div>
