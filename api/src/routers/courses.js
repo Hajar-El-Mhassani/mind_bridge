@@ -38,7 +38,7 @@ coursesRouter.get("/courses", async (req, res) => {
 //GET all courses created by logged-in user
 coursesRouter.get("/my-courses", async (req, res) => {
   try {
-    const courses = await db("courses")
+    let query = db("courses")
       .select(
         "id",
         "title",
@@ -54,6 +54,18 @@ coursesRouter.get("/my-courses", async (req, res) => {
         "updated_at"
       )
       .where("created_by", 1);
+
+    const search = req.query.search;
+    if (typeof search === "string") {
+      if (search.length > 0) {
+        query = query
+          .where("title", "ilike", `%${search}%`)
+          .orWhere("description", "ilike", `%${search}%`);
+      }
+    }
+
+    const courses = await query;
+
     // serve course image with full url
     const baseUrl = `${req.protocol}://${req.get("host")}`;
 

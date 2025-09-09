@@ -10,10 +10,11 @@ export default function MyCourses() {
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
   const [loadingState, setLoadingState] = useState("LOADING");
+  const [search, setSearch] = useState("");
 
   const fetchMyCourses = async () => {
     const myCoursesResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses`
+      `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses?search=${search}`
     )
       .then((response) => response.json())
       .catch((e) => {
@@ -38,9 +39,11 @@ export default function MyCourses() {
   };
 
   useEffect(() => {
-    fetchUserData();
+    if (user === null) {
+      fetchUserData();
+    }
     fetchMyCourses();
-  }, []);
+  }, [search]);
 
   let message = "";
   if (loadingState === "LOADING") {
@@ -69,12 +72,14 @@ export default function MyCourses() {
                 <FaSearch className={styles.searchIcon} />
                 <input
                   type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                   className={styles.searchInput}
                   placeholder="Filter courses..."
                 />
               </div>
               <select className={styles.filterSelect}>
-                <option value="all">Category</option>
+                <option value="all">All</option>
                 <option value="tech">Programming</option>
                 <option value="tech">Data Sinence</option>
                 <option value="tech">Design</option>
