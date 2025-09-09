@@ -7,7 +7,6 @@ export async function seed(knex) {
   await knex("users")
     .insert([
       {
-        id: 1,
         name: "Alice Johnson",
         email: "alice@example.com",
         password: "hashed_password1", // normally bcrypt hash
@@ -16,7 +15,6 @@ export async function seed(knex) {
         updated_at: knex.fn.now(),
       },
       {
-        id: 2,
         name: "Bob Smith",
         email: "bob@example.com",
         password: "hashed_password2",
@@ -25,7 +23,6 @@ export async function seed(knex) {
         updated_at: knex.fn.now(),
       },
       {
-        id: 3,
         name: "Charlie Brown",
         email: "charlie@example.com",
         password: "hashed_password3",
