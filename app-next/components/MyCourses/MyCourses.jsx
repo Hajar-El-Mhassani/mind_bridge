@@ -8,33 +8,57 @@ import { FaSearch } from "react-icons/fa";
 
 export default function MyCourses() {
   const [user, setUser] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [loadingState, setLoadingState] = useState("LOADING");
+
+  const fetchMyCourses = async () => {
+    const myCoursesResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses`
+    )
+      .then((response) => response.json())
+      .catch((e) => {
+        setLoadingState("LOADING_FAILED");
+      });
+
+    if (myCoursesResponse !== undefined) {
+      setLoadingState("LOADING_SUCCEEDED");
+      setCourses(myCoursesResponse);
+    }
+  };
+
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch("/data/user.json");
+      const userData = await response.json();
+      setUser(userData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    } finally {
+    }
+  };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch("/data/user.json");
-        const userData = await response.json();
-        setUser(userData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-      }
-    };
-
     fetchUserData();
+    fetchMyCourses();
   }, []);
+
+  let message = "";
+  if (loadingState === "LOADING") {
+    message = "Loading your courses...";
+  } else if (loadingState === "LOADING_FAILED") {
+    message = "Unable to fetch your courses!";
+  }
 
   return (
     <div>
       <div className={styles.container}>
-        <div></div>
         <header className={styles.header}>
           <h1 className={styles.title}>My Courses</h1>
         </header>
 
         {/* main section on top to show courses category  */}
         <section className={styles.statsSection}>
-          <StatsCard currentUser={user} />
+          <StatsCard courses={courses} />
         </section>
 
         {/* Filter - Search and adding new course are in this section  */}
@@ -64,8 +88,9 @@ export default function MyCourses() {
           </div>
         </section>
 
+        <div>{message}</div>
         <section className={styles.listSection}>
-          <MyCoursesGrid />
+          <MyCoursesGrid courses={courses} />
         </section>
       </div>
     </div>
