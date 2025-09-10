@@ -135,6 +135,11 @@
   background-color: rgb(49, 49, 231);
   flex: 0 0 auto;
 }
+.addCourseBtn:hover{
+  background: #374151;
+  cursor: pointer;
+  
+}
 
 @media (max-width: 768px) {
   .FiltersContainer {

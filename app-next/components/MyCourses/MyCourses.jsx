@@ -5,6 +5,8 @@ import styles from "./MyCourses.module.css";
 import MyCoursesGrid from "./MyCoursesGrid";
 import StatsCard from "./StatsCard";
 import { FaSearch } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+
 
 export default function MyCourses() {
   const [user, setUser] = useState(null);
@@ -55,6 +57,13 @@ export default function MyCourses() {
     message = "No courses found";
   }
 
+  const router = useRouter();
+
+  const handleAddCourse = () => {
+    router.push("/add-course");
+  };
+
+
   return (
     <div>
       <div className={styles.container}>
@@ -81,7 +90,11 @@ export default function MyCourses() {
                   placeholder="Filter courses..."
                 />
               </div>
-              <select className={styles.filterSelect} value={category} onChange={(e) => setCategory(e.target.value)}>
+              <select
+                className={styles.filterSelect}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
                 <option value="All">All</option>
                 <option value="Programming">Programming</option>
                 <option value="Data Science">Data Sinence</option>
@@ -90,7 +103,9 @@ export default function MyCourses() {
               </select>
             </div>
             <div>
-              <button className={styles.addCourseBtn}>＋ Add New Course</button>
+              <button className={styles.addCourseBtn} onClick={handleAddCourse}>
+                ＋ Add New Course
+              </button>
             </div>
           </div>
         </section>
