@@ -5,45 +5,40 @@ import StatsCard from "./StatsCard";
 
 export default function MyCourses() {
   return (
-    <div>
-      <div className={styles.container}>
-        <div></div>
-        <header className={styles.header}>
-          <h1 className={styles.title}>My Courses</h1>
-        </header>
+    <div className="container container-lg">
+      <div className="section">
+        <div className="section-header">
+          <h1>My Courses</h1>
+        </div>
 
-        {/* main section on top to show courses category  */}
-        <section className={styles.statsSection}>
+        <section className={styles.statsWrapper}>
           <StatsCard />
         </section>
 
-        {/* Filter - Search and adding new course are in this section  */}
-        <section>
-          <div className={styles.FiltersContainer}>
-            <div>
+        <section className={`card ${styles.filtersCard}`}>
+          <div className={styles.filtersContainer}>
+            <div className={styles.filtersLeft}>
               <input
                 type="text"
                 className={styles.searchInput}
                 placeholder="Filter courses..."
               />
-
               <select className={styles.filterSelect}>
                 <option value="all">Category</option>
-                <option value="tech">Programming</option>
-                <option value="tech">Data Sinence</option>
-                <option value="tech">Design</option>
+                <option value="programming">Programming</option>
+                <option value="data-science">Data Science</option>
+                <option value="design">Design</option>
                 <option value="business">Business</option>
                 <option value="arts">Arts</option>
               </select>
             </div>
-            <div>
-              {" "}
+            <div className={styles.filtersRight}>
               <button className={styles.addCourseBtn}>＋ Add New Course</button>
             </div>
           </div>
         </section>
 
-        <section className={styles.listSection}>
+        <section>
           <MyCoursesGrid />
         </section>
       </div>

@@ -1,160 +1,257 @@
-/* Fixed navbar full width */
+/* components/NavBar/Navbar.module.css */
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
-  background: #fff;
-  margin: 0;
-  padding: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* Inner container with logo + right section */
 .bar {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  min-height: 50px; /* SMALL header height */
-  padding: 0 14px; /* a bit tighter horizontally */
-  box-sizing: border-box;
+  padding: var(--spacing-xs) 0;
+  width: 100%;
 }
 
-/* Logo — smaller so it fits a 40px bar */
+/* Logo */
 .logoLink {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
 }
+
 .logo {
-  height: 30px;
+  height: 32px;
   width: auto;
-} /* was 40px */
-
-/* Right side: nav + login + burger */
-.right {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: end;
-  align-items: center;
-  gap: 16px; /* tighter gap */
+  transition: transform 0.2s ease;
 }
 
-/* Desktop links */
-.links {
-  display: grid;
-  grid-auto-flow: column;
-  gap: 20px;
+.logo:hover {
+  transform: scale(1.05);
+}
 
-  font-weight: normal;
+/* Right side container */
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+/* Desktop Navigation */
+.links {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
 }
 
 .link {
+  color: #374151;
   text-decoration: none;
-  color: #677182;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--card-radius);
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 .link:hover {
-  color: #07a4ff;
-}
-.linkActive {
-  color: #07a4ff;
-}
-
-/* Desktop login — compact */
-.loginBtn {
-  text-decoration: none;
-  font-weight: 600;
-  color: #fff;
-  background: #004f7d;
-  padding: 5px 10px; /* was 6px 12px */
-  border-radius: 8px;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-}
-.loginBtn:hover {
-  background: #0b5ed7;
-}
-.icon {
-  margin-right: 6px;
-  font-size: 12px;
-  vertical-align: middle;
-}
-
-/* Burger — smaller to match bar */
-.burger {
-  display: none;
-  width: 28px;
-  height: 28px; /* was 36x36 */
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  background: #fff;
-  cursor: pointer;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-}
-.burger span {
-  width: 16px;
-  height: 2px;
-  background: #010102;
-  display: block;
-}
-
-/* Mobile dropdown aligned under the 40px bar */
-.mobile {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  right: 0;
-  background: #fff;
-  border-top: 1px solid #e5e7eb;
-  padding: 10px 12px;
-  display: grid;
-  gap: 8px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  z-index: 40;
-}
-.mItem {
-  text-decoration: none;
-  color: #111827;
-  font-weight: 400;
-  padding: 8px 6px;
-  border-radius: 6px;
-}
-.mItem:hover {
+  color: #1f2937;
   background: #f3f4f6;
 }
-.mLogin {
-  text-align: center;
-  background: #2d9cdb;
-  color: #fff;
-  padding: 8px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 14px;
+
+.linkActive {
+  color: #3b82f6;
+  background: #eff6ff;
 }
 
-/* Spacer so content isn’t hidden under the fixed 40px header */
-.spacer {
-  height: 40px;
-} /* was 64px */
+.linkActive::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: #3b82f6;
+  border-radius: 1px;
+}
 
-/* Responsive */
-@media (max-width: 980px) {
-  .links,
+/* Login Button */
+.loginBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: #3b82f6;
+  color: white;
+  text-decoration: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--card-radius);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.loginBtn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+.icon {
+  font-size: 0.875rem;
+}
+
+/* Hamburger Menu */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  gap: 4px;
+}
+
+.burger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #374151;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.burger:hover span {
+  background: #1f2937;
+}
+
+/* Mobile Menu */
+.mobile {
+  position: fixed;
+  top: 56px; /* Fixed value instead of calc() */
+  left: 0;
+  right: 0;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: var(--shadow-medium);
+  z-index: 999;
+  animation: slideDown 0.3s ease;
+}
+
+.mobileContent {
+  padding: var(--spacing-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.mItem {
+  color: #374151;
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--card-radius);
+  transition: all 0.2s ease;
+}
+
+.mItem:hover {
+  color: #1f2937;
+  background: #f3f4f6;
+}
+
+.mLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  background: #3b82f6;
+  color: white;
+  text-decoration: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--card-radius);
+  font-weight: 600;
+  margin-top: var(--spacing-sm);
+  transition: background 0.2s ease;
+}
+
+.mLogin:hover {
+  background: #2563eb;
+}
+
+/* Spacer */
+.spacer {
+  height: var(--header-height);
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 979px) {
+  .links {
+    display: none;
+  }
+
   .loginBtn {
     display: none;
   }
+
   .burger {
     display: flex;
   }
+
+  .right {
+    gap: var(--spacing-xs);
+  }
 }
-@media (max-width: 520px) {
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  .bar {
+    padding: var(--spacing-xs) 0;
+  }
+
   .logo {
-    height: 22px;
+    height: 28px;
+  }
+
+  .mobile {
+    top: 48px;
+  }
+
+  .right {
+    gap: 4px;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+  .right {
+    gap: var(--spacing-xl);
+  }
+
+  .links {
+    gap: var(--spacing-lg);
   }
 }

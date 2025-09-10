@@ -1,9 +1,44 @@
 .adminContainer {
   display: flex;
-  flex-direction: row;
-  justify-content: left;
+  min-height: 100vh;
+  width: 100%;
+  gap: 0;
+}
+
+.sidebarContainer {
+  flex-shrink: 0;
+  width: var(--sidebar-width);
 }
 
 .adminContentPanel {
-    flex-grow: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.mainContent {
+  flex: 1;
+  padding: var(--spacing-md);
+  overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+  .adminContainer {
+    flex-direction: column;
+  }
+
+  .sidebarContainer {
+    width: 100%;
+    height: var(--sidebar-mobile-height, 60px);
+  }
+
+  .mainContent {
+    padding: var(--spacing-sm);
+  }
+
+  .sidebarContainer {
+    order: 2;
+  }
 }

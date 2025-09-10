@@ -1,3 +1,4 @@
+// components/ProfilePage/ProfilePage.jsx
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./ProfilePage.module.css";
@@ -68,39 +69,40 @@ export default function ProfilePage() {
   };
 
   return (
-    <main className={styles.profileContainer}>
-      <header>
-        <h1 className={styles.profileHeader}>Profile Overview</h1>
-      </header>
+    <main>
+      <div className="section-header">
+        <h1>Profile Overview</h1>
+      </div>
 
-      <section className={styles.profileTop} aria-labelledby="user-info">
-        <div className={styles.userDetails}>
-          <Image
-            src={getImageUrl()}
-            alt={user.name || "User"}
-            width={100}
-            height={100}
-            className={styles.profileImage}
-            onError={(e) => {
-              e.target.src = "/images/default-avatar.jpg";
-            }}
-          />
-          <div className={styles.userName}>
-            <h2>{user.name || "Unknown User"}</h2>
-            <p>{user.email || "No email"}</p>
+      <section className={`card ${styles.profileTopCard}`}>
+        <div className={styles.profileTopContent}>
+          <div className={styles.userDetails}>
+            <Image
+              src={getImageUrl()}
+              alt={user.name || "User"}
+              width={100}
+              height={100}
+              className={styles.profileImage}
+              onError={(e) => {
+                e.target.src = "/images/default-avatar.jpg";
+              }}
+            />
+            <div className={styles.userInfo}>
+              <h2>{user.name || "Unknown User"}</h2>
+              <p>{user.email || "No email"}</p>
+            </div>
           </div>
+          <button className={styles.editButton} aria-label="Edit user profile">
+            Edit Profile
+          </button>
         </div>
-        <button className={styles.pageButton} aria-label="Edit user profile">
-          Edit Profile
-        </button>
       </section>
 
-      <section
-        className={styles.section}
-        aria-labelledby="user-profile-details"
-      >
-        <h2>Personal Information</h2>
-        <div className={styles.cardGrid}>
+      <section className={`card ${styles.personalInfoCard}`}>
+        <div className="section-header">
+          <h2>Personal Information</h2>
+        </div>
+        <div className="grid-2">
           <ProfileCard
             icon={<FiUser />}
             name="Full Name"
@@ -125,47 +127,47 @@ export default function ProfilePage() {
         </div>
       </section>
 
-      <section
-        className={styles.section}
-        aria-labelledby="user-profile-activity"
-      >
-        <h2>Account Settings</h2>
-        <div className={styles.settingsRow}>
-          <div className={styles.settingsCard}>
+      <section className="card">
+        <div className="section-header">
+          <h2>Account Settings</h2>
+        </div>
+        <div className="grid-2">
+          <div className="card">
             <h3>Account Security</h3>
-            <div className={styles.settingsCardOption}>
+            <div className={styles.settingsOption}>
               <p>Password</p>
-              <button className={styles.pageButton}>Change Password</button>
+              <button className={styles.settingsButton}>Change Password</button>
             </div>
-            <div className={styles.settingsCardOption}>
+            <div className={styles.settingsOption}>
               <p>Two-Factor Authentication</p>
               <Switch
                 initialState={false}
                 onChange={(value) => handleSwitchChange("2FA", value)}
               />
             </div>
-            <div className={styles.settingsCardOption}>
+            <div className={styles.settingsOption}>
               <p>Recent Activity</p>
-              <button className={styles.pageButton}>View Activity</button>
+              <button className={styles.settingsButton}>View Activity</button>
             </div>
           </div>
-          <div className={styles.settingsCard}>
+
+          <div className="card">
             <h3>Notification Preferences</h3>
-            <div className={styles.settingsCardOption}>
+            <div className={styles.settingsOption}>
               <p>Email Notifications</p>
               <Switch
                 initialState={true}
                 onChange={(value) => handleSwitchChange("email", value)}
               />
             </div>
-            <div className={styles.settingsCardOption}>
+            <div className={styles.settingsOption}>
               <p>SMS Notifications</p>
               <Switch
                 initialState={false}
                 onChange={(value) => handleSwitchChange("sms", value)}
               />
             </div>
-            <div className={styles.settingsCardOption}>
+            <div className={styles.settingsOption}>
               <p>In-app Notifications</p>
               <Switch
                 initialState={true}
