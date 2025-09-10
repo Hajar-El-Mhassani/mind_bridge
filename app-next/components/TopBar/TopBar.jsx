@@ -3,6 +3,7 @@
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import styles from "./TopBar.module.css";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function TopBar() {
   const [user, setUser] = useState({});
@@ -29,7 +30,16 @@ export default function TopBar() {
           <FaSignOutAlt /> Logout
         </button>
         <div className={styles.profilePicContainer}>
-          <img className={styles.profilePic} src={user.profile_picture} />
+          <Image
+            src={user.profile_picture}
+            alt={`${user.first_name} ${user.last_name}`}
+            width={40}
+            height={40}
+            className={styles.profilePic}
+            onError={(e) => {
+              e.target.src = "/images/default-avatar.jpg";
+            }}
+          />
         </div>
       </div>
     </div>
