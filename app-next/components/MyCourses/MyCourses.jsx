@@ -60,7 +60,7 @@ export default function MyCourses() {
   const router = useRouter();
 
   const handleAddCourse = () => {
-    router.push("/add-course");
+    router.push("/add-courses");
   };
 
 
