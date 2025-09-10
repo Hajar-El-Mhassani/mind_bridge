@@ -8,8 +8,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci
 
-# Copy the rest of your project
+# Copy the rest project
 COPY . .
 
-# Your app listens on 3000 *inside* the container
+#  app listens on 3000 *inside* the container
 EXPOSE 3000

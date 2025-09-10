@@ -12,6 +12,8 @@ usersRouter.get("/users", async (_req, res) => {
       "name",
       "email",
       "image",
+      "password",
+      "date_birth",
       "created_at",
       "updated_at"
     );
