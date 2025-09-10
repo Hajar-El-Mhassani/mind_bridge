@@ -1,89 +1,181 @@
+/* components/TopBar/TopBar.module.css */
 
 .topbar {
-  height: auto;
-  background: #fff;
+  background: white;
   border-bottom: 1px solid #e5e7eb;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
+  position: sticky;
+  top: 0;
   z-index: 1000;
-  padding: 0.5rem 1rem;
-  gap: 1rem;
-  flex-wrap: wrap;
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+}
+
+.topbarContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.searchSection {
+  flex: 1;
+  max-width: 400px;
 }
 
 .searchBox {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  flex: 1 1 250px;
-  max-width: 400px;
-  background: #f3f4f6;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
+  width: 100%;
 }
 
 .searchIcon {
+  position: absolute;
+  left: var(--spacing-sm);
   color: #6b7280;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  pointer-events: none;
 }
 
 .searchInput {
-  border: none;
-  background: transparent;
-  outline: none;
-  flex: 1;
-  font-size: 0.9rem;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: var(--card-radius);
+  font-size: 0.875rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.logOutContainer {
+.searchInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+.actionsSection {
   display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
   align-items: center;
+  gap: var(--spacing-md);
+}
+
+.notificationBtn {
+  position: relative;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 1.125rem;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--card-radius);
+  transition: color 0.2s, background 0.2s;
+}
+
+.notificationBtn:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.notificationBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.profilePicContainer {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #e5e7eb;
+}
+
+.profilePic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .logoutBtn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #fff;
-  color: rgb(45, 43, 43);
-  border: 1px solid #e5e7eb;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.4rem;
+  gap: var(--spacing-xs);
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--card-radius);
+  font-size: 0.875rem;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: 0.2s;
-  white-space: nowrap;
+  transition: background 0.2s;
 }
 
 .logoutBtn:hover {
-  background: gray;
-  color: #fff;
+  background: #374151;
 }
 
-.profilePicContainer {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background-color: aqua;
+.logoutText {
+  display: inline;
 }
 
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .topbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
+  .topbarContent {
+    gap: var(--spacing-sm);
   }
 
-  .searchBox {
-    flex: 1 1 100%;
-    max-width: 100%;
+  .searchSection {
+    flex: 1;
+    max-width: none;
   }
 
-  .logOutContainer {
+  .actionsSection {
+    gap: var(--spacing-sm);
+  }
+
+  .logoutText {
+    display: none;
+  }
+
+  .logoutBtn {
+    padding: var(--spacing-xs);
+    min-width: 32px;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchInput {
+    font-size: 0.8rem;
+  }
+
+  .searchInput::placeholder {
+    font-size: 0.8rem;
+  }
+
+  .notificationBtn {
+    font-size: 1rem;
   }
 }

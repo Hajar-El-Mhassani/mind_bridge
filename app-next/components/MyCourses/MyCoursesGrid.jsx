@@ -10,7 +10,6 @@ const courses = [
     description:
       "Build modern web apps end‑to‑end with React, Node, and PostgreSQL.",
     enrolled: 36,
-
     status: "Published",
   },
   {
@@ -22,7 +21,6 @@ const courses = [
     description:
       "Clean, transform, and visualize data with Pandas and Jupyter.",
     enrolled: 36,
-
     status: "Published",
   },
   {
@@ -34,7 +32,6 @@ const courses = [
     description:
       "Create scalable UI foundations with tokens, components, and docs.",
     enrolled: 36,
-
     status: "Archived",
   },
   {
@@ -44,7 +41,6 @@ const courses = [
     created_by: "Samir Patel",
     description: "Ship full‑stack apps using Render services, envs, and CI.",
     enrolled: 36,
-
     status: "Published",
   },
   {
@@ -55,7 +51,6 @@ const courses = [
     description:
       "Automate builds, tests, and deployments with GitHub Actions and pipelines.",
     enrolled: 36,
-
     status: "Published",
   },
   {
@@ -67,7 +62,6 @@ const courses = [
     description:
       "Train, evaluate, and deploy classic ML models using Python and scikit‑learn.",
     enrolled: 36,
-
     status: "Archived",
   },
   {
@@ -79,7 +73,6 @@ const courses = [
     description:
       "Protect apps with XSS/CSRF prevention, secure auth, and OWASP best practices.",
     enrolled: 36,
-
     status: "Published",
   },
   {
@@ -101,7 +94,6 @@ const courses = [
     description:
       "Types, generics, utility types, and patterns for large‑scale React/Node apps.",
     enrolled: 36,
-
     status: "Published",
   },
   {
@@ -124,7 +116,6 @@ const courses = [
     description:
       "Containerize apps, write Dockerfiles, and orchestrate with Kubernetes basics.",
     enrolled: 36,
-
     status: "Archived",
   },
   {
@@ -140,9 +131,9 @@ const courses = [
   },
 ];
 
-export default function CoursesGrid() {
+export default function MyCoursesGrid() {
   return (
-    <div className={styles.grid}>
+    <div className="grid-3">
       {courses.map((c) => (
         <MyCoursesCard key={c.header} {...c} />
       ))}

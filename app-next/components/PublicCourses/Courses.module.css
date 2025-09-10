@@ -1,17 +1,8 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  padding: 24px;
-}
-
-.card {
+.courseCard {
   display: flex;
   flex-direction: column;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
   overflow: hidden;
-  background: #fff;
+  padding: 0;
 }
 
 .imageWrapper {
@@ -29,8 +20,8 @@
 
 .tag {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
   padding: 4px 10px;
   font-size: 12px;
   background: #111827;
@@ -39,12 +30,16 @@
 }
 
 .content {
-  padding: 16px;
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .title {
   margin: 0 0 6px;
   font-size: 18px;
+  color: #111827;
 }
 
 .author {
@@ -58,25 +53,49 @@
   color: #374151;
   font-size: 14px;
   line-height: 1.45;
+  flex-grow: 1;
 }
 
 .price {
   font-weight: 600;
+  margin: 0 0 var(--spacing-sm);
+  color: #111827;
+  font-size: 16px;
 }
 
 .button {
-  align-self: center;
   background: #111827;
   color: #fff;
   border: none;
   border-radius: 999px;
-  padding: 8px 16px;
+  padding: var(--spacing-xs) var(--spacing-md);
   cursor: pointer;
   font-size: 14px;
   transition: background 0.3s;
+  align-self: center;
   margin-top: auto;
 }
 
 .button:hover {
   background: #374151;
+}
+
+@media (max-width: 479px) {
+  .imageWrapper {
+    height: 160px;
+  }
+
+  .content {
+    padding: var(--spacing-sm);
+  }
+
+  .title {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .imageWrapper {
+    height: 200px;
+  }
 }

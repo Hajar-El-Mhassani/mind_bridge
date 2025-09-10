@@ -1,13 +1,15 @@
 import CoursesGrid from "@/components/PublicCourses/CoursesGrid.jsx";
 import CourseHeader from "@/components/PublicCourses/CourseHeader";
+
 export default function PublicCourses() {
   return (
-    <div>
+    <>
       <CourseHeader />
-      <CoursesGrid />
-    </div>
+      <div className="container container-xl">
+        <div className="section">
+          <CoursesGrid />
+        </div>
+      </div>
+    </>
   );
 }
-
-
-

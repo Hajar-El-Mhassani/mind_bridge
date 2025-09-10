@@ -9,18 +9,19 @@ export default function CourseCard({
   price,
 }) {
   return (
-    <div className={styles.card}>
+    <div className={`card ${styles.courseCard}`}>
       <div className={styles.imageWrapper}>
-        <img className={styles.image} src={imageUrl} alt={header} />
+        <img src={imageUrl} alt={header} className={styles.image} />
         <span className={styles.tag}>{tag}</span>
       </div>
+
       <div className={styles.content}>
         <h3 className={styles.title}>{header}</h3>
-        <p className={styles.author}>By {author}</p>
+        <p className={styles.author}>by {author}</p>
         <p className={styles.desc}>{description}</p>
-        <div className={styles.price}>{price === 0 ? "Free" : `$${price}`}</div>
+        <p className={styles.price}>{price === 0 ? "Free" : `$${price}`}</p>
+        <button className={styles.button}>Details</button>
       </div>
-      <button className={styles.button}>Enroll Now</button>
     </div>
   );
 }

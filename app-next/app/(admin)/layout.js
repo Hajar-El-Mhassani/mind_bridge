@@ -1,12 +1,13 @@
 import SideBar from "@/components/SideBar/SideBar";
+import TopBar from "@/components/TopBar/TopBar";
+import FooterBar from "@/components/FooterBar/FooterBar";
 import "../globals.css";
-import styles from "@/app/(admin)/admin.module.css"
+import styles from "./admin.module.css";
 
 export const metadata = {
   title: "MindBridge — Share your expertise",
   description:
     "A modern learning platform landing page built with Next.js and CSS Grid.",
-  //viewport: "width=device-width, initial-scale=1",
 };
 
 export default function AdminLayout({ children }) {
@@ -14,10 +15,14 @@ export default function AdminLayout({ children }) {
     <html lang="en">
       <body>
         <div className={styles.adminContainer}>
-          <div>
+          <div className={styles.sidebarContainer}>
             <SideBar />
           </div>
-          <div className={styles.adminContentPanel}>{children}</div>
+          <div className={styles.adminContentPanel}>
+            <TopBar />
+            <main className={styles.mainContent}>{children}</main>
+            <FooterBar />
+          </div>
         </div>
       </body>
     </html>

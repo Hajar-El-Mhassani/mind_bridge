@@ -121,7 +121,7 @@ const courses = [
 
 export default function CoursesGrid() {
   return (
-    <div className={styles.grid}>
+    <div className="grid-3">
       {courses.map((c) => (
         <CourseCard key={c.header} {...c} />
       ))}
