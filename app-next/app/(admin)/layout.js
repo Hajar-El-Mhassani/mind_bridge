@@ -1,6 +1,7 @@
 import SideBar from "@/components/SideBar/SideBar";
+import TopBar from "@/components/TopBar/TopBar";
 import "../globals.css";
-import styles from "@/app/(admin)/admin.module.css"
+import styles from "@/app/(admin)/admin.module.css";
 
 export const metadata = {
   title: "MindBridge — Share your expertise",
