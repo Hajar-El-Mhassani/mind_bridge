@@ -29,11 +29,11 @@ export default function Footer() {
   return (
     <footer className={styles.footerContainer}>
       <div className={styles.footerContentWrapper}>
-        <div className={styles.footerlinks}>
+        {/* <div className={styles.footerlinks}>
           <a href="/resources">Resources</a>
           <a href="/legal">Legal</a>
           <a href="/contact">Contact Us</a>
-        </div>
+        </div> */}
 
         <div className={styles.socialSection}>
           <div className={styles.socialIconsWrapper}>
