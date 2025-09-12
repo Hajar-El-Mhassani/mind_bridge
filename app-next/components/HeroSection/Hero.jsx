@@ -25,7 +25,10 @@ export default function Hero() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="/courses" className={`${styles.btn} ${styles.primary}`}>
+            <Link
+              href="/public-courses"
+              className={`${styles.btn} ${styles.primary}`}
+            >
               Explore Courses
             </Link>
             <Link
