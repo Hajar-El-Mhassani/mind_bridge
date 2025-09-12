@@ -1,7 +1,17 @@
+import { useState } from "react";
 import styles from "./MyCourses.module.css";
 import { FaEdit, FaUsers, FaTrash } from "react-icons/fa";
 
-export default function MyCourseCard({ image, category, title, status }) {
+export default function MyCourseCard({
+  id,
+  image,
+  category,
+  title,
+  status,
+  courseDeleteRequested,
+}) {
+  const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
+
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -29,9 +39,36 @@ export default function MyCourseCard({ image, category, title, status }) {
         <button className={styles.btnEdit}>
           <FaEdit /> Edit
         </button>
-        <button className={styles.btnDelete}>
+        <button
+          className={styles.btnDelete}
+          onClick={(e) => setDeleteConfirmVisible(true)}
+        >
           <FaTrash /> Delete
         </button>
+      </div>
+      <div
+        className={`${styles.delAskContiner} ${
+          !deleteConfirmVisible ? styles.hidden : ""
+        }`}
+      >
+        <h4>Are you sure to delete this course?</h4>
+        <div className={styles.delAskButtonsContainer}>
+          <button
+            className={`${styles.delYes} ${styles.confirmBtn}`}
+            onClick={(e) => {
+              setDeleteConfirmVisible(false);
+              courseDeleteRequested(id);
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className={`${styles.delNo} ${styles.confirmBtn}`}
+            onClick={(e) => setDeleteConfirmVisible(false)}
+          >
+            No
+          </button>
+        </div>
       </div>
     </div>
   );

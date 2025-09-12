@@ -32,8 +32,8 @@ export default function StatsCard({ courses }) {
 
   return (
     <div className={styles.statsSection}>
-      {stats.map((s) => (
-        <div key={s.id} className={styles.statCard}>
+      {stats.map((s, index) => (
+        <div key={index} className={styles.statCard}>
           <div className={styles.statTitleRow}>
             <div className={styles.statTitle}>{s.title}</div>
 
