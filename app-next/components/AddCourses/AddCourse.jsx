@@ -22,16 +22,18 @@ export default function AddCourse() {
     category: categories[0],
     status: courseStatus[0],
     level: difficultyLevels[0],
-    price: "",
+    price: "1",
     duration: "1",
-    created_by: "1", // temp user id until JWT auth
+    created_by: "1", // string since FormData sends strings. temp value, replace with actual user ID with authJWT
   });
 
   const [thumbnail, setThumbnail] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("/courses/course-3.png");
-  const [errors, setErrors] = useState({}); // store validation errors
+  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState(null); //  new state for success/error message
+  const [messageType, setMessageType] = useState(null); // "success" | "error"
 
-  // 👇 update preview when file changes
+  // update preview when file changes
   useEffect(() => {
     if (!thumbnail) return;
     const objectUrl = URL.createObjectURL(thumbnail);
@@ -42,14 +44,13 @@ export default function AddCourse() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" }); // clear error when user types
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
   const handleFileChange = (e) => {
     setThumbnail(e.target.files[0]);
   };
 
-  // simple client-side validation
   const validateForm = () => {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = "Title is required";
@@ -59,8 +60,12 @@ export default function AddCourse() {
     if (!formData.status.trim()) newErrors.status = "Status is required";
     if (!formData.level.trim())
       newErrors.level = "Difficulty level is required";
-    if (!formData.price.trim()) newErrors.price = "Price is required";
-    if (!formData.duration.trim()) newErrors.duration = "Duration is required";
+    if (!formData.price.trim() || parseFloat(formData.price) <= 0) {
+      newErrors.price = "Price must be greater than 0";
+    }
+    if (!formData.duration.trim() || parseInt(formData.duration, 10) <= 0) {
+      newErrors.duration = "Duration must be greater than 0";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -70,7 +75,9 @@ export default function AddCourse() {
     e.preventDefault();
 
     if (!validateForm()) {
-      return; // stop if validation fails
+      setMessage("Please fix the errors above.");
+      setMessageType("error");
+      return;
     }
 
     const data = new FormData();
@@ -85,14 +92,17 @@ export default function AddCourse() {
       const result = await res.json();
 
       if (res.ok) {
-        alert("Course created successfully!");
+        setMessage("Course created successfully!");
+        setMessageType("success");
         console.log(result);
       } else {
-        alert("Error: " + (result.error || "Failed to create course"));
+        setMessage(" " + (result.error || "Failed to create course"));
+        setMessageType("error");
       }
     } catch (err) {
       console.error("Request failed:", err);
-      alert("Network error");
+      setMessage("Network error");
+      setMessageType("error");
     }
   };
 
@@ -242,6 +252,17 @@ export default function AddCourse() {
           </button>
         </div>
       </form>
+
+      {/* ✅ Bottom message */}
+      {message && (
+        <p
+          className={
+            messageType === "success" ? styles.successText : styles.errorText
+          }
+        >
+          {message}
+        </p>
+      )}
     </div>
   );
 }
