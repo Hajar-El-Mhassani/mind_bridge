@@ -1,7 +1,9 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import db from "../database_client.js";
-
+import { validateBody } from "../middlewares/validateCourse.js";
+import { courseSchema, partialCourseSchema } from "../schemas/courseSchema.js";
+import { upload } from "../middleware/multer.js";
 const coursesRouter = express.Router();
 
 // get all courses

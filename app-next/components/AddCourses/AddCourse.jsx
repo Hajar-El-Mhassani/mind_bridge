@@ -2,6 +2,19 @@ import React from "react";
 import styles from "./AddCourse.module.css";
 
 export default function AddCourse() {
+  // Options arrays
+  const categories = [
+    "Web Development",
+    "Data Science",
+    "Design",
+    "Business",
+    "Arts",
+    "Music",
+    "Data Analysis",
+    "backend Development",
+  ];
+  const difficultyLevels = ["Beginner", "Intermediate", "Advanced"];
+  const courseStatus = ["Draft", "Published", "Archived"];
   return (
     <div className={styles.addCourseContainer}>
       <h2 className={styles.title}>Add New Course</h2>
@@ -16,10 +29,16 @@ export default function AddCourse() {
           <input type="text" placeholder="Introduction to React Hooks" />
         </div>
 
-        {/* Short Description */}
+        {/* Status */}
         <div className={styles.formGroup}>
-          <label>Short Description</label>
-          <input type="text" placeholder="Master state, effects, and context" />
+          <label>Course Status</label>
+          <select>
+            {courseStatus.map((status, index) => (
+              <option key={index} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Course Description (full width) */}
@@ -35,9 +54,11 @@ export default function AddCourse() {
         <div className={styles.formGroup}>
           <label>Course Category</label>
           <select>
-            <option>Web Development</option>
-            <option>Data Science</option>
-            <option>Design</option>
+            {categories.map((cat, index) => (
+              <option key={index} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -45,9 +66,11 @@ export default function AddCourse() {
         <div className={styles.formGroup}>
           <label>Difficulty Level</label>
           <select>
-            <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Advanced</option>
+            {difficultyLevels.map((level, index) => (
+              <option key={index} value={level}>
+                {level}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -74,16 +97,6 @@ export default function AddCourse() {
         <div className={styles.formGroup}>
           <label>Course Duration (hours)</label>
           <input type="number" placeholder="18" />
-        </div>
-
-        {/* Status */}
-        <div className={styles.formGroup}>
-          <label>Course Status</label>
-          <select>
-            <option>Draft</option>
-            <option>Published</option>
-            <option>Archived</option>
-          </select>
         </div>
 
         {/* Buttons */}
