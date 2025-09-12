@@ -182,4 +182,20 @@ coursesRouter.get("/my-courses", async (req, res) => {
   }
 });
 
+coursesRouter.delete("/my-courses/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id);
+    if (id && !isNaN(id) && id > 0) {
+      await db("courses").where({ id: id }).delete();
+      res.status(StatusCodes.OK).send("success");
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json({ error: "Invalid id value" });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
+  }
+});
+
 export default coursesRouter;

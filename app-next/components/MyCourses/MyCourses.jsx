@@ -7,7 +7,6 @@ import StatsCard from "./StatsCard";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-
 export default function MyCourses() {
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
@@ -48,11 +47,30 @@ export default function MyCourses() {
     fetchMyCourses();
   }, [search, category]);
 
+  const deleteCourse = async (id) => {
+    const deleteCoursesResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses/${id}`,
+      {
+        method: "DELETE",
+      }
+    ).catch((e) => {
+      setLoadingState("DELETE_FAILED");
+    });
+
+    if (deleteCoursesResponse.status === 200) {
+      fetchMyCourses();
+    } else {
+      setLoadingState("DELETE_FAILED");
+    }
+  };
+
   let message = "";
   if (loadingState === "LOADING") {
     message = "Loading your courses...";
   } else if (loadingState === "LOADING_FAILED") {
     message = "Unable to fetch your courses!";
+  } else if (loadingState === "DELETE_FAILED") {
+    message = "Unable to delete the course!";
   } else if (courses.length === 0) {
     message = "No courses found";
   }
@@ -62,7 +80,6 @@ export default function MyCourses() {
   const handleAddCourse = () => {
     router.push("/add-courses");
   };
-
 
   return (
     <div>
@@ -112,7 +129,10 @@ export default function MyCourses() {
 
         <div>{message}</div>
         <section className={styles.listSection}>
-          <MyCoursesGrid courses={courses} />
+          <MyCoursesGrid
+            courses={courses}
+            courseDeleteRequested={deleteCourse}
+          />
         </section>
       </div>
     </div>
