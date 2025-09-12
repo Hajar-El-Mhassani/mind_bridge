@@ -16,6 +16,7 @@ coursesRouter.get("/courses", async (req, res) => {
       "level",
       "status",
       "category",
+      "duration",
       "created_by",
       "created_at",
       "updated_at"
