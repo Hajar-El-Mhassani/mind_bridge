@@ -7,7 +7,10 @@
   z-index: 50;
   background: #fff;
   margin: 0;
+
   padding: 0;
+
+  border-bottom: 1px solid #f9fbff;
 }
 
 /* Inner container with logo + right section */
@@ -18,6 +21,7 @@
   min-height: 50px; /* SMALL header height */
   padding: 0 14px; /* a bit tighter horizontally */
   box-sizing: border-box;
+  margin: 0.4rem;
 }
 
 /* Logo — smaller so it fits a 40px bar */
@@ -26,7 +30,7 @@
   align-items: center;
 }
 .logo {
-  height: 30px;
+  height: 40px;
   width: auto;
 } /* was 40px */
 
@@ -36,23 +40,24 @@
   grid-auto-flow: column;
   justify-content: end;
   align-items: center;
-  gap: 16px; /* tighter gap */
+  gap: 20px; /* tighter gap */
 }
 
 /* Desktop links */
 .links {
   display: grid;
   grid-auto-flow: column;
-  gap: 20px;
+  gap: 2rem;
+  align-items: center;
 
   font-weight: normal;
 }
 
 .link {
   text-decoration: none;
-  color: #677182;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  color: #292c2c;
+  font-weight: 400;
+
   font-size: 14px;
 }
 
@@ -61,18 +66,18 @@
 }
 .linkActive {
   color: #07a4ff;
+  font-weight: 600;
 }
 
 /* Desktop login — compact */
 .loginBtn {
   text-decoration: none;
-  font-weight: 600;
-  color: #fff;
-  background: #004f7d;
-  padding: 5px 10px; /* was 6px 12px */
+  font-weight: 400;
+  color: #292c2c;
+
+  padding: 5px 10px;
   border-radius: 8px;
   font-size: 14px;
-  letter-spacing: 0.08em;
 }
 .loginBtn:hover {
   background: #0b5ed7;
@@ -87,7 +92,7 @@
 .burger {
   display: none;
   width: 28px;
-  height: 28px; /* was 36x36 */
+  height: 28px;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
   background: #fff;
