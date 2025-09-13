@@ -14,15 +14,23 @@ export default usersRouter;
 
 usersRouter.get("/", async (req, res) => {
   try {
-    const users = await knex("users")
-      .select("id", "name", "email", "image", "created_at", "updated_at")
-      .orderBy("id", "asc");
-
-    res.status(StatusCodes.OK).json(users);
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: "Internal server error",
+    const users = await db("users").select(
+      "id",
+      "name",
+      "email",
+      "image",
+      "password",
+      "date_birth",
+      "created_at",
+      "updated_at"
+    );
+    // serve user image with full url
+    const baseUrl = `${_req.protocol}://${_req.get("host")}`;
+    const formattedUsers = users.map((user) => {
+      return {
+        ...user,
+        image: user.image ? `${baseUrl}${user.image}` : null,
+      };
     });
   }
 });

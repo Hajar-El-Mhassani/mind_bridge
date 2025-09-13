@@ -1,48 +1,47 @@
-export function up(knex) {
-  return knex
-    .raw(
-      `
-    -- Create enum types if they don't exist
-    DO $$ BEGIN
-      CREATE TYPE course_level AS ENUM ('beginner', 'intermediate', 'advanced');
-    EXCEPTION
-      WHEN duplicate_object THEN null;
-    END $$;
-    
-    DO $$ BEGIN
-      CREATE TYPE course_status AS ENUM ('draft', 'published', 'archived');
-    EXCEPTION
-      WHEN duplicate_object THEN null;
-    END $$;
-  `
-    )
-    .then(() => {
-      return knex.schema.createTable("courses", (table) => {
-        table.increments("id").primary();
-        table.string("title", 255).notNullable();
-        table.text("description");
-        table.string("image", 500).defaultTo("/uploads/courses/default.jpg");
-        table.integer("enrolled").defaultTo(0);
-        table.decimal("price", 10, 2).defaultTo(0);
-        table.string("category", 100);
-        table.specificType("status", "course_status").defaultTo("draft");
-        table.specificType("level", "course_level").defaultTo("beginner");
-        table
-          .integer("created_by")
-          .unsigned()
-          .references("id")
-          .inTable("users")
-          .onDelete("SET NULL");
-        table.timestamps(true, true);
-      });
-    });
+export async function up(knex) {
+  await knex.schema.createTable("courses", (t) => {
+    t.increments("id").primary();
+    t.string("title", 255).notNullable();
+    t.text("description").notNullable();
+    t.string("image", 500).nullable(); //  image column added here
+
+    t.timestamp("created_at", { useTz: true })
+      .notNullable()
+      .defaultTo(knex.fn.now());
+    t.timestamp("updated_at", { useTz: true })
+      .notNullable()
+      .defaultTo(knex.fn.now());
+
+    t.integer("enrolled").notNullable().defaultTo(0);
+    t.decimal("price", 10, 2).notNullable().defaultTo(0);
+    t.string("category", 255).notNullable();
+
+    t.enu("status", ["draft", "published", "archived"], {
+      useNative: true,
+      enumName: "course_status",
+    })
+      .notNullable()
+      .defaultTo("draft");
+
+    t.enu("level", ["beginner", "intermediate", "advanced"], {
+      useNative: true,
+      enumName: "course_level",
+    })
+      .notNullable()
+      .defaultTo("beginner");
+
+    t.integer("created_by")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("users")
+
+      .onUpdate("CASCADE");
+  });
 }
 
-export function down(knex) {
-  return knex.schema.dropTableIfExists("courses").then(() => {
-    return knex.raw(`
-        DROP TYPE IF EXISTS course_level;
-        DROP TYPE IF EXISTS course_status;
-      `);
-  });
+export async function down(knex) {
+  await knex.schema.dropTableIfExists("courses");
+  await knex.raw('DROP TYPE IF EXISTS "course_status"');
+  await knex.raw('DROP TYPE IF EXISTS "course_level"');
 }

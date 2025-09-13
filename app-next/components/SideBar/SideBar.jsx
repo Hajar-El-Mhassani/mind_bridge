@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -6,15 +6,14 @@ import styles from "./SideBar.module.css";
 import { FaUser, FaBookOpen, FaPlusCircle, FaEnvelope } from "react-icons/fa";
 
 export default function SideBar() {
-  
-const NAV_ITEMS = [
-  { href: "/profile", label: "Profile", icon: <FaUser /> },
-  { href: "/my-courses", label: "My Courses", icon: <FaBookOpen /> },
-  { href: "/add-course", label: "Add Course", icon: <FaPlusCircle /> },
-  { href: "/contact-us", label: "Contact Us", icon: <FaEnvelope /> },
-];
+  const NAV_ITEMS = [
+    { href: "/profile", label: "Profile", icon: <FaUser /> },
+    { href: "/my-courses", label: "My Courses", icon: <FaBookOpen /> },
+    { href: "/add-courses", label: "Add Course", icon: <FaPlusCircle /> },
+    { href: "/contact-us", label: "Contact Us", icon: <FaEnvelope /> },
+  ];
 
-const pathname = usePathname();
+  const pathname = usePathname();
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logoWrapper}>

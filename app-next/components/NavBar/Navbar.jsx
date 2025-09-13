@@ -58,7 +58,7 @@ export default function Navbar() {
             onClick={handleLinkClick}
           >
             <img
-              src="/LandingPage/logo1.png"
+              src="/LandingPage/logo.png"
               alt="Logo"
               className={styles.logo}
               width="130"
@@ -93,7 +93,7 @@ export default function Navbar() {
               className={styles.loginBtn}
               onClick={handleLinkClick}
             >
-              <FaSignInAlt className={styles.icon} /> Login
+              Login
             </Link>
 
             {/* Hamburger (mobile) */}
