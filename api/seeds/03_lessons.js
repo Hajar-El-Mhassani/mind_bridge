@@ -1,3 +1,4 @@
+
 export async function seed(knex) {
   // Delete existing rows
   await knex("lessons").del();

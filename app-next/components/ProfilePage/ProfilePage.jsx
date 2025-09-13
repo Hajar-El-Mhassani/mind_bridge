@@ -23,11 +23,22 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("/data/user.json");
+        const backendUrl =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+        console.log("Fetching from:", `${backendUrl}/api/users/1`);
+
+        const response = await fetch(`${backendUrl}/api/users/1`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const userData = await response.json();
+        console.log("Fetched user data:", userData);
         setUser(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
+        setUser(null);
       } finally {
         setLoading(false);
       }
@@ -44,6 +55,18 @@ export default function ProfilePage() {
     return <div className={styles.error}>Failed to load profile data</div>;
   }
 
+  const getImageUrl = () => {
+    if (!user.image) return "/images/default-avatar.jpg";
+
+    if (user.image.startsWith("/uploads")) {
+      return `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}${
+        user.image
+      }`;
+    }
+
+    return user.image;
+  };
+
   return (
     <main className={styles.profileContainer}>
       <header>
@@ -53,8 +76,8 @@ export default function ProfilePage() {
       <section className={styles.profileTop} aria-labelledby="user-info">
         <div className={styles.userDetails}>
           <Image
-            src={user.profile_picture}
-            alt={`${user.first_name} ${user.last_name}`}
+            src={getImageUrl()}
+            alt={user.name || "User"}
             width={100}
             height={100}
             className={styles.profileImage}
@@ -63,8 +86,8 @@ export default function ProfilePage() {
             }}
           />
           <div className={styles.userName}>
-            <h2>{`${user.first_name} ${user.last_name}`}</h2>
-            <p>{user.email}</p>
+            <h2>{user.name || "Unknown User"}</h2>
+            <p>{user.email || "No email"}</p>
           </div>
         </div>
         <button className={styles.pageButton} aria-label="Edit user profile">
@@ -81,30 +104,27 @@ export default function ProfilePage() {
           <ProfileCard
             icon={<FiUser />}
             name="Full Name"
-            content={`${user.first_name} ${user.last_name}`}
+            content={user.name || "Not provided"}
           />
           <ProfileCard
             icon={<FiMail />}
             name="Email Address"
-            content={user.email}
+            content={user.email || "Not provided"}
           />
-          <ProfileCard
-            icon={<FiPhone />}
-            name="Phone"
-            content={user.phone_number}
-          />
+          <ProfileCard icon={<FiPhone />} name="Phone" content="Not provided" />
           <ProfileCard
             icon={<FiCalendar />}
-            name="Birthday"
-            content={user.date_of_birth}
+            name="Member Since"
+            content={
+              user.created_at
+                ? new Date(user.created_at).toLocaleDateString()
+                : "Unknown"
+            }
           />
-          <ProfileCard
-            icon={<FiBriefcase />}
-            name="Role"
-            content={user.role || "Not specified"}
-          />
+          <ProfileCard icon={<FiBriefcase />} name="Role" content="Teacher" />
         </div>
       </section>
+
       <section
         className={styles.section}
         aria-labelledby="user-profile-activity"
