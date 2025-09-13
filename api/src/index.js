@@ -31,7 +31,7 @@ apiRouter.get("/health", async (_req, res) => {
 });
 
 // This is the router for the users
-apiRouter.use("/", usersRouter);
+apiRouter.use("/users", usersRouter);
 
 // This is the router for the courses
 apiRouter.use("/", coursesRouter);
