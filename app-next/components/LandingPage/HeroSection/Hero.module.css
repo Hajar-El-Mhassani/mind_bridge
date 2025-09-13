@@ -1,6 +1,7 @@
 /* Section background */
 .hero {
-  background: #f1f7ff;
+  background: #fff;
+  margin-top: 1rem;
 }
 
 /* Grid container with responsive column gap + safe shrinking */
@@ -55,7 +56,7 @@
   font-size: 1.5rem;
 }
 .brand2 {
-  color: #004f7d;
+  color: #3faded;
   font-weight: 700;
   font-size: 1.5rem;
 }
@@ -82,7 +83,7 @@
 }
 
 .primary {
-  background: #497d00;
+  background: #f42424;
   color: #fff;
 }
 .primary:hover {
@@ -107,11 +108,11 @@
 }
 
 .highlight {
-  color: oklch(0.88 0.17 91.84);
+  color: oklch(71.361% 0.15498 241.931);
   font-weight: 700; /* was 600 */
 }
 /* Mobile: image first, full-width buttons */
-@media (max-width: 700px) {
+@media (max-width: 980px) {
   .wrap {
     grid-template-columns: 1fr;
     grid-template-areas:

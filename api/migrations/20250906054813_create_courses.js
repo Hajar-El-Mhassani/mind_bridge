@@ -35,11 +35,13 @@ export async function up(knex) {
       .notNullable()
       .references("id")
       .inTable("users")
-      .onDelete("RESTRICT")
+
       .onUpdate("CASCADE");
   });
 }
 
 export async function down(knex) {
   await knex.schema.dropTableIfExists("courses");
+  await knex.raw('DROP TYPE IF EXISTS "course_status"');
+  await knex.raw('DROP TYPE IF EXISTS "course_level"');
 }
