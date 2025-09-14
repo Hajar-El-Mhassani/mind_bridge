@@ -1,15 +1,15 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
-import db from "../database_client.js";
-import { validateBody } from "../middlewares/validateCourse.js";
+import knex from "../database_client.js";
+/* import { validateBody } from "../middlewares/validateCourse.js";
 import { courseSchema, partialCourseSchema } from "../schemas/courseSchema.js";
-import { upload } from "../middlewares/multer.js";
+ */ import { upload } from "../middlewares/multer.js";
 const coursesRouter = express.Router();
 
 // get all courses
 coursesRouter.get("/courses", async (req, res) => {
   try {
-    let query = db("courses").select(
+    let query = knex("courses").select(
       "courses.id",
       "title",
       "description",
@@ -111,7 +111,7 @@ coursesRouter.get("/courses", async (req, res) => {
 //  Fetch the list of authors to use in UI when filtering courses by author name
 coursesRouter.get("/course-authors", async (req, res) => {
   try {
-    let query = db("courses")
+    let query = knex("courses")
       .distinct()
       .select(
         "created_by",
@@ -131,7 +131,7 @@ coursesRouter.get("/course-authors", async (req, res) => {
 //GET all courses created by logged-in user
 coursesRouter.get("/my-courses", async (req, res) => {
   try {
-    let query = db("courses").select(
+    let query = knex("courses").select(
       "id",
       "title",
       "description",
@@ -186,15 +186,18 @@ coursesRouter.get("/my-courses", async (req, res) => {
 coursesRouter.post(
   "/add-course",
   upload.single("thumbnail"), // handle file upload
-  validateBody(courseSchema), // validate request body with Zod
-  async (req, res) => {
-    console.log("Validated data:", req.validatedBody);
+  /*   validateBody(courseSchema), // validate request body with Zod
+   */ async (req, res) => {
+    console.log(
+      "Request body:",
+      req.body /* "Validated data:" */ /* req.validatedBody */
+    );
 
     try {
-      const data = { ...req.validatedBody };
+      const data = { ...req.body /* req.validatedBody */ };
 
       //  Check if user exists
-      const user = await db("users").where({ id: data.created_by }).first();
+      const user = await knex("users").where({ id: data.created_by }).first();
       if (!user) {
         return res
           .status(400)
@@ -210,7 +213,7 @@ coursesRouter.post(
       }
 
       // Insert course
-      const [course] = await db("courses").insert(data).returning("*");
+      const [course] = await knex("courses").insert(data).returning("*");
 
       res.status(201).json({ message: "Course created successfully", course });
     } catch (err) {
@@ -225,7 +228,7 @@ coursesRouter.delete("/my-courses/:id", async (req, res) => {
     const id = req.params.id;
     console.log(id);
     if (id && !isNaN(id) && id > 0) {
-      await db("courses").where({ id: id }).delete();
+      await knex("courses").where({ id: id }).delete();
       res.status(StatusCodes.OK).send("success");
     } else {
       res.status(StatusCodes.BAD_REQUEST).json({ error: "Invalid id value" });

@@ -25,9 +25,9 @@ export default function ProfilePage() {
       try {
         const backendUrl =
           process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
-        console.log("Fetching from:", `${backendUrl}/api/users/1`);
+        console.log("Fetching from:", `${backendUrl}/api/users/w`);
 
-        const response = await fetch(`${backendUrl}/api/users/1`);
+        const response = await fetch(`${backendUrl}/api/users/2`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

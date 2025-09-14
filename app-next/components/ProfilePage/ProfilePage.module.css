@@ -1,61 +1,201 @@
 .profileContainer {
-  padding: 20px;
-  max-width: 800px;
+  padding: 16px;
+  max-width: 900px;
   margin: 0 auto;
   background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+@media (min-width: 640px) {
+  .profileContainer {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profileContainer {
+    padding: 24px;
+  }
 }
 
 .profileHeader {
-  margin: 0 24px;
+  margin: 0 8px;
+}
+
+@media (min-width: 640px) {
+  .profileHeader {
+    margin: 0 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profileHeader {
+    margin: 0 24px;
+  }
 }
 
 .profileHeader h1 {
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
+  font-size: 24px;
+  color: #111827;
+}
+
+@media (min-width: 640px) {
+  .profileHeader h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profileHeader h1 {
+    font-size: 32px;
+  }
 }
 
 .profileTop {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin: 20px 0;
-  background-color: rgb(253, 253, 253);
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
   border: 1px solid #faededae;
-  padding: 20px 24px;
-  margin: 20px 24px;
+  border-radius: 8px;
+  margin: 16px 8px;
+  background-color: rgb(253, 253, 253);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 640px) {
+  .profileTop {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 20px 16px;
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profileTop {
+    padding: 24px;
+    margin: 20px 24px;
+  }
 }
 
 .userDetails {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .userDetails {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 20px;
+  }
 }
 
 .profileImage {
   border-radius: 50%;
   object-fit: cover;
+  width: 80px;
+  height: 80px;
+  border: 3px solid #e5e7eb;
+}
+
+@media (min-width: 640px) {
+  .profileImage {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profileImage {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 .userName h2 {
-  margin: 0 0 5px 0;
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+@media (min-width: 640px) {
+  .userName h2 {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .userName h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
 }
 
 .userName p {
-  color: #555;
+  color: #6b7280;
+  margin: 0;
+  font-size: 14px;
+}
+
+@media (min-width: 640px) {
+  .userName p {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .userName p {
+    font-size: 16px;
+  }
 }
 
 .section {
-  padding: 24px;
+  padding: 16px 8px;
   display: flex;
   flex-direction: column;
 }
 
+@media (min-width: 640px) {
+  .section {
+    padding: 20px 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 24px;
+  }
+}
+
 .section h2 {
-  margin: 0 0 16px 0;
-  color: #333;
+  margin: 0 0 12px 0;
+  color: #111827;
+  font-size: 18px;
+}
+
+@media (min-width: 640px) {
+  .section h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
 }
 
 .card {
@@ -64,8 +204,29 @@
   padding: 12px;
   border: 1px solid #faededae;
   border-radius: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   background-color: rgb(253, 253, 253);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .details {
@@ -73,63 +234,211 @@
 }
 
 .name {
-  color: #555;
+  color: #6b7280;
+  font-size: 13px;
+  margin: 0 0 4px 0;
+  font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .name {
+    font-size: 14px;
+  }
 }
 
 .content {
   font-weight: 600;
+  color: #111827;
+  margin: 0;
+  font-size: 14px;
+}
+
+@media (min-width: 640px) {
+  .content {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content {
+    font-size: 16px;
+  }
 }
 
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
 
-.settingsRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+@media (min-width: 640px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
 }
 
 .settingsCard {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
   background-color: rgb(253, 253, 253);
   border: 1px solid #faededae;
   border-radius: 8px;
   width: 100%;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .settingsCardOption {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #55555584;
-  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 14px;
   min-height: 44px;
+  transition: background-color 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .settingsCardOption {
+    padding: 14px 16px;
+    min-height: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .settingsCardOption {
+    padding: 16px 18px;
+    min-height: 52px;
+  }
 }
 
 .settingsCardOption:last-child {
   border-bottom: none;
 }
 
+.settingsCardOption:hover {
+  background-color: #f9fafb;
+}
+
+.settingsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+@media (min-width: 640px) {
+  .settingsRow {
+    flex-direction: row;
+    gap: 12px;
+  }
+}
+
 .pageButton {
-  padding: 8px 16px;
+  padding: 8px 12px;
   background-color: #ffffff;
-  border: 1px solid #cccccca2;
-  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
   cursor: pointer;
   text-align: center;
   font-weight: 500;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .pageButton {
+    width: auto;
+    min-width: 100px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }
 
 .pageButton:hover {
-  background-color: #f0f0f0;
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+.pageButton:active {
+  transform: translateY(0);
+}
+
+.icon {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #6b7280;
+}
+
+@media (min-width: 640px) {
+  .icon {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .icon {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 639px) {
+  .profileContainer {
+    padding: 12px;
+  }
+
+  .profileHeader {
+    margin: 0 4px;
+  }
+
+  .profileTop {
+    margin: 12px 4px;
+    padding: 12px;
+  }
+
+  .section {
+    padding: 12px 4px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .settingsCardOption {
+    padding: 10px 12px;
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileHeader h1 {
+    font-size: 20px;
+  }
+
+  .userName h2 {
+    font-size: 16px;
+  }
+
+  .section h2 {
+    font-size: 16px;
+  }
+
+  .profileImage {
+    width: 70px;
+    height: 70px;
+  }
 }

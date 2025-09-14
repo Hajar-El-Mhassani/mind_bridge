@@ -1,8 +1,38 @@
+/* Grid - Mobile First Responsive */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  padding: 24px;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 24px;
+  }
+}
+
+/* Large Desktop: 4 columns */
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    padding: 28px;
+  }
 }
 
 .card {
@@ -12,12 +42,32 @@
   border-radius: 12px;
   overflow: hidden;
   background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .imageWrapper {
   position: relative;
-  height: 180px;
+  height: 160px;
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .imageWrapper {
+    height: 180px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .imageWrapper {
+    height: 200px;
+  }
 }
 
 .image {
@@ -27,56 +77,259 @@
   display: block;
 }
 
-.tag {
+.badges {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 4px 10px;
-  font-size: 12px;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  max-width: calc(100% - 16px);
+}
+
+@media (min-width: 640px) {
+  .badges {
+    gap: 6px;
+  }
+}
+
+.tag {
+  padding: 3px 8px;
+  font-size: 10px;
   background: #111827;
   color: #fff;
-  border-radius: 999px;
+  border-radius: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .tag {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tag {
+    font-size: 12px;
+  }
+}
+
+.levelBadge {
+  background: rgba(16, 185, 129, 0.9);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .levelBadge {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .levelBadge {
+    font-size: 12px;
+  }
 }
 
 .content {
-  padding: 16px;
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .content {
+    padding: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content {
+    padding: 18px;
+  }
 }
 
 .title {
   margin: 0 0 6px;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #111827;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
 }
 
 .author {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   color: #6b7280;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .author {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
 }
 
 .desc {
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   color: #374151;
-  font-size: 14px;
-  line-height: 1.45;
+  font-size: 13px;
+  line-height: 1.5;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+@media (min-width: 640px) {
+  .desc {
+    font-size: 14px;
+    margin-bottom: 14px;
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desc {
+    -webkit-line-clamp: 3;
+  }
 }
 
 .price {
   font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 640px) {
+  .price {
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .price {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
 }
 
 .button {
-  align-self: center;
+  width: 100%;
   background: #111827;
   color: #fff;
   border: none;
-  border-radius: 999px;
-  padding: 8px 16px;
+  border-radius: 8px;
+  padding: 10px 16px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
   margin-top: auto;
+}
+
+@media (min-width: 640px) {
+  .button {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
 }
 
 .button:hover {
   background: #374151;
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.levelBeginner {
+  background: rgba(16, 185, 129, 0.9) !important; /* Green */
+}
+
+.levelIntermediate {
+  background: rgba(245, 158, 11, 0.9) !important; /* Orange */
+}
+
+.levelAdvanced {
+  background: rgba(239, 68, 68, 0.9) !important; /* Red */
+}
+
+@media (max-width: 639px) {
+  .grid {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .card {
+    border-radius: 8px;
+  }
+
+  .badges {
+    top: 6px;
+    left: 6px;
+  }
+
+  .imageWrapper {
+    height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
+
+  .desc {
+    font-size: 12px;
+    -webkit-line-clamp: 2;
+  }
+
+  .button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
 }

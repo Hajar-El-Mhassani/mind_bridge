@@ -14,7 +14,7 @@ export default usersRouter;
 
 usersRouter.get("/", async (req, res) => {
   try {
-    const users = await db("users").select(
+    const users = await knex("users").select(
       "id",
       "name",
       "email",
@@ -25,12 +25,19 @@ usersRouter.get("/", async (req, res) => {
       "updated_at"
     );
     // serve user image with full url
-    const baseUrl = `${_req.protocol}://${_req.get("host")}`;
+    const baseUrl = `${req.protocol}://${req.get("host")}`; // Fixed: _req -> req
     const formattedUsers = users.map((user) => {
       return {
         ...user,
         image: user.image ? `${baseUrl}${user.image}` : null,
       };
+    });
+
+    res.status(StatusCodes.OK).json(formattedUsers);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: "Internal server error",
     });
   }
 });
