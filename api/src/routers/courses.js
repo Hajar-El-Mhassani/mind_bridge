@@ -108,6 +108,24 @@ coursesRouter.get("/courses", async (req, res) => {
   }
 });
 
+// GET a single course by ID
+coursesRouter.get("/courses/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const course = await knex("courses").where({ id }).first();
+
+    if (!course) {
+      return res.status(StatusCodes.NOT_FOUND).json({ message: "Course not found" });
+    }
+
+    res.status(StatusCodes.OK).json(course);
+  } catch (error) {
+    console.error("Error fetching course:", error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
+  }
+});
+
 //  Fetch the list of authors to use in UI when filtering courses by author name
 coursesRouter.get("/course-authors", async (req, res) => {
   try {
