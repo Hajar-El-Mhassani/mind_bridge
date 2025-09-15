@@ -265,6 +265,7 @@
   padding: 1rem;
 }
 .btnEdit {
+    text-decoration: none;
   align-self: center;
   background: white;
   color: black;

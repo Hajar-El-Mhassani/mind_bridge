@@ -183,6 +183,40 @@ coursesRouter.get("/my-courses", async (req, res) => {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
+
+coursesRouter.get("/my-courses/:id", async (req, res) => {
+  try {
+    let query = knex("courses").select(
+        "id",
+        "title",
+        "description",
+        "image",
+        "price",
+        "level",
+        "status",
+        "category",
+        "duration",
+        "created_by",
+        "created_at",
+        "updated_at"
+    )
+        .where("id", req.params.id)
+        .first();
+
+    console.log(query.toSQL());
+    const course = await query;
+
+    // serve course image with full url
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+
+    course.image = course.image ? `${baseUrl}${course.image}` : null;
+
+    res.json(course);
+  } catch (e) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
+  }
+});
+
 coursesRouter.post(
   "/add-course",
   upload.single("thumbnail"), // handle file upload
@@ -216,6 +250,44 @@ coursesRouter.post(
       const [course] = await knex("courses").insert(data).returning("*");
 
       res.status(201).json({ message: "Course created successfully", course });
+    } catch (err) {
+      console.error("Error creating course:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+coursesRouter.post(
+  "/my-courses/:id",
+  upload.single("thumbnail"), // handle file upload
+  async (req, res) => {
+    console.log(
+      "Request body:",
+      req.body
+    );
+
+    const id = req.params.id;
+    try {
+      const data = { ...req.body };
+
+      //  Check if user exists
+      const user = await knex("users").where({ id: id }).first();
+      if (!user || id !== data.created_by) {
+        return res
+          .status(400)
+          .json({ error: "Invalid created_by: user not found" });
+      }
+
+      if (req.file) {
+        data.image = `/uploads/courses/${req.file.filename}`;
+      } else {
+        data.image = "/uploads/courses/default-course.png"; // default image
+      }
+
+      // Insert course
+      await knex("courses").where("id", id).update(data);
+
+      res.status(201).json({ message: "Course updated successfully"});
     } catch (err) {
       console.error("Error creating course:", err);
       res.status(500).json({ error: "Internal server error" });

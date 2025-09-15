@@ -36,9 +36,9 @@ export default function MyCourseCard({
         </div>
       </div>
       <div className={styles.btnContainer}>
-        <button className={styles.btnEdit}>
+        <a className={styles.btnEdit} href={`/my-courses/${id}/edit`}>
           <FaEdit /> Edit
-        </button>
+        </a>
         <button
           className={styles.btnDelete}
           onClick={(e) => setDeleteConfirmVisible(true)}
