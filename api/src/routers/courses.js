@@ -176,6 +176,7 @@ coursesRouter.get("/my-courses", authenticateToken, async (req, res) => {
 
     res.json(formattedCourses);
   } catch (e) {
+    console.log(e)
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
@@ -213,9 +214,7 @@ coursesRouter.get("/my-courses/:id", async (req, res) => {
   }
 });
 
-coursesRouter.post(
-  "/add-course",
-  authenticateToken,
+coursesRouter.post("/add-course",authenticateToken,
   upload.single("thumbnail"),
   async (req, res) => {
     try {
@@ -258,8 +257,9 @@ coursesRouter.post(
       const data = { ...req.body };
 
       //  Check if user exists
-      const user = await knex("users").where({ id: id }).first();
-      if (!user || id !== data.created_by) {
+      const user = await knex("users").where({ id: data.created_by}).first();
+
+      if (!user) {
         return res
           .status(400)
           .json({ error: "Invalid created_by: user not found" });
@@ -268,7 +268,7 @@ coursesRouter.post(
       if (req.file) {
         data.image = `/uploads/courses/${req.file.filename}`;
       } else {
-        data.image = "/uploads/courses/default-course.png"; // default image
+        data.image = "/uploads/courses/default.jpg"; // default image
       }
 
       // Insert course
