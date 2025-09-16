@@ -1,6 +1,11 @@
 import styles from "./ContactUs.module.css";
-
+import { useState } from "react";
 export default function Contact() {
+  const [sent, setSent] = useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSent(true); // Just show message (no backend)
+  };
   return (
     <section className={styles.contactPage}>
       {/* Title Section */}
@@ -11,7 +16,7 @@ export default function Contact() {
       {/* Form + Info */}
       <div className={styles.contactContainer}>
         {/* Left Form */}
-        <form className={styles.contactForm}>
+        <form className={styles.contactForm} onSubmit={handleSubmit}>
           <h1>Get Your touch</h1>
           <div className={styles.row}>
             <input type="text" placeholder="Your Name *" />
@@ -20,6 +25,9 @@ export default function Contact() {
           <input type="text" placeholder="Subject *" />
           <textarea rows="5" placeholder="Your Message *"></textarea>
           <button type="submit">Send Message</button>
+          {sent && (
+            <p className={styles.successMessage}>Message sent successfully!</p>
+          )}
         </form>
 
         {/* Right Info */}

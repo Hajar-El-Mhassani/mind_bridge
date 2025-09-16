@@ -124,7 +124,15 @@
   cursor: pointer;
   font-weight: bold;
 }
-
+/* Success message */
+.successMessage {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #d1f7d1;
+  color: #256029;
+  border: 1px solid #6fdc6f;
+  border-radius: 6px;
+}
 .contactForm button:hover {
   background: #a67c00;
 }
