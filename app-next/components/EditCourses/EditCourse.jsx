@@ -14,8 +14,8 @@ export default function EditCourse() {
     "Data Analysis",
     "Backend Development",
   ];
-  const difficultyLevels = ["Beginner", "Intermediate", "Advanced"];
-  const courseStatus = ["Draft", "Published", "Archived"];
+  const difficultyLevels = ["beginner", "intermediate", "advanced"];
+  const courseStatus = ["draft", "published", "archived"];
 
   const [formData, setFormData] = useState({
     title: "",
@@ -33,9 +33,8 @@ export default function EditCourse() {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null); //  new state for success/error message
   const [messageType, setMessageType] = useState(null); // "success" | "error"
-  const [loadingState, setLoadingState] = useState("LOADING");
-
   const params = useParams();
+  const router = useRouter();
   const id = params.id;
 
   const fetchCourse = async () => {
@@ -44,19 +43,23 @@ export default function EditCourse() {
     )
         .then((response) => response.json())
         .catch((e) => {
-          setLoadingState("LOADING_FAILED");
         });
 
     if (coursesDetailsResponse !== undefined) {
-      setLoadingState("LOADING_SUCCEEDED");
       setFormData(coursesDetailsResponse);
+      if (thumbnail === null) {
+        setPreviewUrl(coursesDetailsResponse.image);
+      }
     }
   };
 
 
   // update preview when file changes
   useEffect(() => {
-    fetchCourse();
+    if(formData.created_by == "0") {
+      fetchCourse();
+      return;
+    }
 
     if (!thumbnail) return;
     const objectUrl = URL.createObjectURL(thumbnail);
@@ -65,16 +68,9 @@ export default function EditCourse() {
     return () => URL.revokeObjectURL(objectUrl);
   }, [thumbnail]);
 
-  // if (loadingState === "LOADING") {
-  //   setMessage("Loading your courses...");
-  // } else if (loadingState === "LOADING_FAILED") {
-  //   setMessage("Unable to fetch your courses!");
-  // } else if (loadingState === "DELETE_FAILED") {
-  //   setMessage("Unable to delete the course!")
-  // // } else if (courses.length === 0) {
-  // //   setMessage("No courses found");
-  // }
-
+  const handleCancel = (e) => {
+    router.push("/my-courses/")
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -120,14 +116,13 @@ export default function EditCourse() {
     if (thumbnail) data.append("thumbnail", thumbnail);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/my-course/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/my-courses/${id}`, {
         method: "POST",
         body: data,
       });
       const result = await res.json();
 
       if (res.ok) {
-        const router = useRouter();
         router.push("/my-courses/")
       } else {
         setMessage(" " + (result.error || "Failed to create course"));
@@ -142,7 +137,7 @@ export default function EditCourse() {
 
   return (
     <div className={styles.addCourseContainer}>
-      <h2 className={styles.title}>Add New Course</h2>
+      <h2 className={styles.title}>Edit Course</h2>
       <p className={styles.subtitle}>
         Fill in the details below to create a new course.
       </p>
@@ -278,7 +273,7 @@ export default function EditCourse() {
 
         {/* Buttons */}
         <div className={`${styles.formActions} ${styles.fullWidth}`}>
-          <button type="button" className={styles.cancelBtn}>
+          <button type="button" className={styles.cancelBtn} onClick={(e) => handleCancel(e)}>
             Cancel
           </button>
           <button type="submit" className={styles.saveBtn}>

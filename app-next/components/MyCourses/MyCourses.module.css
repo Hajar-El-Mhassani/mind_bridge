@@ -196,7 +196,8 @@
 }
 
 .category {
-  width: 4rem;
+  width: 6rem;
+  text-align: center;
   margin-bottom: 0.5rem;
   font-size: 12px;
   background: #cacbcd;
