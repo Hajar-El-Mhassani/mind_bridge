@@ -46,11 +46,15 @@ export default function CourseHeader({
                 value={category}
                 onChange={(e) => onCategoyChange(e.target.value)}
               >
-                <option value="All">All</option>
-                <option value="Programming">Programming</option>
-                <option value="Data Science">Data Sinence</option>
-                <option value="Databases">Databases</option>
+                <option value="All">Categories: All </option>
                 <option value="Web Development">Web Development</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Design">Design</option>
+                <option value="Business">Business</option>
+                <option value="Arts">Arts</option>
+                <option value="Music">Music</option>
+                <option value="Data Analysis">Data Analysis</option>
+                <option value="Backend Development">Backend Development</option>
               </select>
               <select
                 className={styles.filterSelect}

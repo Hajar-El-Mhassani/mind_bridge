@@ -1,4 +1,4 @@
-.addCourseContainer {
+.editCourseContainer {
   max-width: 900px;
   margin: 2rem auto;
   background: #fff;
@@ -37,14 +37,21 @@
 }
 
 .courseForm {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  padding: 0.5rem;
 }
 
 .fullWidth {
@@ -56,7 +63,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* selectors */
 .formGroup input,
 .formGroup textarea,
 .formGroup select {
@@ -88,7 +94,6 @@
   overflow: hidden;
   aspect-ratio: 3/2;
 }
-
 
 .thumbnailBox img {
   width: 100%;
@@ -140,12 +145,8 @@
   background: #1e4db7;
 }
 
-@media (max-width: 768px) {
-  .courseForm {
-    grid-template-columns: 1fr;
-  }
-  .formActions {
-    flex-direction: column;
-    align-items: stretch;
+@media (min-width: 768px) {
+  .formRow {
+    flex-direction: row;
   }
 }

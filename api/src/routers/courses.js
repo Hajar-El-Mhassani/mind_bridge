@@ -176,14 +176,15 @@ coursesRouter.get("/my-courses", authenticateToken, async (req, res) => {
 
     res.json(formattedCourses);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
 
 coursesRouter.get("/my-courses/:id", authenticateToken, async (req, res) => {
   try {
-    let query = knex("courses").select(
+    let query = knex("courses")
+      .select(
         "id",
         "title",
         "description",
@@ -196,9 +197,9 @@ coursesRouter.get("/my-courses/:id", authenticateToken, async (req, res) => {
         "created_by",
         "created_at",
         "updated_at"
-    )
-        .where("id", req.params.id)
-        .first();
+      )
+      .where("id", req.params.id)
+      .first();
 
     console.log(query.toSQL());
     const course = await query;
@@ -214,7 +215,9 @@ coursesRouter.get("/my-courses/:id", authenticateToken, async (req, res) => {
   }
 });
 
-coursesRouter.post("/add-course",authenticateToken,
+coursesRouter.post(
+  "/add-course",
+  authenticateToken,
   upload.single("thumbnail"),
   async (req, res) => {
     try {
@@ -248,17 +251,14 @@ coursesRouter.post(
   authenticateToken,
   upload.single("thumbnail"), // handle file upload
   async (req, res) => {
-    console.log(
-      "Request body:",
-      req.body
-    );
+    console.log("Request body:", req.body);
 
     const id = req.params.id;
     try {
       const data = { ...req.body };
 
       //  Check if user exists
-      const user = await knex("users").where({ id: data.created_by}).first();
+      const user = await knex("users").where({ id: data.created_by }).first();
 
       if (!user) {
         return res
@@ -269,13 +269,14 @@ coursesRouter.post(
       if (req.file) {
         data.image = `/uploads/courses/${req.file.filename}`;
       } else {
-        data.image = "/uploads/courses/default.jpg"; // default image
+        const course = await knex("courses").where("id", id);
+        data.image = course.image;
       }
 
       // Insert course
       await knex("courses").where("id", id).update(data);
 
-      res.status(201).json({ message: "Course updated successfully"});
+      res.status(201).json({ message: "Course updated successfully" });
     } catch (err) {
       console.error("Error creating course:", err);
       res.status(500).json({ error: "Internal server error" });
@@ -304,7 +305,7 @@ coursesRouter.delete("/my-courses/:id", authenticateToken, async (req, res) => {
       res.status(StatusCodes.BAD_REQUEST).json({ error: "Invalid id value" });
     }
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
