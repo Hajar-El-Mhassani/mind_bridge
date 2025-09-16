@@ -7,6 +7,6 @@ export async function up(knex) {
 
 export async function down(knex) {
   await knex.schema.table("users", function (table) {
-    table.dropColumn("date_of_birth");
+    table.dropColumn("date_of_birth"); /* (date_birth) */
   });
 }
