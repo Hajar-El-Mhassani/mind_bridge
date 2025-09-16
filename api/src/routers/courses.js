@@ -5,8 +5,7 @@ import express from "express";
 import { StatusCodes } from "http-status-codes";
 import knex from "../database_client.js";
 import { upload } from "../middlewares/multer.js";
-import { authenticateToken } from "../middlewares/auth.js"; // ✅ Use the better one
-
+import { authenticateToken } from "../middlewares/auth.js";
 const coursesRouter = express.Router();
 
 coursesRouter.get("/courses", async (req, res) => {
@@ -199,7 +198,7 @@ coursesRouter.post(
       if (req.file) {
         data.image = `/uploads/courses/${req.file.filename}`;
       } else {
-        data.image = "/uploads/courses/default-course.png";
+        data.image = "/uploads/courses/default.jpg";
       }
 
       const [course] = await knex("courses").insert(data).returning("*");
