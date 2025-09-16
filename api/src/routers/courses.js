@@ -1,9 +1,8 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import knex from "../database_client.js";
-/* import { validateBody } from "../middlewares/validateCourse.js";
-import { courseSchema, partialCourseSchema } from "../schemas/courseSchema.js";
- */ import { upload } from "../middlewares/multer.js";
+import { upload } from "../middlewares/multer.js";
+
 const coursesRouter = express.Router();
 
 // get all courses
@@ -25,67 +24,55 @@ coursesRouter.get("/courses", async (req, res) => {
     );
 
     const search = req.query.search;
-    if (typeof search === "string") {
-      if (search.length > 0) {
-        query = query.where((qb) => {
-          qb.where("title", "ilike", `%${search}%`).orWhere(
-            "description",
-            "ilike",
-            `%${search}%`
-          );
-        });
-      }
+    if (typeof search === "string" && search.length > 0) {
+      query = query.where((qb) => {
+        qb.where("title", "ilike", `%${search}%`).orWhere(
+          "description",
+          "ilike",
+          `%${search}%`
+        );
+      });
     }
 
     const category = req.query.category;
-    if (typeof category === "string") {
-      if (category.length > 0 && category !== "All") {
-        query = query.where("category", "=", `${category}`);
-      }
+    if (typeof category === "string" && category.length > 0 && category !== "All") {
+      query = query.where("category", "=", category);
     }
 
     const level = req.query.level;
-    if (typeof level === "string") {
-      if (level.length > 0 && level !== "All") {
-        query = query.where("level", "=", `${level}`);
-      }
+    if (typeof level === "string" && level.length > 0 && level !== "All") {
+      query = query.where("level", "=", level);
     }
 
     const createdBy = req.query.created_by;
-    if (createdBy) {
-      if (!isNaN(createdBy) && createdBy > 0) {
-        query = query.where("created_by", "=", `${createdBy}`);
-      }
+    if (createdBy && !isNaN(createdBy) && createdBy > 0) {
+      query = query.where("created_by", "=", createdBy);
     }
 
     const price = req.query.price;
-    if (typeof price === "string") {
-      if (price.length > 0 && price !== "All") {
-        switch (price) {
-          case "free":
-            query = query.where("price", "=", 0);
-            break;
-          case "paid":
-            query = query.where("price", ">", 0);
-            break;
-        }
+    if (typeof price === "string" && price.length > 0 && price !== "All") {
+      switch (price) {
+        case "free":
+          query = query.where("price", "=", 0);
+          break;
+        case "paid":
+          query = query.where("price", ">", 0);
+          break;
       }
     }
 
     const sort = req.query.sort;
-    if (typeof sort === "string") {
-      if (sort.length > 0) {
-        switch (sort) {
-          case "newest":
-            query = query.orderBy("created_at", "desc");
-            break;
-          case "lowest-price":
-            query = query.orderBy("price", "asc");
-            break;
-          case "highest-price":
-            query = query.orderBy("price", "desc");
-            break;
-        }
+    if (typeof sort === "string" && sort.length > 0) {
+      switch (sort) {
+        case "newest":
+          query = query.orderBy("created_at", "desc");
+          break;
+        case "lowest-price":
+          query = query.orderBy("price", "asc");
+          break;
+        case "highest-price":
+          query = query.orderBy("price", "desc");
+          break;
       }
     } else {
       query = query.orderBy("created_at", "desc");
@@ -93,9 +80,7 @@ coursesRouter.get("/courses", async (req, res) => {
 
     const courses = await query;
 
-    // serve course image with full url
     const baseUrl = `${req.protocol}://${req.get("host")}`;
-
     const formattedCourses = courses.map((course) => ({
       ...course,
       image: course.image ? `${baseUrl}${course.image}` : null,
@@ -119,14 +104,20 @@ coursesRouter.get("/courses/:id", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).json({ message: "Course not found" });
     }
 
-    res.status(StatusCodes.OK).json(course);
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const formattedCourse = {
+      ...course,
+      image: course.image ? `${baseUrl}${course.image}` : null,
+    };
+    
+    res.status(StatusCodes.OK).json(formattedCourse);
   } catch (error) {
     console.error("Error fetching course:", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
   }
 });
 
-//  Fetch the list of authors to use in UI when filtering courses by author name
+//  Fetch the list of authors to use in UI when filtering courses by author name
 coursesRouter.get("/course-authors", async (req, res) => {
   try {
     let query = knex("courses")
@@ -165,32 +156,26 @@ coursesRouter.get("/my-courses", async (req, res) => {
     );
 
     const search = req.query.search;
-    if (typeof search === "string") {
-      if (search.length > 0) {
-        query = query.where((qb) => {
-          qb.where("title", "ilike", `%${search}%`).orWhere(
-            "description",
-            "ilike",
-            `%${search}%`
-          );
-        });
-      }
+    if (typeof search === "string" && search.length > 0) {
+      query = query.where((qb) => {
+        qb.where("title", "ilike", `%${search}%`).orWhere(
+          "description",
+          "ilike",
+          `%${search}%`
+        );
+      });
     }
 
     const category = req.query.category;
-    if (typeof category === "string") {
-      if (category.length > 0 && category !== "All") {
-        query = query.where("category", "=", `${category}`);
-      }
+    if (typeof category === "string" && category.length > 0 && category !== "All") {
+      query = query.where("category", "=", category);
     }
 
     query = query.where("created_by", 1);
     console.log(query.toSQL());
     const courses = await query;
 
-    // serve course image with full url
     const baseUrl = `${req.protocol}://${req.get("host")}`;
-
     const formattedCourses = courses.map((course) => ({
       ...course,
       image: course.image ? `${baseUrl}${course.image}` : null,
@@ -201,20 +186,19 @@ coursesRouter.get("/my-courses", async (req, res) => {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
+
 coursesRouter.post(
   "/add-course",
   upload.single("thumbnail"), // handle file upload
-  /*   validateBody(courseSchema), // validate request body with Zod
-   */ async (req, res) => {
+  async (req, res) => {
     console.log(
       "Request body:",
-      req.body /* "Validated data:" */ /* req.validatedBody */
+      req.body
     );
 
     try {
-      const data = { ...req.body /* req.validatedBody */ };
+      const data = { ...req.body };
 
-      //  Check if user exists
       const user = await knex("users").where({ id: data.created_by }).first();
       if (!user) {
         return res
@@ -222,15 +206,12 @@ coursesRouter.post(
           .json({ error: "Invalid created_by: user not found" });
       }
 
-      // Add uploaded image if present
-      //Handle image
       if (req.file) {
         data.image = `/uploads/courses/${req.file.filename}`;
       } else {
         data.image = "/uploads/courses/default-course.png"; // default image
       }
 
-      // Insert course
       const [course] = await knex("courses").insert(data).returning("*");
 
       res.status(201).json({ message: "Course created successfully", course });
