@@ -100,7 +100,6 @@ export default function MyCourses() {
   }
 
   let message = "";
-  let showEmptyState = false;
 
   if (loadingState === "LOADING") {
     message = "Loading your courses...";
@@ -108,8 +107,6 @@ export default function MyCourses() {
     message = "Unable to fetch your courses!";
   } else if (loadingState === "DELETE_FAILED") {
     message = "Unable to delete the course!";
-  } else if (courses.length === 0) {
-    showEmptyState = true;
   }
 
   return (
@@ -119,74 +116,55 @@ export default function MyCourses() {
           <h1 className={styles.title}>My Courses</h1>
         </header>
 
-        {showEmptyState ? (
-          <div className={styles.emptyState}>
-            <div className={styles.emptyStateContent}>
-              <h2>No courses yet...</h2>
-              <p>Ready to share your knowledge? Create your first course!</p>
+        <section className={styles.statsSection}>
+          <StatsCard courses={courses} />
+        </section>
+
+        <section>
+          <div className={styles.FiltersContainer}>
+            <div className={styles.searchFilterGroup}>
+              <div className={styles.searchWrapper}>
+                <FaSearch className={styles.searchIcon} />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className={styles.searchInput}
+                  placeholder="Filter courses..."
+                />
+              </div>
+              <select
+                className={styles.filterSelect}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="All">Categories: All</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Design">Design</option>
+                <option value="Business">Business</option>
+                <option value="Arts">Arts</option>
+                <option value="Music">Music</option>
+                <option value="Data Analysis">Data Analysis</option>
+                <option value="Backend Development">Backend Development</option>
+              </select>
+            </div>
+            <div>
               <button className={styles.addCourseBtn} onClick={handleAddCourse}>
-                ＋ Add Your First Course
+                ＋ Add New Course
               </button>
             </div>
           </div>
-        ) : (
-          <>
-            <section className={styles.statsSection}>
-              <StatsCard courses={courses} />
-            </section>
+        </section>
 
-            <section>
-              <div className={styles.FiltersContainer}>
-                <div className={styles.searchFilterGroup}>
-                  <div className={styles.searchWrapper}>
-                    <FaSearch className={styles.searchIcon} />
-                    <input
-                      type="text"
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      className={styles.searchInput}
-                      placeholder="Filter courses..."
-                    />
-                  </div>
-                  <select
-                    className={styles.filterSelect}
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <option value="All">Categories: All</option>
-                    <option value="Web Development">Web Development</option>
-                    <option value="Data Science">Data Science</option>
-                    <option value="Design">Design</option>
-                    <option value="Business">Business</option>
-                    <option value="Arts">Arts</option>
-                    <option value="Music">Music</option>
-                    <option value="Data Analysis">Data Analysis</option>
-                    <option value="Backend Development">
-                      Backend Development
-                    </option>
-                  </select>
-                </div>
-                <div>
-                  <button
-                    className={styles.addCourseBtn}
-                    onClick={handleAddCourse}
-                  >
-                    ＋ Add New Course
-                  </button>
-                </div>
-              </div>
-            </section>
+        {message && <div className={styles.message}>{message}</div>}
 
-            {message && <div className={styles.message}>{message}</div>}
-
-            <section className={styles.listSection}>
-              <MyCoursesGrid
-                courses={courses}
-                courseDeleteRequested={deleteCourse}
-              />
-            </section>
-          </>
-        )}
+        <section className={styles.listSection}>
+          <MyCoursesGrid
+            courses={courses}
+            courseDeleteRequested={deleteCourse}
+          />
+        </section>
       </div>
     </div>
   );
