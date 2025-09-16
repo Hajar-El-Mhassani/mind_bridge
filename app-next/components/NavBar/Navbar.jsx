@@ -11,7 +11,7 @@ const NAV = [
   { href: "/", label: "Home" },
   { href: "public-courses", label: "Courses" },
   { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact Us" },
+  { href: "/contact-us", label: "Contact Us" },
 ];
 
 const DESKTOP_BP = 980;
