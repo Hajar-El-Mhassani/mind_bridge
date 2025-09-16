@@ -1,9 +1,9 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import knex from "../database_client.js";
-/* import { validateBody } from "../middlewares/validateCourse.js";
+import { validateBody } from "../middlewares/validateCourse.js";
 import { courseSchema, partialCourseSchema } from "../schemas/courseSchema.js";
- */ import { upload } from "../middlewares/multer.js";
+import { upload } from "../middlewares/multer.js";
 const coursesRouter = express.Router();
 
 // get all courses
@@ -186,15 +186,12 @@ coursesRouter.get("/my-courses", async (req, res) => {
 coursesRouter.post(
   "/add-course",
   upload.single("thumbnail"), // handle file upload
-  /*   validateBody(courseSchema), // validate request body with Zod
-   */ async (req, res) => {
-    console.log(
-      "Request body:",
-      req.body /* "Validated data:" */ /* req.validatedBody */
-    );
+  validateBody(courseSchema), // validate request body with Zod
+  async (req, res) => {
+    console.log("Validated data:", req.validatedBody);
 
     try {
-      const data = { ...req.body /* req.validatedBody */ };
+      const data = { ...req.validatedBody };
 
       //  Check if user exists
       const user = await knex("users").where({ id: data.created_by }).first();
@@ -209,7 +206,7 @@ coursesRouter.post(
       if (req.file) {
         data.image = `/uploads/courses/${req.file.filename}`;
       } else {
-        data.image = "/uploads/courses/default-course.png"; // default image
+        data.image = "/uploads/courses/default.jpg"; // default image
       }
 
       // Insert course
