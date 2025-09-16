@@ -38,8 +38,13 @@ export default function EditCourse() {
   const id = params.id;
 
   const fetchCourse = async () => {
+    const token = localStorage.getItem("token");
     const coursesDetailsResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses/${id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/my-courses/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
     )
         .then((response) => response.json())
         .catch((e) => {
@@ -116,9 +121,14 @@ export default function EditCourse() {
     if (thumbnail) data.append("thumbnail", thumbnail);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/my-courses/${id}`, {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-courses/${id}`, {
         method: "POST",
         body: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
       });
       const result = await res.json();
 

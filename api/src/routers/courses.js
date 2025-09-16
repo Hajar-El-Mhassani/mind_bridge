@@ -181,7 +181,7 @@ coursesRouter.get("/my-courses", authenticateToken, async (req, res) => {
   }
 });
 
-coursesRouter.get("/my-courses/:id", async (req, res) => {
+coursesRouter.get("/my-courses/:id", authenticateToken, async (req, res) => {
   try {
     let query = knex("courses").select(
         "id",
@@ -245,6 +245,7 @@ coursesRouter.post("/add-course",authenticateToken,
 
 coursesRouter.post(
   "/my-courses/:id",
+  authenticateToken,
   upload.single("thumbnail"), // handle file upload
   async (req, res) => {
     console.log(
@@ -285,7 +286,7 @@ coursesRouter.post(
 coursesRouter.delete("/my-courses/:id", authenticateToken, async (req, res) => {
   try {
     const id = req.params.id;
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     if (id && !isNaN(id) && id > 0) {
       const result = await knex("courses")
@@ -303,6 +304,7 @@ coursesRouter.delete("/my-courses/:id", authenticateToken, async (req, res) => {
       res.status(StatusCodes.BAD_REQUEST).json({ error: "Invalid id value" });
     }
   } catch (e) {
+    console.log(e)
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
