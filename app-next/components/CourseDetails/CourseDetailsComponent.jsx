@@ -4,7 +4,7 @@ import styles from './CourseDetails.module.css';
 
 export default function CourseDetailsComponent({ course }) {
   if (!course) {
-    return <div>Data not available.</div>; // Message in English for consistency
+    return <div>Data not available.</div>;
   }
 
   const imageUrl = course.image;
@@ -36,6 +36,21 @@ export default function CourseDetailsComponent({ course }) {
         <p><strong>Price:</strong> {course.price === 0 ? 'Free' : `$${course.price}`}</p>
         <p><strong>Status:</strong> {course.status}</p>
       </div>
+       {/* Show list of lessons*/}
+      {course.lessons && course.lessons.length > 0 && (
+        <div className={styles.lessonsSection}>
+          <h2 className={styles.lessonsTitle}>Lessons</h2>
+          <ol className={styles.lessonList}>
+            {course.lessons.map((lesson) => (
+              <li key={lesson.id} className={styles.lessonItem}>
+                <span className={styles.lessonTitle}>{lesson.title}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+      
     </div>
   );
 }
+   
