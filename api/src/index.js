@@ -15,9 +15,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 const apiRouter = express.Router();
 
-// Serve user images in url : hhtp://localhost:3001/uploads/users/image.jpg
 app.use("/uploads/users", express.static("uploads/users"));
-// Serve course images
 app.use("/uploads/courses", express.static("uploads/courses"));
 
 apiRouter.use("/auth", authRouter);

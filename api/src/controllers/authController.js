@@ -5,7 +5,7 @@ import { generateToken } from "../utils/jwt.js";
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, date_of_birth } = req.body;
 
     if (!name || !email || !password) {
       return res.status(StatusCodes.BAD_REQUEST).json({
@@ -23,13 +23,24 @@ export const register = async (req, res) => {
 
     const hashedPassword = await hashPassword(password);
 
+    const imagePath = req.file ? req.file.filename : null;
+
     const [newUser] = await db("users")
       .insert({
         name,
         email,
         password: hashedPassword,
+        date_of_birth: date_of_birth || null,
+        image: imagePath,
       })
-      .returning(["id", "name", "email", "image", "created_at"]);
+      .returning([
+        "id",
+        "name",
+        "email",
+        "image",
+        "date_of_birth",
+        "created_at",
+      ]);
 
     const token = generateToken({ userId: newUser.id });
 

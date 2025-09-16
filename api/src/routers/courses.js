@@ -1,12 +1,14 @@
+/* import { validateBody } from "../middlewares/validateCourse.js";
+import { courseSchema, partialCourseSchema } from "../schemas/courseSchema.js";
+ */
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import knex from "../database_client.js";
-/* import { validateBody } from "../middlewares/validateCourse.js";
-import { courseSchema, partialCourseSchema } from "../schemas/courseSchema.js";
- */ import { upload } from "../middlewares/multer.js";
+import { upload } from "../middlewares/multer.js";
+import { authenticateToken } from "../middlewares/auth.js"; // ✅ Use the better one
+
 const coursesRouter = express.Router();
 
-// get all courses
 coursesRouter.get("/courses", async (req, res) => {
   try {
     let query = knex("courses").select(
@@ -93,7 +95,6 @@ coursesRouter.get("/courses", async (req, res) => {
 
     const courses = await query;
 
-    // serve course image with full url
     const baseUrl = `${req.protocol}://${req.get("host")}`;
 
     const formattedCourses = courses.map((course) => ({
@@ -108,15 +109,11 @@ coursesRouter.get("/courses", async (req, res) => {
   }
 });
 
-//  Fetch the list of authors to use in UI when filtering courses by author name
 coursesRouter.get("/course-authors", async (req, res) => {
   try {
     let query = knex("courses")
       .distinct()
-      .select(
-        "created_by",
-        "users.name as creator_name" // get user name
-      )
+      .select("created_by", "users.name as creator_name")
       .leftJoin("users", "courses.created_by", "users.id")
       .orderBy("creator_name");
 
@@ -128,9 +125,10 @@ coursesRouter.get("/course-authors", async (req, res) => {
   }
 });
 
-//GET all courses created by logged-in user
-coursesRouter.get("/my-courses", async (req, res) => {
+coursesRouter.get("/my-courses", authenticateToken, async (req, res) => {
   try {
+    const userId = req.user.id;
+
     let query = knex("courses").select(
       "id",
       "title",
@@ -166,11 +164,10 @@ coursesRouter.get("/my-courses", async (req, res) => {
       }
     }
 
-    query = query.where("created_by", 1);
-    console.log(query.toSQL());
+    query = query.where("created_by", userId);
+
     const courses = await query;
 
-    // serve course image with full url
     const baseUrl = `${req.protocol}://${req.get("host")}`;
 
     const formattedCourses = courses.map((course) => ({
@@ -183,20 +180,15 @@ coursesRouter.get("/my-courses", async (req, res) => {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
+
 coursesRouter.post(
   "/add-course",
-  upload.single("thumbnail"), // handle file upload
-  /*   validateBody(courseSchema), // validate request body with Zod
-   */ async (req, res) => {
-    console.log(
-      "Request body:",
-      req.body /* "Validated data:" */ /* req.validatedBody */
-    );
-
+  authenticateToken,
+  upload.single("thumbnail"),
+  async (req, res) => {
     try {
-      const data = { ...req.body /* req.validatedBody */ };
+      const data = { ...req.body };
 
-      //  Check if user exists
       const user = await knex("users").where({ id: data.created_by }).first();
       if (!user) {
         return res
@@ -204,15 +196,12 @@ coursesRouter.post(
           .json({ error: "Invalid created_by: user not found" });
       }
 
-      // Add uploaded image if present
-      //Handle image
       if (req.file) {
         data.image = `/uploads/courses/${req.file.filename}`;
       } else {
-        data.image = "/uploads/courses/default-course.png"; // default image
+        data.image = "/uploads/courses/default-course.png";
       }
 
-      // Insert course
       const [course] = await knex("courses").insert(data).returning("*");
 
       res.status(201).json({ message: "Course created successfully", course });
@@ -223,18 +212,27 @@ coursesRouter.post(
   }
 );
 
-coursesRouter.delete("/my-courses/:id", async (req, res) => {
+coursesRouter.delete("/my-courses/:id", authenticateToken, async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id);
+    const userId = req.user.userId;
+
     if (id && !isNaN(id) && id > 0) {
-      await knex("courses").where({ id: id }).delete();
+      const result = await knex("courses")
+        .where({ id: id, created_by: userId })
+        .delete();
+
+      if (result === 0) {
+        return res.status(StatusCodes.NOT_FOUND).json({
+          error: "Course not found or you don't have permission to delete it",
+        });
+      }
+
       res.status(StatusCodes.OK).send("success");
     } else {
       res.status(StatusCodes.BAD_REQUEST).json({ error: "Invalid id value" });
     }
   } catch (e) {
-    console.log(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
