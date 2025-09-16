@@ -1,78 +1,71 @@
-.container {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "content sidebar";
-  gap: 2rem;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.header {
-  grid-area: header;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.title {
-  font-size: 2.5rem;
+.courseDetailsContainer {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.instructor {
-  font-size: 1.2rem;
-  color: #666;
+.courseDetailsContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
-.mainContent {
-  grid-area: content;
-}
-
-.imageWrapper {
-  margin-bottom: 2rem;
+.courseImageWrapper {
+  margin-bottom: 35px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .courseImage {
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
 }
 
-.description h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+.courseTitle {
+  font-size: 2.8em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-.description p {
-  line-height: 1.6;
+.courseDescription {
+  font-size: 1.15em;
+  line-height: 1.7;
   color: #555;
+  margin-bottom: 40px;
+  text-align: justify;
 }
 
-.sidebar {
-  grid-area: sidebar;
+.courseMeta {
   background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  border: 1px solid #eee;
 }
 
-.infoBox h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 0.5rem;
+.courseMeta p {
+  margin: 0;
+  font-size: 1em;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.infoBox p {
-  margin-bottom: 0.5rem;
-}
-
-@media (max-width: 768px) {
-  .container {
-    grid-template-areas:
-      "header"
-      "content"
-      "sidebar";
-    padding: 1rem;
-  }
+.courseMeta strong {
+  color: #34495e;
+  font-weight: 600;
 }
