@@ -1,8 +1,9 @@
 import Link from "next/link";
 import styles from "./Courses.module.css";
+import { useState, useEffect } from "react";
 
 export default function CourseCard({
-  id, 
+  id,
   category,
   level,
   image,
@@ -11,6 +12,27 @@ export default function CourseCard({
   description,
   price,
 }) {
+  const [creatorName, setCreatorName] = useState(created_by);
+  useEffect(() => {
+    // If created_by is a number (ID), fetch the user name
+    if (!isNaN(created_by)) {
+      fetchCreatorName(created_by);
+    }
+  }, [created_by]);
+
+  const fetchCreatorName = async (userId) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+      );
+      const user = await response.json();
+      setCreatorName(user.name || "Unknown Author");
+    } catch (error) {
+      console.error("Failed to fetch creator name:", error);
+      setCreatorName("Unknown Author");
+    }
+  };
+
   const getLevelBadgeClass = (level) => {
     const baseClass = styles.levelBadge;
     switch (level?.toLowerCase()) {
@@ -36,11 +58,11 @@ export default function CourseCard({
       </div>
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <p className={styles.author}>By {created_by}</p>
+        <p className={styles.author}>By {creatorName}</p>
         <p className={styles.desc}>{description}</p>
         <div className={styles.price}>{price === 0 ? "Free" : `$${price}`}</div>
       </div>
-      
+
       <Link href={`/${id}`}>
         <button className={styles.button}>View Details</button>
       </Link>
