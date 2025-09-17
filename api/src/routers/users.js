@@ -20,7 +20,7 @@ usersRouter.get("/", async (req, res) => {
       "email",
       "image",
       "password",
-      "date_birth",
+      "date_of_birth",
       "created_at",
       "updated_at"
     );

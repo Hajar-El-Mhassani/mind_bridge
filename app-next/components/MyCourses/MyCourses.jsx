@@ -6,80 +6,108 @@ import MyCoursesGrid from "./MyCoursesGrid";
 import StatsCard from "./StatsCard";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
 
 export default function MyCourses() {
-  const [user, setUser] = useState(null);
+  const { user, isAuthenticated, loading: authLoading } = useAuth();
   const [courses, setCourses] = useState([]);
   const [loadingState, setLoadingState] = useState("LOADING");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
   const fetchMyCourses = async () => {
-    const myCoursesResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses?search=${search}&category=${category}`
-    )
-      .then((response) => response.json())
-      .catch((e) => {
-        setLoadingState("LOADING_FAILED");
-      });
-
-    if (myCoursesResponse !== undefined) {
-      setLoadingState("LOADING_SUCCEEDED");
-      setCourses(myCoursesResponse);
+    if (!isAuthenticated || !user) {
+      setLoadingState("LOADING_FAILED");
+      return;
     }
-  };
 
-  const fetchUserData = async () => {
     try {
-      const response = await fetch("/data/user.json");
-      const userData = await response.json();
-      setUser(userData);
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/my-courses?search=${search}&category=${category}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const myCoursesResponse = await response.json();
+        setLoadingState("LOADING_SUCCEEDED");
+        setCourses(myCoursesResponse);
+      } else {
+        setLoadingState("LOADING_FAILED");
+      }
     } catch (error) {
-      console.error("Error fetching user data:", error);
-    } finally {
+      console.error("Error fetching courses:", error);
+      setLoadingState("LOADING_FAILED");
     }
   };
 
   useEffect(() => {
-    if (user === null) {
-      fetchUserData();
+    if (!authLoading && isAuthenticated) {
+      fetchMyCourses();
     }
-    fetchMyCourses();
-  }, [search, category]);
+  }, [search, category, isAuthenticated, authLoading]);
 
   const deleteCourse = async (id) => {
-    const deleteCoursesResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/my-courses/${id}`,
-      {
-        method: "DELETE",
-      }
-    ).catch((e) => {
-      setLoadingState("DELETE_FAILED");
-    });
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/my-courses/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    if (deleteCoursesResponse.status === 200) {
-      fetchMyCourses();
-    } else {
+      if (response.ok) {
+        fetchMyCourses();
+      } else {
+        setLoadingState("DELETE_FAILED");
+      }
+    } catch (error) {
+      console.error("Error deleting course:", error);
       setLoadingState("DELETE_FAILED");
     }
   };
-
-  let message = "";
-  if (loadingState === "LOADING") {
-    message = "Loading your courses...";
-  } else if (loadingState === "LOADING_FAILED") {
-    message = "Unable to fetch your courses!";
-  } else if (loadingState === "DELETE_FAILED") {
-    message = "Unable to delete the course!";
-  } else if (courses.length === 0) {
-    message = "No courses found";
-  }
 
   const router = useRouter();
 
   const handleAddCourse = () => {
     router.push("/add-courses");
   };
+
+  if (authLoading) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.loadingMessage}>Loading...</div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    router.push("/auth");
+    return (
+      <div className={styles.container}>
+        <div className={styles.loadingMessage}>Redirecting...</div>
+      </div>
+    );
+  }
+
+  let message = "";
+
+  if (loadingState === "LOADING") {
+    message = "Loading your courses...";
+  } else if (loadingState === "LOADING_FAILED") {
+    message = "Unable to fetch your courses!";
+  } else if (loadingState === "DELETE_FAILED") {
+    message = "Unable to delete the course!";
+  }
 
   return (
     <div>
@@ -88,12 +116,10 @@ export default function MyCourses() {
           <h1 className={styles.title}>My Courses</h1>
         </header>
 
-        {/* main section on top to show courses category  */}
         <section className={styles.statsSection}>
           <StatsCard courses={courses} />
         </section>
 
-        {/* Filter - Search and adding new course are in this section  */}
         <section>
           <div className={styles.FiltersContainer}>
             <div className={styles.searchFilterGroup}>
@@ -112,11 +138,15 @@ export default function MyCourses() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="All">All</option>
-                <option value="Programming">Programming</option>
-                <option value="Data Science">Data Sinence</option>
-                <option value="Databases">Databases</option>
+                <option value="All">Categories: All</option>
                 <option value="Web Development">Web Development</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Design">Design</option>
+                <option value="Business">Business</option>
+                <option value="Arts">Arts</option>
+                <option value="Music">Music</option>
+                <option value="Data Analysis">Data Analysis</option>
+                <option value="Backend Development">Backend Development</option>
               </select>
             </div>
             <div>
@@ -127,7 +157,8 @@ export default function MyCourses() {
           </div>
         </section>
 
-        <div>{message}</div>
+        {message && <div className={styles.message}>{message}</div>}
+
         <section className={styles.listSection}>
           <MyCoursesGrid
             courses={courses}

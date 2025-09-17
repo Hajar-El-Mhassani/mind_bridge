@@ -1,8 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./AddCourse.module.css";
 
 export default function AddCourse() {
+  const { user, isAuthenticated, loading: authLoading } = useAuth();
+  const router = useRouter();
+
   const categories = [
     "Web Development",
     "Data Science",
@@ -24,16 +29,26 @@ export default function AddCourse() {
     level: difficultyLevels[0],
     price: "1",
     duration: "1",
-    created_by: "1", // string since FormData sends strings. temp value, replace with actual user ID with authJWT
+    created_by: "",
   });
 
   const [thumbnail, setThumbnail] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("/courses/course-3.png");
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState(null); //  new state for success/error message
-  const [messageType, setMessageType] = useState(null); // "success" | "error"
+  const [message, setMessage] = useState(null);
+  const [messageType, setMessageType] = useState(null);
 
-  // update preview when file changes
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) {
+      router.push("/auth");
+    } else if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        created_by: user.id,
+      }));
+    }
+  }, [isAuthenticated, authLoading, user, router]);
+
   useEffect(() => {
     if (!thumbnail) return;
     const objectUrl = URL.createObjectURL(thumbnail);
@@ -85,16 +100,22 @@ export default function AddCourse() {
     if (thumbnail) data.append("thumbnail", thumbnail);
 
     try {
-      const res = await fetch("http://localhost:3001/api/add-course", {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-course`, {
         method: "POST",
         body: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const result = await res.json();
 
       if (res.ok) {
         setMessage("Course created successfully!");
         setMessageType("success");
-        console.log(result);
+        setTimeout(() => {
+          router.push("/my-courses");
+        }, 2000);
       } else {
         setMessage(" " + (result.error || "Failed to create course"));
         setMessageType("error");
@@ -106,6 +127,22 @@ export default function AddCourse() {
     }
   };
 
+  if (authLoading) {
+    return (
+      <div className={styles.addCourseContainer}>
+        <div className={styles.loadingMessage}>Loading...</div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className={styles.addCourseContainer}>
+        <div className={styles.loadingMessage}>Redirecting...</div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.addCourseContainer}>
       <h2 className={styles.title}>Add New Course</h2>
@@ -114,7 +151,6 @@ export default function AddCourse() {
       </p>
 
       <form className={styles.courseForm} onSubmit={handleSubmit}>
-        {/* Title */}
         <div className={styles.formGroup}>
           <label>Course Title</label>
           <input
@@ -127,7 +163,6 @@ export default function AddCourse() {
           {errors.title && <p className={styles.errorText}>{errors.title}</p>}
         </div>
 
-        {/* Status */}
         <div className={styles.formGroup}>
           <label>Course Status</label>
           <select
@@ -145,7 +180,6 @@ export default function AddCourse() {
           {errors.status && <p className={styles.errorText}>{errors.status}</p>}
         </div>
 
-        {/* Description */}
         <div className={`${styles.formGroup} ${styles.fullWidth}`}>
           <label>Course Description</label>
           <textarea
@@ -160,7 +194,6 @@ export default function AddCourse() {
           )}
         </div>
 
-        {/* Category */}
         <div className={styles.formGroup}>
           <label>Course Category</label>
           <select
@@ -180,7 +213,6 @@ export default function AddCourse() {
           )}
         </div>
 
-        {/* Difficulty */}
         <div className={styles.formGroup}>
           <label>Difficulty Level</label>
           <select
@@ -198,7 +230,6 @@ export default function AddCourse() {
           {errors.level && <p className={styles.errorText}>{errors.level}</p>}
         </div>
 
-        {/* Thumbnail */}
         <div className={`${styles.formGroup} ${styles.fullWidth}`}>
           <label>Course Thumbnail</label>
           <div className={styles.thumbnailUpload}>
@@ -214,7 +245,6 @@ export default function AddCourse() {
           </div>
         </div>
 
-        {/* Price */}
         <div className={styles.formGroup}>
           <label>Course Price</label>
           <input
@@ -227,7 +257,6 @@ export default function AddCourse() {
           {errors.price && <p className={styles.errorText}>{errors.price}</p>}
         </div>
 
-        {/* Duration */}
         <div className={styles.formGroup}>
           <label>Course Duration (hours)</label>
           <input
@@ -242,7 +271,6 @@ export default function AddCourse() {
           )}
         </div>
 
-        {/* Buttons */}
         <div className={`${styles.formActions} ${styles.fullWidth}`}>
           <button type="button" className={styles.cancelBtn}>
             Cancel
@@ -253,7 +281,6 @@ export default function AddCourse() {
         </div>
       </form>
 
-      {/* ✅ Bottom message */}
       {message && (
         <p
           className={

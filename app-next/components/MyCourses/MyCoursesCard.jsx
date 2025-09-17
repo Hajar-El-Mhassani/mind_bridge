@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./MyCourses.module.css";
 import { FaEdit, FaUsers, FaTrash } from "react-icons/fa";
+import {useRouter} from "next/navigation";
 
 export default function MyCourseCard({
   id,
@@ -11,6 +12,7 @@ export default function MyCourseCard({
   courseDeleteRequested,
 }) {
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
+  const router = useRouter();
 
   return (
     <div className={styles.card}>
@@ -36,7 +38,7 @@ export default function MyCourseCard({
         </div>
       </div>
       <div className={styles.btnContainer}>
-        <button className={styles.btnEdit}>
+        <button className={styles.btnEdit} onClick={(e) => router.push(`/my-courses/${id}/edit`)}>
           <FaEdit /> Edit
         </button>
         <button

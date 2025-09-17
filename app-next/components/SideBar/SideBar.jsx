@@ -4,9 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./SideBar.module.css";
 import { FaUser, FaBookOpen, FaPlusCircle, FaEnvelope } from "react-icons/fa";
+import { RiBookShelfLine } from "react-icons/ri";
 
 export default function SideBar() {
   const NAV_ITEMS = [
+    {
+      href: "/public-courses",
+      label: "View all courses",
+      icon: <RiBookShelfLine />,
+    },
     { href: "/profile", label: "Profile", icon: <FaUser /> },
     { href: "/my-courses", label: "My Courses", icon: <FaBookOpen /> },
     { href: "/add-courses", label: "Add Course", icon: <FaPlusCircle /> },
