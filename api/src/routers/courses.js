@@ -2,8 +2,11 @@
 import { courseSchema, partialCourseSchema } from "../schemas/courseSchema.js";
  */
 import express from "express";
+
 import { StatusCodes } from "http-status-codes";
+
 import knex from "../database_client.js";
+
 import { upload } from "../middlewares/multer.js";
 import { authenticateToken } from "../middlewares/auth.js";
 const coursesRouter = express.Router();
@@ -106,6 +109,53 @@ coursesRouter.get("/courses", async (req, res) => {
     console.log(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
+});
+  
+ coursesRouter.get("/courses/:id", async (req, res) => {
+
+ const { id } = req.params;
+
+ try {
+
+ const course = await knex("courses").where({ id }).first();
+
+ if (!course) {
+
+ return res.status(StatusCodes.NOT_FOUND).json({ message: "Course not found" });
+
+}
+
+ const lessons = await knex("lessons").where({ course_id: id });
+
+
+
+ const baseUrl = `${req.protocol}://${req.get("host")}`;
+
+const formattedCourse = {
+
+ ...course,
+
+ image: course.image ? `${baseUrl}${course.image}` : null,
+
+   lessons: lessons.map(lesson => ({
+
+ ...lesson,
+
+
+ })),
+
+ };
+
+ res.status(StatusCodes.OK).json(formattedCourse);
+
+ } catch (error) {
+
+ console.error("Error fetching course details:", error);
+
+ res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
+
+ }
+
 });
 
 coursesRouter.get("/course-authors", async (req, res) => {
