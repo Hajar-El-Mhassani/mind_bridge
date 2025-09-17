@@ -10,7 +10,7 @@ export default function SideBar() {
     { href: "/profile", label: "Profile", icon: <FaUser /> },
     { href: "/my-courses", label: "My Courses", icon: <FaBookOpen /> },
     { href: "/add-courses", label: "Add Course", icon: <FaPlusCircle /> },
-    { href: "/contact-us", label: "Contact Us", icon: <FaEnvelope /> },
+    { href: "/contact-user", label: "Contact Us", icon: <FaEnvelope /> },
   ];
 
   const pathname = usePathname();
