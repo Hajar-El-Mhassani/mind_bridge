@@ -16,7 +16,7 @@ export default function PublicCourses() {
 
   const fetchCourseAuthors = async () => {
     const authorsResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/course-authors`
+      `${process.env.NEXT_PUBLIC_API_URL}/course-authors`
     )
       .then((response) => response.json())
       .catch((e) => {

@@ -100,20 +100,17 @@
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #6b7280; /* gray-500 */
+  color: #6b7280; 
   font-size: 14px;
 }
 
 .searchInput {
   flex: 1 1 auto;
-  /* min-width: 12rem;
-  max-width: 100%; */
   padding: 0.75rem 0.75rem 0.75rem 2.5rem;
   border: 0.0625rem solid #d1d5db;
   border-radius: 0.375rem;
   font-size: 0.9rem;
   width: 100%;
-  /* gap: 2rem; */
 }
 
 .filterSelect {
@@ -196,7 +193,8 @@
 }
 
 .category {
-  width: 4rem;
+  width: auto;
+  text-align: center;
   margin-bottom: 0.5rem;
   font-size: 12px;
   background: #cacbcd;
@@ -265,6 +263,7 @@
   padding: 1rem;
 }
 .btnEdit {
+    text-decoration: none;
   align-self: center;
   background: white;
   color: black;
