@@ -1,5 +1,10 @@
+"use client";
 import styles from "./ContactUs.module.css";
+import ContactHero from "./ContactHero";
 import { useState } from "react";
+import { FaHome } from "react-icons/fa";
+import { SlEnvolope } from "react-icons/sl";
+import { MdAddCall } from "react-icons/md";
 export default function Contact() {
   const [sent, setSent] = useState(false);
   const handleSubmit = (e) => {
@@ -7,43 +12,60 @@ export default function Contact() {
     setSent(true); // Just show message (no backend)
   };
   return (
-    <section className={styles.contactPage}>
+    <>
       {/* Title Section */}
-      <div className={styles.titleSection}>
-        <h1>Contact Us</h1>
-      </div>
-
-      {/* Form + Info */}
-      <div className={styles.contactContainer}>
-        {/* Left Form */}
-        <form className={styles.contactForm} onSubmit={handleSubmit}>
-          <h1>Get Your touch</h1>
-          <div className={styles.row}>
-            <input type="text" placeholder="Your Name *" />
-            <input type="email" placeholder="Email *" />
-          </div>
-          <input type="text" placeholder="Subject *" />
-          <textarea rows="5" placeholder="Your Message *"></textarea>
-          <button type="submit">Send Message</button>
-          {sent && (
-            <p className={styles.successMessage}>Message sent successfully!</p>
-          )}
-        </form>
-
-        {/* Right Info */}
-        <div className={styles.contactInfo}>
-          <h3>Address</h3>
-          <p>Copenhagen, Denmark - 2500</p>
-
-          <h3>Contact</h3>
-          <p>+45 26 83 07 52</p>
-          <p>example@gmail.com</p>
-
-          <h3>Open Time</h3>
-          <p>Mon - Fri: 10:00 - 20:00</p>
-          <p>Sat - Sun: 11:00 - 18:00</p>
+      <ContactHero />
+      <section className={styles.contactInfoSection}>
+        <div className={styles.infoCard}>
+          <span className={styles.icon}>
+            <FaHome />
+          </span>
+          <h3>VISIT US</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p className={styles.highlight}>2 Elizabeth St. London, UK</p>
         </div>
-      </div>
+
+        <div className={styles.infoCard}>
+          <span className={styles.icon}>
+            <MdAddCall />
+          </span>
+          <h3>CALL US</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p className={styles.highlight}>+44 (0) 203 116 7711</p>
+        </div>
+
+        <div className={styles.infoCard}>
+          <span className={styles.icon}>
+            <SlEnvolope />
+          </span>
+          <h3>CONTACT US</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p className={styles.highlight}>noreply@noland.com</p>
+        </div>
+      </section>
+
+      <section className={styles.contactPage}>
+        {/* Form + Info */}
+        <div className={styles.contactContainer}>
+          {/* Left Form */}
+          <form className={styles.contactForm} onSubmit={handleSubmit}>
+            <h1>send us a message</h1>
+            <div className={styles.row}>
+              <input type="text" placeholder="First Name *" />
+              <input type="text" placeholder=" Last Name *" />
+            </div>
+            <input type="email" placeholder="Email *" />
+            <input type="text" placeholder="Subject *" />
+            <textarea rows="5" placeholder="Your Message *"></textarea>
+            <button type="submit">Send Message</button>
+            {sent && (
+              <p className={styles.successMessage}>
+                Message sent successfully!
+              </p>
+            )}
+          </form>
+        </div>
+      </section>
 
       {/* Map */}
       <div className={styles.map}>
@@ -55,6 +77,6 @@ export default function Contact() {
           loading="lazy"
         ></iframe>
       </div>
-    </section>
+    </>
   );
 }

@@ -3,65 +3,25 @@
   color: #333;
 }
 
-/* Title (Hero Section) */
-.titleSection {
-  background-color: #04080992;
-  color: white;
-  text-align: center;
-  padding: 40px 20px 30px 20px;
-  position: relative;
-  width: 100%;
-  min-height: 100px;
-  min-width: 0; /*  allow shrinking */
-  overflow: hidden; /* prevent horizontal scroll */
-}
-
-.titleSection::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.titleSection h1,
-.titleSection p {
-  position: relative;
-  z-index: 1;
-  max-width: 100%; /* don’t overflow container */
-  word-break: break-word; /*  break long words */
-  overflow-wrap: anywhere; /* force wrap if too long */
-}
-
-.titleSection h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.titleSection p {
-  font-size: 1.2rem;
-}
-
-/* Container (Form + Info) */
+/* Container (Form ) */
 .contactContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #c2e6fc;
   width: 100%;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   min-width: 0; /* allow shrinking under 250px */
 }
 
-.contactForm,
-.contactInfo {
+.contactForm {
   min-width: 0; /* children can also shrink */
 }
 /* Form */
 .contactForm {
+  width: 40%;
   background: #fff;
   padding: 5px 30px;
   border-radius: 8px;
@@ -87,11 +47,6 @@
   min-width: 0; /* allow shrinking */
   overflow-wrap: anywhere;
   word-break: break-word;
-}
-
-.contactInfo h3,
-.contactInfo p {
-  max-width: 100%; /* don’t overflow container */
 }
 
 .row {
@@ -170,6 +125,62 @@
   min-height: 250px; /* don’t shrink below this */
   border: none;
   border-radius: 8px;
+}
+.contactInfoSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+}
+
+.infoCard {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+}
+
+.infoCard:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 2rem;
+  color: #009dff;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.infoCard h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.infoCard p {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0.3rem 0;
+}
+
+.highlight {
+  color: #ff6600;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contactInfoSection {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }
 
 /* Responsive */
