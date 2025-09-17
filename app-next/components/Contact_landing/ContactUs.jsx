@@ -21,8 +21,11 @@ export default function Contact() {
             <FaHome />
           </span>
           <h3>VISIT US</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p className={styles.highlight}>2 Elizabeth St. London, UK</p>
+          <h3>VISIT US</h3>
+          <p>You can find us at our main office:</p>
+          <p className={styles.highlight}>
+            MindBridge Building 1, Copenhagen, Denmark
+          </p>
         </div>
 
         <div className={styles.infoCard}>
@@ -30,8 +33,8 @@ export default function Contact() {
             <MdAddCall />
           </span>
           <h3>CALL US</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p className={styles.highlight}>+44 (0) 203 116 7711</p>
+          <p>Our support team is available Mon–Fri, 9AM–6PM:</p>
+          <p className={styles.highlight}>+45 75 63 73 92</p>
         </div>
 
         <div className={styles.infoCard}>
@@ -39,8 +42,8 @@ export default function Contact() {
             <SlEnvolope />
           </span>
           <h3>CONTACT US</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p className={styles.highlight}>noreply@noland.com</p>
+          <p>Send us your questions or feedback anytime:</p>
+          <p className={styles.highlight}>support@example.com</p>
         </div>
       </section>
 
