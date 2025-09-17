@@ -1,6 +1,6 @@
 "use client";
 
-import { FaSearch, FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa";
 import styles from "./TopBar.module.css";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";

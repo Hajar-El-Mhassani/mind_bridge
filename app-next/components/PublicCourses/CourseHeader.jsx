@@ -16,7 +16,7 @@ export default function CourseHeader({
   sort,
   onSortChange,
 }) {
-  // console.log(authors)
+  
   return (
     <div className={styles.courseHeaderContainer}>
       <div className={styles.courseHeaderWrapper}>
