@@ -80,7 +80,8 @@
   font-size: 14px;
 }
 .loginBtn:hover {
-  background: #0b5ed7;
+  background: #07a4ff;
+  color: #fff;
 }
 .icon {
   margin-right: 6px;
