@@ -59,7 +59,7 @@ export default function Navbar() {
         { href: "/profile", label: "My Profile" },
         { href: "public-courses", label: "Courses" },
         { href: "/about", label: "About Us" },
-        { href: "/contact", label: "Contact Us" },
+        { href: "/contact-us", label: "Contact Us" },
       ];
     }
     return NAV;
