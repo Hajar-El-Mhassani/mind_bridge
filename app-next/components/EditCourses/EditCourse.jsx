@@ -125,7 +125,7 @@ export default function EditCourse() {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/my-courses/${id}`,
         {
-          method: "POST",
+          method: "PUT",
           body: data,
           headers: {
             Authorization: `Bearer ${token}`,

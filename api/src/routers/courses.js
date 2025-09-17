@@ -246,7 +246,7 @@ coursesRouter.post(
   }
 );
 
-coursesRouter.post(
+coursesRouter.put(
   "/my-courses/:id",
   authenticateToken,
   upload.single("thumbnail"), // handle file upload
