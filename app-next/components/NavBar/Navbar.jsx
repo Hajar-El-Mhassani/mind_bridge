@@ -1,10 +1,10 @@
 "use client";
 
-import { FaSignInAlt } from "react-icons/fa";
-
+import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./Navbar.module.css";
 
 const NAV = [
@@ -18,17 +18,23 @@ const DESKTOP_BP = 980;
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { isAuthenticated, logout, loading } = useAuth();
   const [open, setOpen] = useState(false);
 
-  // Close menu when clicking a link or the logo
   const handleLinkClick = () => setOpen(false);
 
-  // Auto-close when route changes
+  const handleLogout = (e) => {
+    e.preventDefault();
+    logout();
+    setOpen(false);
+    router.push("/");
+  };
+
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  //  Auto-close when resizing to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= DESKTOP_BP && open) {
@@ -36,7 +42,6 @@ export default function Navbar() {
       }
     };
 
-    // run once on mount (handles SSR -> client width)
     handleResize();
 
     window.addEventListener("resize", handleResize);
@@ -47,11 +52,23 @@ export default function Navbar() {
     };
   }, [open]);
 
+  const getNavigation = () => {
+    if (isAuthenticated) {
+      return [
+        { href: "/", label: "Home" },
+        { href: "/profile", label: "My Profile" },
+        { href: "public-courses", label: "Courses" },
+        { href: "/about", label: "About Us" },
+        { href: "/contact", label: "Contact Us" },
+      ];
+    }
+    return NAV;
+  };
+
   return (
     <>
       <header className={styles.header}>
         <div className={styles.bar}>
-          {/* Logo */}
           <Link
             href="/"
             className={`${styles.logoLink}  ${styles.caps}`}
@@ -66,10 +83,9 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Right side (desktop) */}
           <div className={styles.right}>
             <nav className={styles.links} aria-label="Primary">
-              {NAV.map((l) => {
+              {getNavigation().map((l) => {
                 const active =
                   pathname === l.href || pathname.startsWith(`${l.href}/`);
                 return (
@@ -87,16 +103,28 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Desktop login */}
-            <Link
-              href="/login"
-              className={styles.loginBtn}
-              onClick={handleLinkClick}
-            >
-              Login
-            </Link>
+            {!loading && (
+              <>
+                {isAuthenticated ? (
+                  <Link
+                    href="#"
+                    onClick={handleLogout}
+                    className={styles.loginBtn}
+                  >
+                    Logout
+                  </Link>
+                ) : (
+                  <Link
+                    href="/auth"
+                    className={styles.loginBtn}
+                    onClick={handleLinkClick}
+                  >
+                    Login
+                  </Link>
+                )}
+              </>
+            )}
 
-            {/* Hamburger (mobile) */}
             <button
               className={styles.burger}
               aria-label="Toggle menu"
@@ -114,7 +142,7 @@ export default function Navbar() {
       {/* Mobile dropdown (column) */}
       {open && (
         <div className={styles.mobile} role="dialog" aria-modal="true">
-          {NAV.map((l) => (
+          {getNavigation().map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -124,17 +152,32 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link
-            href="/login"
-            onClick={handleLinkClick}
-            className={`${styles.mLogin}`}
-          >
-            <FaSignInAlt className={styles.icon} /> Login
-          </Link>
+
+          {/* Mobile login/logout */}
+          {!loading && (
+            <>
+              {isAuthenticated ? (
+                <Link
+                  href="#"
+                  onClick={handleLogout}
+                  className={`${styles.mLogin}`}
+                >
+                  <FaSignOutAlt className={styles.icon} /> Logout
+                </Link>
+              ) : (
+                <Link
+                  href="/auth"
+                  onClick={handleLinkClick}
+                  className={`${styles.mLogin}`}
+                >
+                  <FaSignInAlt className={styles.icon} /> Login
+                </Link>
+              )}
+            </>
+          )}
         </div>
       )}
 
-      {/* Spacer so content isn't hidden under fixed navbar */}
       <div className={styles.spacer} />
     </>
   );

@@ -136,3 +136,10 @@
 .saveBtn:hover {
   background: #1e4db7;
 }
+
+.loadingMessage {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: #666;
+}

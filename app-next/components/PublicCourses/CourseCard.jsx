@@ -1,6 +1,8 @@
+import Link from "next/link";
 import styles from "./Courses.module.css";
 
 export default function CourseCard({
+  id, 
   category,
   level,
   image,
@@ -38,7 +40,10 @@ export default function CourseCard({
         <p className={styles.desc}>{description}</p>
         <div className={styles.price}>{price === 0 ? "Free" : `$${price}`}</div>
       </div>
-      <button className={styles.button}>Enroll Now</button>
+      
+      <Link href={`/${id}`}>
+        <button className={styles.button}>View Details</button>
+      </Link>
     </div>
   );
 }
