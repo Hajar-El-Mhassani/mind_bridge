@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import styles from "./AddCourse.module.css";
 
 export default function AddCourse() {
-  const { user, isAuthenticated, loading: authLoading } = useAuth();
+  const { isAuthenticated, loading: authLoading } = useAuth();
   const router = useRouter();
 
   const categories = [
@@ -29,7 +29,6 @@ export default function AddCourse() {
     level: difficultyLevels[0],
     price: "1",
     duration: "1",
-    created_by: "",
   });
 
   const [thumbnail, setThumbnail] = useState(null);
@@ -41,13 +40,8 @@ export default function AddCourse() {
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
       router.push("/auth");
-    } else if (user) {
-      setFormData((prev) => ({
-        ...prev,
-        created_by: user.id,
-      }));
     }
-  }, [isAuthenticated, authLoading, user, router]);
+  }, [isAuthenticated, authLoading, router]);
 
   useEffect(() => {
     if (!thumbnail) return;
@@ -151,6 +145,7 @@ export default function AddCourse() {
       </p>
 
       <form className={styles.courseForm} onSubmit={handleSubmit}>
+        {/* Title */}
         <div className={styles.formGroup}>
           <label>Course Title</label>
           <input
@@ -163,6 +158,7 @@ export default function AddCourse() {
           {errors.title && <p className={styles.errorText}>{errors.title}</p>}
         </div>
 
+        {/* Status */}
         <div className={styles.formGroup}>
           <label>Course Status</label>
           <select
@@ -180,6 +176,7 @@ export default function AddCourse() {
           {errors.status && <p className={styles.errorText}>{errors.status}</p>}
         </div>
 
+        {/* Description */}
         <div className={`${styles.formGroup} ${styles.fullWidth}`}>
           <label>Course Description</label>
           <textarea
@@ -194,6 +191,7 @@ export default function AddCourse() {
           )}
         </div>
 
+        {/* Category */}
         <div className={styles.formGroup}>
           <label>Course Category</label>
           <select
@@ -213,6 +211,7 @@ export default function AddCourse() {
           )}
         </div>
 
+        {/* Level */}
         <div className={styles.formGroup}>
           <label>Difficulty Level</label>
           <select
@@ -230,6 +229,7 @@ export default function AddCourse() {
           {errors.level && <p className={styles.errorText}>{errors.level}</p>}
         </div>
 
+        {/* Thumbnail */}
         <div className={`${styles.formGroup} ${styles.fullWidth}`}>
           <label>Course Thumbnail</label>
           <div className={styles.thumbnailUpload}>
@@ -245,24 +245,26 @@ export default function AddCourse() {
           </div>
         </div>
 
+        {/* Price */}
         <div className={styles.formGroup}>
           <label>Course Price</label>
           <input
             type="number"
             name="price"
-            value={formData.price}
+            value={formData.price.toString()}
             onChange={handleChange}
             className={errors.price ? styles.errorInput : ""}
           />
           {errors.price && <p className={styles.errorText}>{errors.price}</p>}
         </div>
 
+        {/* Duration */}
         <div className={styles.formGroup}>
           <label>Course Duration (hours)</label>
           <input
             type="number"
             name="duration"
-            value={formData.duration}
+            value={formData.duration.toString()}
             onChange={handleChange}
             className={errors.duration ? styles.errorInput : ""}
           />
