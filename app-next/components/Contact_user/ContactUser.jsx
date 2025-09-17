@@ -29,7 +29,7 @@ export default function ContactUser() {
             <span className={styles.icon}>
               <SlEnvolope />
             </span>
-            support@example.com
+            support@mindbridge.com
           </p>
           <p>
             <span className={styles.icon}>
