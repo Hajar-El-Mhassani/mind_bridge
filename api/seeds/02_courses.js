@@ -1,234 +1,149 @@
-import express from "express";
-import { StatusCodes } from "http-status-codes";
-import knex from "../database_client.js";
-import { upload } from "../middlewares/multer.js";
+export async function seed(knex) {
+  // Delete existing rows
+  await knex("courses").del();
 
-const coursesRouter = express.Router();
-
-// get all courses
-coursesRouter.get("/courses", async (req, res) => {
-try {
- let query = knex("courses").select(
-"courses.id",
-"title",
- "description",
- "courses.image",
- "price",
- "level",
- "status",
- "category",
- "duration",
- "created_by",
- "courses.created_at",
- "courses.updated_at"
- );
-
- const search = req.query.search;
- if (typeof search === "string" && search.length > 0) {
- query = query.where((qb) => {
- qb.where("title", "ilike", `%${search}%`).orWhere(
- "description",
- "ilike",
- `%${search}%`
-);
-});
-}
-
- const category = req.query.category;
- if (typeof category === "string" && category.length > 0 && category !== "All") {
- query = query.where("category", "=", `${category}`);
-}
-
- const level = req.query.level;
- if (typeof level === "string" && level.length > 0 && level !== "All") {
- query = query.where("level", "=", `${level}`);
- }
- const createdBy = req.query.created_by;
- if (createdBy && !isNaN(createdBy) && createdBy > 0) {
- query = query.where("created_by", "=", `${createdBy}`);
- }
-
- const price = req.query.price;
- if (typeof price === "string" && price.length > 0 && price !== "All") {
- switch (price) {
- case "free":
- query = query.where("price", "=", 0);
- break;
- case "paid":
- query = query.where("price", ">", 0);
- break;
- }
- }
-
- const sort = req.query.sort;
- if (typeof sort === "string" && sort.length > 0) {
- switch (sort) {
- case "newest":
- query = query.orderBy("created_at", "desc");
- break;
- case "lowest-price":
- query = query.orderBy("price", "asc");
- break;
- case "highest-price":
- query = query.orderBy("price", "desc");
- break;
- }
- } else {
- query = query.orderBy("created_at", "desc");
- }
-
- const courses = await query;
-
-const baseUrl = `${req.protocol}://${req.get("host")}`;
- const formattedCourses = courses.map((course) => ({
- ...course,
- image: course.image ? `${baseUrl}${course.image}` : null,
- }));
-
- res.json(formattedCourses);
- } catch (e) {
- console.log(e);
- res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
- }
-});
-
-// GET a single course by ID
-coursesRouter.get("/courses/:id", async (req, res) => {
- const { id } = req.params;
-
- try {
- const course = await knex("courses").where({ id }).first();
-
- if (!course) {
- return res.status(StatusCodes.NOT_FOUND).json({ message: "Course not found" });
-}
- 
- // Fetch lessons for this course
- const lessons = await knex("lessons").where({ course_id: id }).orderBy('order', 'asc');
-
- const baseUrl = `${req.protocol}://${req.get("host")}`;
-const formattedCourse = {
- ...course,
- image: course.image ? `${baseUrl}${course.image}` : null,
-   lessons: lessons.map(lesson => ({ // Add lessons to the course object
- ...lesson,
- // If lessons also have images or other URLs that need prefixing, do it here
- })),
- };
- 
- res.status(StatusCodes.OK).json(formattedCourse);
- } catch (error) {
- console.error("Error fetching course details:", error);
- res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
- }
-});
-
-//  Fetch the list of authors to use in UI when filtering courses by author name
-coursesRouter.get("/course-authors", async (req, res) => {
-try {
- let query = knex("courses")
- .distinct()
- .select(
- "created_by",
- "users.name as creator_name" 
- )
- .leftJoin("users", "courses.created_by", "users.id")
- .orderBy("creator_name");
-
- const creators = await query;
- res.json(creators);
- } catch (e) {
- console.log(e);
- res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
- }
-});
-
-//GET all courses created by logged-in user
-coursesRouter.get("/my-courses", async (req, res) => {
- try {
- let query = knex("courses").select(
- "id",
- "title",
- "description",
- "image",
- "price",
- "level",
- "status",
- "category",
- "duration",
- "created_by",
- "created_at",
- "updated_at"
-);
-
- const search = req.query.search;
- if (typeof search === "string" && search.length > 0) {
- query = query.where((qb) => {
- qb.where("title", "ilike", `%${search}%`).orWhere(
- "description",
- "ilike",
- `%${search}%`
- );
- });
- }
- const category = req.query.category;
- if (typeof category === "string" && category.length > 0 && category !== "All") {
- query = query.where("category", "=", `${category}`);
- }
- query = query.where("created_by", 1);
- console.log(query.toSQL());
- const courses = await query;
-
- const baseUrl = `${req.protocol}://${req.get("host")}`;
- const formattedCourses = courses.map((course) => ({
- ...course,
- image: course.image ? `${baseUrl}${course.image}` : null,
- }));
-
- res.json(formattedCourses);
- } catch (e) {
- res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
- }
-});
-
-coursesRouter.post(
- "/add-course",
- upload.single("thumbnail"),
- async (req, res) => {
- console.log("Request body:", req.body);
- try {
- const data = { ...req.body };
- const user = await knex("users").where({ id: data.created_by }).first();
- if (!user) {
- return res.status(400).json({ error: "Invalid created_by: user not found" });
- }
- if (req.file) {
- data.image = `/uploads/courses/${req.file.filename}`;
- } else {
- data.image = "/uploads/courses/default-course.png"; 
- }
- const [course] = await knex("courses").insert(data).returning("*");
- res.status(201).json({ message: "Course created successfully", course });
- } catch (err) {
- console.error("Error creating course:", err);
- res.status(500).json({ error: "Internal server error" });
- }
- }
-);
-
-coursesRouter.delete("/my-courses/:id", async (req, res) => {
- try {
- const id = req.params.id;
- if (id && !isNaN(id) && id > 0) {
- await knex("courses").where({ id: id }).delete();
- res.status(StatusCodes.OK).send("success");
- } else {
- res.status(StatusCodes.BAD_REQUEST).json({ error: "Invalid id value" });
- }
- } catch (e) {
- console.log(e);
- res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
- }
-});
-
-export default coursesRouter;
+  await knex("courses").insert([
+    {
+      title: "Full-Stack Web Development 101",
+      description:
+        "Build modern web apps end-to-end with React, Node, and PostgreSQL.",
+      image: "/uploads/courses/1.jpg",
+      price: 0,
+      category: "Web Dev",
+      status: "published",
+      level: "beginner",
+      duration: 40,
+      created_by: 1,
+    },
+    {
+      title: "Python for Data Analysis",
+      description:
+        "Clean, transform, and visualize data with Pandas and Jupyter.",
+      image: "/uploads/courses/2.jpg",
+      price: 0,
+      category: "Data Science",
+      status: "published",
+      level: "beginner",
+      duration: 35,
+      created_by: 2,
+    },
+    {
+      title: "Design Systems Fundamentals",
+      description:
+        "Create scalable UI foundations with tokens, components, and docs.",
+      image: "/uploads/courses/3.jpg",
+      price: 0,
+      category: "UI/UX",
+      status: "archived",
+      level: "beginner",
+      duration: 20,
+      created_by: 3,
+    },
+    {
+      title: "Deploying Apps on Render",
+      description: "Ship full-stack apps using Render services, envs, and CI.",
+      image: "/uploads/courses/4.jpg",
+      price: 0,
+      category: "Cloud",
+      status: "published",
+      level: "beginner",
+      duration: 25,
+      created_by: 4,
+    },
+    {
+      title: "DevOps with CI/CD",
+      description:
+        "Automate builds, tests, and deployments with GitHub Actions and pipelines.",
+      image: "/uploads/courses/5.jpeg",
+      price: 0,
+      category: "DevOps",
+      status: "published",
+      level: "beginner",
+      duration: 30,
+      created_by: 5,
+    },
+    {
+      title: "Intro to Machine Learning with scikit-learn",
+      description:
+        "Train, evaluate, and deploy classic ML models using Python and scikit-learn.",
+      image: "/uploads/courses/6.jpg",
+      price: 0,
+      category: "AI/ML",
+      status: "archived",
+      level: "beginner",
+      duration: 45,
+      created_by: 6,
+    },
+    {
+      title: "Web Security Essentials",
+      description:
+        "Protect apps with XSS/CSRF prevention, secure auth, and OWASP best practices.",
+      image: "/uploads/courses/7.jpg",
+      price: 0,
+      category: "Security",
+      status: "published",
+      level: "beginner",
+      duration: 20,
+      created_by: 7,
+    },
+    {
+      title: "Go for Backend Services",
+      description:
+        "Build fast, concurrent APIs with Go, net/http, and database integrations.",
+      image: "/uploads/courses/8.png",
+      price: 0,
+      category: "Web Dev",
+      status: "draft",
+      level: "beginner",
+      duration: 50,
+      created_by: 8,
+    },
+    {
+      title: "TypeScript Deep Dive",
+      description:
+        "Types, generics, utility types, and patterns for large-scale React/Node apps.",
+      image: "/uploads/courses/9.webp",
+      price: 0,
+      category: "TypeScript",
+      status: "published",
+      level: "beginner",
+      duration: 40,
+      created_by: 9,
+    },
+    {
+      title: "Testing JavaScript Applications",
+      description:
+        "Unit, integration, and E2E testing with Jest, Testing Library, and Playwright.",
+      image: "/uploads/courses/10.avif",
+      price: 0,
+      category: "Testing",
+      status: "draft",
+      level: "beginner",
+      duration: 25,
+      created_by: 10,
+    },
+    {
+      title: "Docker & Kubernetes Fundamentals",
+      description:
+        "Containerize apps, write Dockerfiles, and orchestrate with Kubernetes basics.",
+      image: "/uploads/courses/default.jpg",
+      price: 0,
+      category: "Docker",
+      status: "archived",
+      level: "beginner",
+      duration: 30,
+      created_by: 11,
+    },
+    {
+      title: "Technical Interview Prep",
+      description:
+        "Ace coding interviews with DS&A practice, system design, and soft skills.",
+      image: "/uploads/courses/12.jpg",
+      price: 0,
+      category: "Career",
+      status: "draft",
+      level: "beginner",
+      duration: 15,
+      created_by: 12,
+    },
+  ]);
