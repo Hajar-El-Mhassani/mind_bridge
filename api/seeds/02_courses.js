@@ -146,4 +146,5 @@ export async function seed(knex) {
       duration: 15,
       created_by: 12,
     },
-  ]);
+  ])
+};
