@@ -1,88 +1,107 @@
+"use client";
 import styles from "./PopularCoursesSection.module.css";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+function PopularCourseCard({ course }) {
+  const [creatorName, setCreatorName] = useState(course.created_by);
+
+  useEffect(() => {
+    if (!isNaN(course.created_by)) {
+      fetchCreatorName(course.created_by);
+    }
+  }, [course.created_by]);
+
+  const fetchCreatorName = async (userId) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
+      );
+      const user = await response.json();
+      setCreatorName(user.name || "Unknown Author");
+    } catch (error) {
+      console.error("Failed to fetch creator name:", error);
+      setCreatorName("Unknown Author");
+    }
+  };
+
+  return (
+    <div className={styles.courseCard}>
+      <Image
+        src={course.image || "/courses/default-course.png"}
+        alt={course.title}
+        width={406}
+        height={192}
+        className={styles.courseImage}
+        onError={(e) => {
+          e.target.src = "/courses/default-course.png";
+        }}
+      />
+      <div className={styles.courseContent}>
+        <h3 className={styles.courseTitle}>{course.title}</h3>
+        <p className={styles.courseInstructor}>By {creatorName}</p>
+        <p className={styles.courseDescription}>{course.description}</p>
+        <div className={styles.courseFooter}>
+          <span className={styles.coursePrice}>
+            {course.price === 0 ? "Free" : `$${course.price}`}
+          </span>
+          <Link href={`/${course.id}`}>
+            <button className={styles.viewCourseButton}>View Course</button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function PopularCoursesSection() {
+  const [popularCourses, setPopularCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchPopularCourses();
+  }, []);
+
+  const fetchPopularCourses = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/courses`
+      );
+      const allCourses = await response.json();
+
+      const shuffled = allCourses.sort(() => 0.5 - Math.random());
+      const randomCourses = shuffled.slice(0, 3);
+
+      setPopularCourses(randomCourses);
+    } catch (error) {
+      console.error("Failed to fetch popular courses:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className={styles.container}>
+        <h2 className={styles.title}>Popular Courses at MindBridge</h2>
+        <div className={styles.coursesWrapper}>
+          <div>Loading popular courses...</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Popular Courses at MindBridge</h2>
 
       <div className={styles.coursesWrapper}>
-        <div className={styles.courseCard}>
-          <Image
-            src="/courses/course-1.png"
-            alt="Mastering Modern Web Development"
-            width={406}
-            height={192}
-            className={styles.courseImage}
-          />
-          <div className={styles.courseContent}>
-            <h3 className={styles.courseTitle}>
-              Mastering Modern Web Development
-            </h3>
-            <p className={styles.courseInstructor}>By Alice Johnson</p>
-            <p className={styles.courseDescription}>
-              Dive deep into the latest web technologies, building responsive
-              and dynamic applications from scratch. Learn React, Node.js, and
-              more.
-            </p>
-            <div className={styles.courseFooter}>
-              <span className={styles.coursePrice}>$199.99</span>
-              <button className={styles.viewCourseButton}>View Course</button>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.courseCard}>
-          <Image
-            src="/courses/course-2.png"
-            alt="Introduction to Data Science with Python"
-            width={406}
-            height={192}
-            className={styles.courseImage}
-          />
-          <div className={styles.courseContent}>
-            <h3 className={styles.courseTitle}>
-              Introduction to Data Science with Python
-            </h3>
-            <p className={styles.courseInstructor}>By Ben Carter</p>
-            <p className={styles.courseDescription}>
-              An essential guide to data science using Python. Cover data
-              analysis, machine learning fundamentals, and visualization
-              techniques.
-            </p>
-            <div className={styles.courseFooter}>
-              <span className={styles.coursePrice}>$249.99</span>
-              <button className={styles.viewCourseButton}>View Course</button>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.courseCard}>
-          <Image
-            src="/courses/course-3.png"
-            alt="Creative Graphic Design Fundamentals"
-            width={406}
-            height={192}
-            className={styles.courseImage}
-          />
-          <div className={styles.courseContent}>
-            <h3 className={styles.courseTitle}>
-              Creative Graphic Design Fundamentals
-            </h3>
-            <p className={styles.courseInstructor}>By Clara Diaz</p>
-            <p className={styles.courseDescription}>
-              Unleash your creativity with this course on graphic design. Learn
-              principles of design, typography, color theory, and software
-              essentials.
-            </p>
-            <div className={styles.courseFooter}>
-              <span className={styles.coursePrice}>$149.99</span>
-              <button className={styles.viewCourseButton}>View Course</button>
-            </div>
-          </div>
-        </div>
+        {popularCourses.map((course) => (
+          <PopularCourseCard key={course.id} course={course} />
+        ))}
       </div>
+
       <div className={styles.browseAllWrapper}>
         <Link href="/public-courses" className={styles.browseAllButton}>
           Browse All Courses
