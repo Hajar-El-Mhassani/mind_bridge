@@ -94,21 +94,12 @@ coursesRouter.get("/courses", async (req, res) => {
     }
 
     const courses = await query;
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
 
-    const formattedCourses = courses.map((course) => {
-      let imageUrl = null;
-
-      if (course.image) {
-        if (course.image.startsWith("http")) {
-          imageUrl = course.image; // already full URL (old records)
-        } else {
-          imageUrl = `${baseUrl}${course.image}`; // relative path (new records)
-        }
-      }
-
-      return { ...course, image: imageUrl };
-    });
+    // no need to prepend baseUrl, Cloudinary URLs are already complete
+    const formattedCourses = courses.map((course) => ({
+      ...course,
+      image: course.image || null,
+    }));
 
     res.json(formattedCourses);
   } catch (e) {
@@ -130,19 +121,11 @@ coursesRouter.get("/courses/:id", async (req, res) => {
     }
 
     const lessons = await knex("lessons").where({ course_id: id });
-
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
-
     const formattedCourse = {
       ...course,
-      image: course.image
-        ? course.image.startsWith("http")
-          ? course.image
-          : `${baseUrl}${course.image}`
-        : null,
+      image: course.image || null, // Cloudinary already gives full URL
       lessons,
     };
-
     res.status(StatusCodes.OK).json(formattedCourse);
   } catch (error) {
     console.error("Error fetching course details:", error);
@@ -212,17 +195,10 @@ coursesRouter.get("/my-courses", authenticateToken, async (req, res) => {
 
     const courses = await query;
 
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
-
     const formattedCourses = courses.map((course) => ({
       ...course,
-      image: course.image
-        ? course.image.startsWith("http")
-          ? course.image // already a full URL (Cloudinary or old full)
-          : `${baseUrl}${course.image}` // relative path
-        : null,
+      image: course.image || null, // Cloudinary already full URL
     }));
-
     res.status(StatusCodes.OK).json(formattedCourses);
   } catch (e) {
     console.log(e);
@@ -253,18 +229,11 @@ coursesRouter.get("/my-courses/:id", authenticateToken, async (req, res) => {
     console.log(query.toSQL());
     const course = await query;
 
-    // Normalize image URL
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
-
-    const formattedCourses = course.map((course) => ({
+    const formattedCourse = {
       ...course,
-      image: course.image
-        ? course.image.startsWith("http")
-          ? course.image // already a full URL (Cloudinary or old full)
-          : `${baseUrl}${course.image}` // relative path
-        : null,
-    }));
-    res.status(StatusCodes.OK).json(formattedCourses);
+      image: course.image || null, // Cloudinary already full URL
+    };
+    res.status(StatusCodes.OK).json(formattedCourse);
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
