@@ -135,12 +135,12 @@ coursesRouter.get("/courses/:id", async (req, res) => {
 
     const formattedCourse = {
       ...course,
-
-      image: course.image ? `${baseUrl}${course.image}` : null,
-
-      lessons: lessons.map((lesson) => ({
-        ...lesson,
-      })),
+      image: course.image
+        ? course.image.startsWith("http")
+          ? course.image
+          : `${baseUrl}${course.image}`
+        : null,
+      lessons,
     };
 
     res.status(StatusCodes.OK).json(formattedCourse);
@@ -216,10 +216,14 @@ coursesRouter.get("/my-courses", authenticateToken, async (req, res) => {
 
     const formattedCourses = courses.map((course) => ({
       ...course,
-      image: course.image ? `${baseUrl}${course.image}` : null,
+      image: course.image
+        ? course.image.startsWith("http")
+          ? course.image // already a full URL (Cloudinary or old full)
+          : `${baseUrl}${course.image}` // relative path
+        : null,
     }));
 
-    res.json(formattedCourses);
+    res.status(StatusCodes.OK).json(formattedCourses);
   } catch (e) {
     console.log(e);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
@@ -249,12 +253,18 @@ coursesRouter.get("/my-courses/:id", authenticateToken, async (req, res) => {
     console.log(query.toSQL());
     const course = await query;
 
-    // serve course image with full url
+    // Normalize image URL
     const baseUrl = `${req.protocol}://${req.get("host")}`;
 
-    course.image = course.image ? `${baseUrl}${course.image}` : null;
-
-    res.json(course);
+    const formattedCourses = course.map((course) => ({
+      ...course,
+      image: course.image
+        ? course.image.startsWith("http")
+          ? course.image // already a full URL (Cloudinary or old full)
+          : `${baseUrl}${course.image}` // relative path
+        : null,
+    }));
+    res.status(StatusCodes.OK).json(formattedCourses);
   } catch (e) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
@@ -278,7 +288,7 @@ coursesRouter.post(
       } else {
         // Use a placeholder image hosted in Cloudinary
         data.image =
-          "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1234567890/default.jpg";
+          "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758231129/default_ucp3wc.jpg";
       }
 
       const [course] = await knex("courses").insert(data).returning("*");
