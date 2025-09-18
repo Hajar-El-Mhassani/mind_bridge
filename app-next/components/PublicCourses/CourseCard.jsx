@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./Courses.module.css";
 import { useState, useEffect } from "react";
-import Image from "next/image";
+
 export default function CourseCard({
   id,
   category,
@@ -50,14 +50,7 @@ export default function CourseCard({
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
-        <Image
-          className={styles.image}
-          src={image}
-          alt={title}
-          width={400}
-          height={250}
-          priority={false}
-        />
+        <img className={styles.image} src={image} alt={title} />
         <div className={styles.badges}>
           <span className={styles.tag}>{category}</span>
           {level && <span className={getLevelBadgeClass(level)}>{level}</span>}
