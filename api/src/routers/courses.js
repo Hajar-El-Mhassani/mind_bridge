@@ -272,10 +272,13 @@ coursesRouter.post(
       // enforce authenticated user id
       data.created_by = req.user.id;
 
-      if (req.file) {
-        data.image = `/uploads/courses/${req.file.filename}`;
+      if (req.file && req.file.path) {
+        // Cloudinary gives you a secure URL in file.path
+        data.image = req.file.path;
       } else {
-        data.image = "/uploads/courses/default.jpg";
+        // Use a placeholder image hosted in Cloudinary
+        data.image =
+          "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1234567890/default.jpg";
       }
 
       const [course] = await knex("courses").insert(data).returning("*");
