@@ -50,7 +50,14 @@ export default function CourseCard({
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
-        <Image className={styles.image} src={image} alt={title} />
+        <Image
+          className={styles.image}
+          src={image}
+          alt={title}
+          width={400}
+          height={250}
+          priority={false}
+        />
         <div className={styles.badges}>
           <span className={styles.tag}>{category}</span>
           {level && <span className={getLevelBadgeClass(level)}>{level}</span>}
