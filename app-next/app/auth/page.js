@@ -1,19 +1,19 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./auth.module.css";
 
-export default function AuthPage() {
+function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login, register, loading, error, isAuthenticated, clearError } =
     useAuth();
   const hasRedirected = useRef(false);
 
-  const [mode, setMode] = useState(searchParams.get("mode") || "login");
+  const [mode, setMode] = useState("login");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +24,13 @@ export default function AuthPage() {
   });
   const [formErrors, setFormErrors] = useState({});
   const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    const urlMode = searchParams.get("mode");
+    if (urlMode === "register" || urlMode === "login") {
+      setMode(urlMode);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!loading && isAuthenticated && !hasRedirected.current) {
@@ -391,5 +398,33 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className={styles.container}>
+          <div className={styles.logoSection}>
+            <Image
+              src="/auth/auth_logo.png"
+              alt="MindBridge Logo"
+              width={400}
+              height={200}
+              className={styles.logo}
+              priority
+            />
+          </div>
+          <div className={styles.formSection}>
+            <div className={styles.authCard}>
+              <p>Loading...</p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <AuthContent />
+    </Suspense>
   );
 }
