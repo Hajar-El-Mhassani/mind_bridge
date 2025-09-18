@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import knex from "../database_client.js";
 import { courseSchema } from "../validations/courseSchema.js";
 import { validateBody } from "../middlewares/courseValidate.js";
-import { upload } from "../middlewares/multer.js";
+import { upload } from "../middlewares/multerCourses.js";
 import { authenticateToken } from "../middlewares/auth.js";
 const coursesRouter = express.Router();
 

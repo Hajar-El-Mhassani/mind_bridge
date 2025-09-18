@@ -1,6 +1,8 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import knex from "../database_client.js";
+import { upload } from "../middlewares/multerCourses.js";
+
 import {
   createUserSchema,
   updateUserSchema,
