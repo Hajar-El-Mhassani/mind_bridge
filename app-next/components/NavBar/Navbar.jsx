@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./NavBar.module.css";
+import Image from "next/image";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -74,12 +75,13 @@ export default function Navbar() {
             className={`${styles.logoLink}  ${styles.caps}`}
             onClick={handleLinkClick}
           >
-            <img
+            <Image
               src="/LandingPage/logo.png"
               alt="Logo"
               className={styles.logo}
               width="130"
               height="30"
+              priority
             />
           </Link>
 
