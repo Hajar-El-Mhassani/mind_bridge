@@ -76,7 +76,7 @@ export default function Navbar() {
             onClick={handleLinkClick}
           >
             <Image
-              src="/LandingPage/logo.png"
+              src="/landingPage/logo.png"
               alt="Logo"
               className={styles.logo}
               width={130}
