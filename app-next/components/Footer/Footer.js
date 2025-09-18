@@ -6,22 +6,22 @@ const socialLinks = [
   {
     href: "https://facebook.com/mindbridge_ai",
     label: "Facebook",
-    src: "/footer/socialmedia/facebook.png",
+    src: "/footer/socialMedia/facebook.png",
   },
   {
     href: "https://twitter.com/mindbridge_ai",
     label: "Twitter",
-    src: "/footer/socialmedia/twitter.png",
+    src: "/footer/socialMedia/twitter.png",
   },
   {
     href: "https://linkedin.com/in/mindbridge",
     label: "LinkedIn",
-    src: "/footer/socialmedia/linkedin.png",
+    src: "/footer/socialMedia/linkedin.png",
   },
   {
     href: "https://instagram.com/mindbridge",
     label: "Instagram",
-    src: "/footer/socialmedia/instagram.png",
+    src: "/footer/socialMedia/instagram.png",
   },
 ];
 
