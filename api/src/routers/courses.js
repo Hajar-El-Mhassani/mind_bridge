@@ -94,13 +94,21 @@ coursesRouter.get("/courses", async (req, res) => {
     }
 
     const courses = await query;
-
     const baseUrl = `${req.protocol}://${req.get("host")}`;
 
-    const formattedCourses = courses.map((course) => ({
-      ...course,
-      image: course.image ? `${baseUrl}${course.image}` : null,
-    }));
+    const formattedCourses = courses.map((course) => {
+      let imageUrl = null;
+
+      if (course.image) {
+        if (course.image.startsWith("http")) {
+          imageUrl = course.image; // already full URL (old records)
+        } else {
+          imageUrl = `${baseUrl}${course.image}`; // relative path (new records)
+        }
+      }
+
+      return { ...course, image: imageUrl };
+    });
 
     res.json(formattedCourses);
   } catch (e) {
