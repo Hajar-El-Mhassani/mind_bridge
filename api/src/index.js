@@ -15,16 +15,9 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 const apiRouter = express.Router();
 
-app.use(
-  "/uploads/users",
-  express.static(path.join(__dirname, "uploads/users"))
-);
-app.use(
-  "/uploads/courses",
-  express.static(path.join(__dirname, "uploads/courses"))
-);
-import express from "express";
-const app = express();
+app.use("/uploads/users", express.static("uploads/users"));
+app.use("/uploads/courses", express.static("uploads/courses"));
+app.use("/uploads", express.static("uploads"));
 
 apiRouter.use("/auth", authRouter);
 
