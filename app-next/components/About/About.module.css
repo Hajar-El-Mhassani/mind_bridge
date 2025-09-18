@@ -75,7 +75,7 @@
 }
 
 .memberName {
-  font-size: 1.5em;
+  font-size: 1.3em;
   color: #333;
   margin-bottom: 5px;
   font-weight: 600;
@@ -103,7 +103,8 @@
 }
 
 /* Section for HackYourFuture and Directors */
-.hackYourFutureAndDirectorsSection { /* New combined section class */
+.hackYourFutureAndDirectorsSection {
+  /* New combined section class */
   margin-top: 80px;
   padding: 40px;
   background-color: #f0f4f7; /* Light background for distinction */
@@ -112,7 +113,8 @@
   text-align: center;
 }
 
-.hackYourFutureHeader { /* For Logo and Title */
+.hackYourFutureHeader {
+  /* For Logo and Title */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -184,7 +186,8 @@
   margin: 0;
 }
 
-.specialThanksText { /* Text below the directors */
+.specialThanksText {
+  /* Text below the directors */
   margin-top: 40px;
   font-size: 1.2em;
   color: #555;
@@ -206,7 +209,8 @@
     font-size: 1.1em;
     margin-bottom: 30px;
   }
-  .teamGrid, .directorsGrid {
+  .teamGrid,
+  .directorsGrid {
     grid-template-columns: 1fr; /* Stack items on smaller screens */
   }
   .hackYourFutureHeader {
