@@ -79,8 +79,8 @@ export default function Navbar() {
               src="/LandingPage/logo.png"
               alt="Logo"
               className={styles.logo}
-              width="130"
-              height="30"
+              width={130}
+              height={30}
               priority
             />
           </Link>
