@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import styles from "./SideBar.module.css";
 import { FaUser, FaBookOpen, FaPlusCircle, FaEnvelope } from "react-icons/fa";
 import { RiBookShelfLine } from "react-icons/ri";
-
+import Image from "next/image";
 export default function SideBar() {
   const NAV_ITEMS = [
     {
@@ -24,7 +24,7 @@ export default function SideBar() {
     <aside className={styles.sidebar}>
       <div className={styles.logoWrapper}>
         <Link href="/" className={styles.logo}>
-          <img
+          <Image
             src="/landingPage/logo.png"
             alt="Logo"
             className={styles.logo}
