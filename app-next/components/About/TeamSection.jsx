@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import TeamMemberCard from './TeamMemberCard.jsx';
-import styles from './About.module.css';
+import Image from "next/image";
+import TeamMemberCard from "./TeamMemberCard.jsx";
+import styles from "./About.module.css";
 
 const teamMembers = [
   {
@@ -8,28 +8,28 @@ const teamMembers = [
     name: "Maksym Dronov",
     role: "Member of team",
     photo: "/images/maksym.jpg",
-    linkedin: "https://www.linkedin.com/in/maksym-dronov"
+    linkedin: "https://www.linkedin.com/in/maksym-dronov",
   },
   {
     id: 2,
     name: "Monireh Zargarnejad",
     role: "Member of team",
     photo: "/images/monireh.jpg",
-    linkedin: "https://www.linkedin.com/in/monireh-zargarnejad"
+    linkedin: "https://www.linkedin.com/in/monireh-zargarnejad",
   },
   {
     id: 3,
     name: "Hajar El Mhassani",
     role: "Member of team",
     photo: "/images/hajar.jpg",
-    linkedin: "https://www.linkedin.com/in/hajar-el-mhassani"
+    linkedin: "https://www.linkedin.com/in/hajar-el-mhassani",
   },
   {
     id: 4,
     name: "Amin Babapour",
     role: "Member of team",
-    photo: "/images/amin.jpg",
-    linkedin: "https://www.linkedin.com/in/amin-babapour"
+    photo: "/images/amin.JPG",
+    linkedin: "https://www.linkedin.com/in/amin-babapour",
   },
 ];
 
@@ -56,11 +56,15 @@ export default function TeamSection() {
     <section className={styles.aboutContainer}>
       <h2 className={styles.aboutTitle}>About Us</h2>
       <p className={styles.aboutDescription}>
-        We are a team of four who collaborated on this final project as part of the **HackYourFuture** program. This project not only helped us practice our coding skills but also provided an opportunity to learn teamwork, problem-solving, and effective communication. We are proud to be a part of the HackYourFuture community.
+        We are a team of four who collaborated on this final project as part of
+        the **HackYourFuture** program. This project not only helped us practice
+        our coding skills but also provided an opportunity to learn teamwork,
+        problem-solving, and effective communication. We are proud to be a part
+        of the HackYourFuture community.
       </p>
 
       <div className={styles.teamGrid}>
-        {teamMembers.map(member => (
+        {teamMembers.map((member) => (
           <TeamMemberCard key={member.id} member={member} />
         ))}
       </div>
@@ -81,7 +85,12 @@ export default function TeamSection() {
         </div>
 
         <p className={styles.specialThanksText}>
-          We would like to express our sincere gratitude to the **HackYourFuture** team, as well as all the instructors and mentors who guided us through this course. Your dedication, expertise, and encouragement have been instrumental in our learning journey. We are sincerely grateful for your unwavering support and invaluable guidance throughout this journey.
+          We would like to express our sincere gratitude to the
+          **HackYourFuture** team, as well as all the instructors and mentors
+          who guided us through this course. Your dedication, expertise, and
+          encouragement have been instrumental in our learning journey. We are
+          sincerely grateful for your unwavering support and invaluable guidance
+          throughout this journey.
         </p>
 
         <div className={styles.directorsGrid}>
@@ -100,7 +109,6 @@ export default function TeamSection() {
           ))}
         </div>
       </section>
-
     </section>
   );
 }
