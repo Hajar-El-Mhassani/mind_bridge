@@ -15,6 +15,7 @@
     "check": "npx eslint . --fix",
     "docker:start": "docker compose up -d db",
     "migrate": "knex migrate:latest",
+    "migrate:prod": "knex migrate:latest --env prod",
     "seed": "knex seed:run",
     "reset": "knex migrate:rollback --all && knex migrate:latest && knex seed:run"
   },

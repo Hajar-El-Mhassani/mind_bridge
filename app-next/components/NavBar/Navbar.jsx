@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
-import styles from "./Navbar.module.css";
+import styles from "./NavBar.module.css";
 
 const NAV = [
   { href: "/", label: "Home" },
