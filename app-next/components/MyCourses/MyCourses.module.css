@@ -18,8 +18,9 @@
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 1.8;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
   color: #111827;
 }
 
@@ -100,7 +101,7 @@
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #6b7280; 
+  color: #6b7280;
   font-size: 14px;
 }
 
@@ -128,11 +129,11 @@
   border-radius: 0.375rem;
   font-size: 0.9rem;
   color: white;
-  background-color: rgb(49, 49, 231);
+  background-color: #2563eb;
   flex: 0 0 auto;
 }
 .addCourseBtn:hover {
-  background: #374151;
+  background: #1e4db7;
   cursor: pointer;
 }
 
@@ -204,15 +205,14 @@
 }
 
 .content {
-  padding: 16px;
+  padding: 1rem;
   flex: 1;
 }
 
-.title {
-  margin: 0 0 6px;
+.cardTitle {
   font-size: 18px;
   overflow: hidden;
-  min-height: 48px;
+  min-height: 35px;
   white-space: normal;
   word-break: break-word;
 }
@@ -225,6 +225,17 @@
   align-items: center;
   margin: 0 0.5rem;
   padding: 0.3rem;
+}
+.desc {
+  color: #374151;
+  font-size: 13px;
+  line-height: 1.2;
+  min-height: 40px;
+
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .statusPublished {
@@ -263,7 +274,7 @@
   padding: 1rem;
 }
 .btnEdit {
-    text-decoration: none;
+  text-decoration: none;
   align-self: center;
   background: white;
   color: black;
@@ -274,6 +285,9 @@
   font-size: 14px;
   transition: background 0.3s;
   margin-top: auto;
+}
+.btnEdit:hover {
+  background: rgb(229, 228, 228);
 }
 .btnDelete {
   align-self: center;
@@ -286,6 +300,10 @@
   font-size: 14px;
   transition: background 0.3s;
   margin-top: auto;
+}
+.btnDelete:hover {
+  background: rgb(229, 228, 228);
+  color: black;
 }
 
 .button:hover {
@@ -305,7 +323,7 @@
   z-index: 999;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(6px);   
+  backdrop-filter: blur(6px);
 }
 
 .confirmBtn {
