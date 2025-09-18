@@ -14,7 +14,7 @@ const teamMembers = [
     id: 2,
     name: "Monireh Zargarnejad",
     role: "Member of team",
-    photo: "/images/monireh.jpg",
+    photo: "/images/monireh.png",
     linkedin: "https://www.linkedin.com/in/monireh-zargarnejad",
   },
   {
