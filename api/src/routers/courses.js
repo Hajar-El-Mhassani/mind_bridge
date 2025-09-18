@@ -1,12 +1,10 @@
-/* import { validateBody } from "../middlewares/validateCourse.js";
-import { courseSchema, partialCourseSchema } from "../schemas/courseSchema.js";
- */
 import express from "express";
 
 import { StatusCodes } from "http-status-codes";
 
 import knex from "../database_client.js";
-
+import { courseSchema } from "../validations/courseSchema.js";
+import { validateBody } from "../middlewares/courseValidate.js";
 import { upload } from "../middlewares/multer.js";
 import { authenticateToken } from "../middlewares/auth.js";
 const coursesRouter = express.Router();
@@ -110,52 +108,41 @@ coursesRouter.get("/courses", async (req, res) => {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message });
   }
 });
-  
- coursesRouter.get("/courses/:id", async (req, res) => {
 
- const { id } = req.params;
+coursesRouter.get("/courses/:id", async (req, res) => {
+  const { id } = req.params;
 
- try {
+  try {
+    const course = await knex("courses").where({ id }).first();
 
- const course = await knex("courses").where({ id }).first();
+    if (!course) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Course not found" });
+    }
 
- if (!course) {
+    const lessons = await knex("lessons").where({ course_id: id });
 
- return res.status(StatusCodes.NOT_FOUND).json({ message: "Course not found" });
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
 
-}
+    const formattedCourse = {
+      ...course,
 
- const lessons = await knex("lessons").where({ course_id: id });
+      image: course.image ? `${baseUrl}${course.image}` : null,
 
+      lessons: lessons.map((lesson) => ({
+        ...lesson,
+      })),
+    };
 
+    res.status(StatusCodes.OK).json(formattedCourse);
+  } catch (error) {
+    console.error("Error fetching course details:", error);
 
- const baseUrl = `${req.protocol}://${req.get("host")}`;
-
-const formattedCourse = {
-
- ...course,
-
- image: course.image ? `${baseUrl}${course.image}` : null,
-
-   lessons: lessons.map(lesson => ({
-
- ...lesson,
-
-
- })),
-
- };
-
- res.status(StatusCodes.OK).json(formattedCourse);
-
- } catch (error) {
-
- console.error("Error fetching course details:", error);
-
- res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
-
- }
-
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal server error" });
+  }
 });
 
 coursesRouter.get("/course-authors", async (req, res) => {
@@ -269,16 +256,13 @@ coursesRouter.post(
   "/add-course",
   authenticateToken,
   upload.single("thumbnail"),
+  validateBody(courseSchema), // courseSchema WITHOUT created_by
   async (req, res) => {
     try {
-      const data = { ...req.body };
+      const data = { ...req.validatedBody };
 
-      const user = await knex("users").where({ id: data.created_by }).first();
-      if (!user) {
-        return res
-          .status(400)
-          .json({ error: "Invalid created_by: user not found" });
-      }
+      // enforce authenticated user id
+      data.created_by = req.user.id;
 
       if (req.file) {
         data.image = `/uploads/courses/${req.file.filename}`;
