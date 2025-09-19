@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./SideBar.module.css";
-import { FaUser, FaBookOpen, FaPlusCircle, FaEnvelope } from "react-icons/fa";
 import { RiBookShelfLine } from "react-icons/ri";
+import { FiBookOpen, FiMail, FiPlusCircle, FiUser } from "react-icons/fi";
+
 import Image from "next/image";
 export default function SideBar() {
   const NAV_ITEMS = [
@@ -13,10 +14,10 @@ export default function SideBar() {
       label: "View all courses",
       icon: <RiBookShelfLine />,
     },
-    { href: "/profile", label: "Profile", icon: <FaUser /> },
-    { href: "/my-courses", label: "My Courses", icon: <FaBookOpen /> },
-    { href: "/add-courses", label: "Add Course", icon: <FaPlusCircle /> },
-    { href: "/contact-user", label: "Contact Us", icon: <FaEnvelope /> },
+    { href: "/profile", label: "Profile", icon: <FiUser /> },
+    { href: "/my-courses", label: "My Courses", icon: <FiBookOpen /> },
+    { href: "/add-courses", label: "Add Course", icon: <FiPlusCircle /> },
+    { href: "/contact-user", label: "Contact Us", icon: <FiMail /> },
   ];
 
   const pathname = usePathname();

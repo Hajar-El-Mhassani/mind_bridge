@@ -5,12 +5,10 @@
   left: 0;
   right: 0;
   z-index: 50;
-  background: #fff;
+  background-color: #fff;
   margin: 0;
-
   padding: 0;
-
-  border-bottom: 1px solid #f9fbff;
+  border-bottom: 0.0375rem solid #e0e2e7;
 }
 
 /* Inner container with logo + right section */
@@ -49,7 +47,6 @@
   grid-auto-flow: column;
   gap: 2rem;
   align-items: center;
-
   font-weight: normal;
 }
 
@@ -57,7 +54,6 @@
   text-decoration: none;
   color: #292c2c;
   font-weight: 400;
-
   font-size: 14px;
 }
 

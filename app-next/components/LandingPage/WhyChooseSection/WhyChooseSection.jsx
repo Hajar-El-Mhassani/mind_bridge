@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function WhyChooseSection() {
     return (
         <section className={styles.container}>
-            <h2 className={styles.title}>Why Choose Mind?</h2>
+            <h2 className={styles.title}>Why Choose MindBridge?</h2>
             <div className={styles.cardsWrapper}>
                 <div className={styles.card}>
                     <Image
