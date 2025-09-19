@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import cloudinary from "../cloudinary.js"; // Cloudinary config file
-import knex from "../src/database_client.js"; // knex instance
+import cloudinary from "../../cloudinary.js"; // Cloudinary config file
+import knex from "../database_client.js"; // knex instance
 
 const uploadDir = path.join(process.cwd(), "uploads/courses");
 
