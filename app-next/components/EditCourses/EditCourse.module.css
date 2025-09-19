@@ -1,7 +1,7 @@
 .editCourseContainer {
   max-width: 900px;
   margin: 2rem auto;
-  background: #f6f9fc;
+  background-color: #f9f9f9;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -52,10 +52,6 @@
   flex-direction: column;
   width: 100%;
   padding: 0.5rem;
-}
-
-.fullWidth {
-  grid-column: span 2;
 }
 
 .formGroup label {
@@ -133,16 +129,21 @@
 }
 
 .saveBtn {
-  padding: 0.6rem 1.2rem;
-  background: #0077b5;
-  color: #fff;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
   border: none;
-  border-radius: 6px;
+  padding: 0.85rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
 .saveBtn:hover {
-  background: #1e4db7;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
 }
 
 @media (min-width: 768px) {

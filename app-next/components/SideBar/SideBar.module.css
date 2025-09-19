@@ -43,6 +43,10 @@
   padding-right: 0.75rem;
 }
 
+.active .icon {
+  color: #fff;
+}
+
 .navItem:hover {
   background: #e5e7eb;
 }
