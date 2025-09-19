@@ -26,13 +26,13 @@ usersRouter.get("/", async (req, res) => {
       "updated_at"
     );
     // serve user image with full url
+    const defaultAvatar =
+      "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758320998/users/default.jpg";
 
-    const formattedUsers = users.map((user) => {
-      return {
-        ...user,
-        image: user.image || null,
-      };
-    });
+    const formattedUsers = users.map((user) => ({
+      ...user,
+      image: user.image?.startsWith("http") ? user.image : defaultAvatar,
+    }));
 
     res.status(StatusCodes.OK).json(formattedUsers);
   } catch (error) {
