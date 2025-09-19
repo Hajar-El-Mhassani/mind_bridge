@@ -71,31 +71,49 @@
 
 .btn {
   text-decoration: none;
-  font-weight: 700;
   border-radius: 3rem;
   padding: 12px 16px; /* slightly slimmer padding */
   text-align: center;
-  border: 1px solid transparent;
+  border: 1px solid transparent; 
+  border: none;
+  padding: 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
   /* smaller + don’t stretch to fill row */
-  flex: 0 1 190px;
-  min-width: 0;
+  min-width: 13rem;
 }
 
 .primary {
+  border: none;
+  padding: 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
   background: #f42424;
   color: #fff;
+  box-shadow: 0 2px 4px hsl(0, 90%, 55%);
+
 }
 .primary:hover {
-  background: #178dcf;
+  background: #f42424;
+   box-shadow: 0 3px 6px hsl(0, 95%, 55%);
+
 }
 .ghost {
   background: #fff;
   color: #0f172a;
   border: 1px solid #cfd8e3;
+  box-shadow: 0 2px 4px hsl(213, 26%, 85%);
+
 }
 .ghost:hover {
   border-color: #98a6b8;
+  box-shadow: 0 3px 6px hsl(213, 36%, 85%);
+
 }
 
 /* Image */

@@ -2,10 +2,13 @@
 .container {
   max-width: 70rem;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  min-height: 100vh;
 }
 
 /* Header */
@@ -18,8 +21,9 @@
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 1.8;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
   color: #111827;
 }
 
@@ -100,7 +104,7 @@
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #6b7280; 
+  color: #6b7280;
   font-size: 14px;
 }
 
@@ -123,17 +127,20 @@
   flex: 0 0 auto;
 }
 .addCourseBtn {
-  padding: 0.75rem;
-  border: 0.0625rem solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 0.9rem;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   color: white;
-  background-color: rgb(49, 49, 231);
-  flex: 0 0 auto;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 .addCourseBtn:hover {
-  background: #374151;
-  cursor: pointer;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
 }
 
 @media (max-width: 768px) {
@@ -170,13 +177,14 @@
 }
 
 .card {
+  min-width: 18rem;
   display: flex;
   flex-direction: column;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   overflow: hidden;
   background: #fff;
-  min-height: 350px;
+  min-height: 25rem;
 }
 
 .imageWrapper {
@@ -204,15 +212,14 @@
 }
 
 .content {
-  padding: 16px;
+  padding: 1rem;
   flex: 1;
 }
 
-.title {
-  margin: 0 0 6px;
+.cardTitle {
   font-size: 18px;
   overflow: hidden;
-  min-height: 48px;
+  min-height: 35px;
   white-space: normal;
   word-break: break-word;
 }
@@ -225,6 +232,17 @@
   align-items: center;
   margin: 0 0.5rem;
   padding: 0.3rem;
+}
+.desc {
+  color: #374151;
+  font-size: 13px;
+  line-height: 1.2;
+  min-height: 40px;
+
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .statusPublished {
@@ -263,7 +281,7 @@
   padding: 1rem;
 }
 .btnEdit {
-    text-decoration: none;
+  text-decoration: none;
   align-self: center;
   background: white;
   color: black;
@@ -274,6 +292,9 @@
   font-size: 14px;
   transition: background 0.3s;
   margin-top: auto;
+}
+.btnEdit:hover {
+  background: rgb(229, 228, 228);
 }
 .btnDelete {
   align-self: center;
@@ -286,6 +307,10 @@
   font-size: 14px;
   transition: background 0.3s;
   margin-top: auto;
+}
+.btnDelete:hover {
+  background: rgb(229, 228, 228);
+  color: black;
 }
 
 .button:hover {
@@ -305,7 +330,7 @@
   z-index: 999;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(6px);   
+  backdrop-filter: blur(6px);
 }
 
 .confirmBtn {

@@ -188,7 +188,7 @@ export default function EditCourse() {
         </div>
         {/* Description */}
         <div className={styles.formRow}>
-          <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+          <div className={`${styles.formGroup}`}>
             <label>Course Description</label>
             <textarea
               rows="4"
