@@ -26,10 +26,17 @@ router.put("/profile", authenticateToken, uploadUserImage, async (req, res) => {
       updateData.date_of_birth = date_of_birth;
     }
 
-    if (req.file) {
-      updateData.image = `/uploads/users/${req.file.filename}`;
+    if (req.file && req.file.path) {
+      // New upload to Cloudinary
+      updateData.image = req.file.path;
+    } else if (!req.file) {
+      // fallback only if user has no image at all
+      const existingUser = await knex("users").where({ id: userId }).first();
+      if (!existingUser?.image || existingUser.image.startsWith("/uploads")) {
+        updateData.image =
+          "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758320998/users/default.jpg";
+      }
     }
-
     if (email) {
       const existingUser = await knex("users")
         .where({ email })
@@ -43,15 +50,7 @@ router.put("/profile", authenticateToken, uploadUserImage, async (req, res) => {
       }
     }
 
-    const updated = await knex("users")
-      .where({ id: userId })
-      .update(updateData);
-
-    if (updated === 0) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        error: "User not found",
-      });
-    }
+    await knex("users").where({ id: userId }).update(updateData);
 
     const user = await knex("users")
       .select(
@@ -65,6 +64,10 @@ router.put("/profile", authenticateToken, uploadUserImage, async (req, res) => {
       )
       .where({ id: userId })
       .first();
+    //Normalize image: always return a usable Cloudinary HTTPS URL
+    user.image = user.image?.startsWith("http")
+      ? user.image
+      : "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758320998/users/default.jpg";
 
     res.status(StatusCodes.OK).json({
       message: "Profile updated successfully",

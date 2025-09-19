@@ -1,7 +1,7 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import knex from "../database_client.js";
-import { upload } from "../middlewares/multerCourses.js";
+import { uploadUserImage } from "../middlewares/uploadUser.js";
 
 import {
   createUserSchema,
@@ -9,7 +9,6 @@ import {
   userIdSchema,
 } from "../validations/userValidation.js";
 import { validate } from "../middlewares/validation.js";
-
 const usersRouter = express.Router();
 
 export default usersRouter;
@@ -27,11 +26,11 @@ usersRouter.get("/", async (req, res) => {
       "updated_at"
     );
     // serve user image with full url
-    const baseUrl = `${req.protocol}://${req.get("host")}`; // Fixed: _req -> req
+
     const formattedUsers = users.map((user) => {
       return {
         ...user,
-        image: user.image ? `${baseUrl}${user.image}` : null,
+        image: user.image || null,
       };
     });
 
@@ -73,6 +72,7 @@ usersRouter.get(
 
 usersRouter.post(
   "/",
+  uploadUserImage,
   validate({ body: createUserSchema }),
   async (req, res) => {
     try {
@@ -85,12 +85,13 @@ usersRouter.post(
           message: "User with this email already exists",
         });
       }
-
+      const defaultAvatar =
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758320998/users/default.jpg";
       const insertPayload = {
         name,
         email,
         password,
-        image,
+        image: req.file ? req.file.path : defaultAvatar,
         created_at: knex.fn.now(),
         updated_at: knex.fn.now(),
       };
@@ -132,6 +133,7 @@ usersRouter.post(
 
 usersRouter.put(
   "/:id",
+  uploadUserImage,
   validate({
     params: userIdSchema,
     body: updateUserSchema,
@@ -140,7 +142,9 @@ usersRouter.put(
     try {
       const { id } = req.params;
       const updateData = { ...req.body };
-
+      if (req.file) {
+        updateData.image = req.file.path; // Cloudinary URL
+      }
       updateData.updated_at = knex.fn.now();
 
       delete updateData.id;
