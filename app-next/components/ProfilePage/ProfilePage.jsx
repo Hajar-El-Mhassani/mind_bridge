@@ -262,15 +262,23 @@ export default function ProfilePage() {
   const getImageUrl = () => {
     if (!user.image) return "/images/default-avatar.jpg";
 
-    if (!user.image.startsWith("http") && !user.image.startsWith("/uploads")) {
-      return `http://localhost:3001/uploads/users/${user.image}`;
+    if (user.image.startsWith("http")) {
+      return user.image;
     }
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (!apiUrl) {
+      console.warn("NEXT_PUBLIC_API_URL not set, using default avatar");
+      return "/images/default-avatar.jpg";
+    }
+
+    const apiBaseUrl = apiUrl.replace("/api", "");
 
     if (user.image.startsWith("/uploads")) {
-      return `http://localhost:3001${user.image}`;
+      return `${apiBaseUrl}${user.image}`;
     }
 
-    return user.image;
+    return `${apiBaseUrl}/uploads/users/${user.image}`;
   };
 
   const formatDateOfBirth = () => {
@@ -299,6 +307,7 @@ export default function ProfilePage() {
             width={100}
             height={100}
             className={styles.profileImage}
+            unoptimized // Add this for Render deployment
             onError={(e) => {
               e.target.src = "/images/default-avatar.jpg";
             }}
