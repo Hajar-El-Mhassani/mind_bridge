@@ -16,7 +16,7 @@
 .coursesWrapper {
   display: grid;
   grid-template-columns: 1fr; /* one card per row by default */
-  gap: clamp(16px, 3vw, 32px);
+  gap: 3rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;

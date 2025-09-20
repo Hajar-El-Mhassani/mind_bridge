@@ -29,14 +29,11 @@ function PopularCourseCard({ course }) {
   return (
     <div className={styles.courseCard}>
       <Image
-        src={course.image || "/courses/default-course.png"}
+        src={course.image}
         alt={course.title}
         width={406}
         height={192}
         className={styles.courseImage}
-        onError={(e) => {
-          e.target.src = "/courses/default-course.png";
-        }}
       />
       <div className={styles.courseContent}>
         <h3 className={styles.courseTitle}>{course.title}</h3>
