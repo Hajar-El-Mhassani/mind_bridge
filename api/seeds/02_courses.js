@@ -7,7 +7,8 @@ export async function seed(knex) {
       title: "Full-Stack Web Development 101",
       description:
         "Build modern web apps end-to-end with React, Node, and PostgreSQL.",
-      image: "/uploads/courses/1.jpg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758329960/courses/guaohtpqm2rey45oqzfi.jpg",
       price: 0,
       category: "Web Dev",
       status: "published",
@@ -19,7 +20,8 @@ export async function seed(knex) {
       title: "Python for Data Analysis",
       description:
         "Clean, transform, and visualize data with Pandas and Jupyter.",
-      image: "/uploads/courses/2.jpg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233055/courses/2.jpg",
       price: 0,
       category: "Data Science",
       status: "published",
@@ -31,7 +33,8 @@ export async function seed(knex) {
       title: "Design Systems Fundamentals",
       description:
         "Create scalable UI foundations with tokens, components, and docs.",
-      image: "/uploads/courses/3.jpg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233058/courses/3.jpg",
       price: 0,
       category: "UI/UX",
       status: "archived",
@@ -42,7 +45,8 @@ export async function seed(knex) {
     {
       title: "Deploying Apps on Render",
       description: "Ship full-stack apps using Render services, envs, and CI.",
-      image: "/uploads/courses/4.jpg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233065/courses/4.jpg",
       price: 0,
       category: "Cloud",
       status: "published",
@@ -54,7 +58,8 @@ export async function seed(knex) {
       title: "DevOps with CI/CD",
       description:
         "Automate builds, tests, and deployments with GitHub Actions and pipelines.",
-      image: "/uploads/courses/5.jpeg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233066/courses/5.jpg",
       price: 0,
       category: "DevOps",
       status: "published",
@@ -66,7 +71,8 @@ export async function seed(knex) {
       title: "Intro to Machine Learning with scikit-learn",
       description:
         "Train, evaluate, and deploy classic ML models using Python and scikit-learn.",
-      image: "/uploads/courses/6.jpg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233067/courses/6.jpg",
       price: 0,
       category: "AI/ML",
       status: "archived",
@@ -90,7 +96,8 @@ export async function seed(knex) {
       title: "Go for Backend Services",
       description:
         "Build fast, concurrent APIs with Go, net/http, and database integrations.",
-      image: "/uploads/courses/8.png",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233069/courses/8.png",
       price: 0,
       category: "Web Dev",
       status: "draft",
@@ -102,7 +109,8 @@ export async function seed(knex) {
       title: "TypeScript Deep Dive",
       description:
         "Types, generics, utility types, and patterns for large-scale React/Node apps.",
-      image: "/uploads/courses/9.webp",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233070/courses/9.webp",
       price: 0,
       category: "TypeScript",
       status: "published",
@@ -114,7 +122,8 @@ export async function seed(knex) {
       title: "Testing JavaScript Applications",
       description:
         "Unit, integration, and E2E testing with Jest, Testing Library, and Playwright.",
-      image: "/uploads/courses/10.avif",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233071/courses/10.avif",
       price: 0,
       category: "Testing",
       status: "draft",
@@ -126,7 +135,8 @@ export async function seed(knex) {
       title: "Docker & Kubernetes Fundamentals",
       description:
         "Containerize apps, write Dockerfiles, and orchestrate with Kubernetes basics.",
-      image: "/uploads/courses/default.jpg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758275217/courses/cpaijsi8ui7k6oumc7bk.jpg",
       price: 0,
       category: "Docker",
       status: "archived",
@@ -138,7 +148,8 @@ export async function seed(knex) {
       title: "Technical Interview Prep",
       description:
         "Ace coding interviews with DS&A practice, system design, and soft skills.",
-      image: "/uploads/courses/12.jpg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233073/courses/12.jpg",
       price: 0,
       category: "Career",
       status: "draft",
@@ -146,5 +157,5 @@ export async function seed(knex) {
       duration: 15,
       created_by: 12,
     },
-  ])
-};
+  ]);
+}
