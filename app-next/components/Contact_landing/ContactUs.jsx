@@ -21,7 +21,6 @@ export default function Contact() {
             <FaHome />
           </span>
           <h3>VISIT US</h3>
-          <h3>VISIT US</h3>
           <p>You can find us at our main office:</p>
           <p className={styles.highlight}>
             MindBridge Building 1, Copenhagen, Denmark
