@@ -16,7 +16,7 @@
 .coursesWrapper {
   display: grid;
   grid-template-columns: 1fr; /* one card per row by default */
-  gap: 3rem;
+  gap: clamp(16px, 3vw, 32px);
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -122,21 +122,21 @@
   cursor: pointer;
 }
 
-/* Tablet and up → 2  */
+/* Tablet and up → 2 per row */
 @media (min-width: 768px) {
   .coursesWrapper {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Desktop and up */
+/* Desktop and up → 3 per row */
 @media (min-width: 1024px) {
   .coursesWrapper {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Extra large screens */
+/* Extra large screens → 4 per row */
 @media (min-width: 1400px) {
   .coursesWrapper {
     grid-template-columns: repeat(4, 1fr);
