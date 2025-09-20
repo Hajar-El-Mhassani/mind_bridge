@@ -92,16 +92,24 @@
   color: #171a1f;
 }
 
+.courseFooter {
+  display: flex;
+  justify-content: space-between; /* price left, button right */
+  align-items: center;
+  margin-top: 8px;
+}
+
 .viewCourseButton {
-  padding: 10px 16px;
+  padding: 8px 14px;
   border: none;
   border-radius: 8px;
   background-color: #0072d6;
   color: #fff;
-  font-size: 15px;
-  cursor: pointer;
+  font-size: 14px;
   font-weight: 600;
-  justify-self: end;
+  cursor: pointer;
+  width: auto; /* button never stretches full width */
+  flex-shrink: 0; /* stays compact even on small screens */
 }
 
 /* BROWSE ALL */
