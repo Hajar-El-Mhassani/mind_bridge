@@ -15,7 +15,7 @@
 /* GRID */
 .coursesWrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: 1fr; /* one card per row by default */
   gap: clamp(16px, 3vw, 32px);
   max-width: 1200px;
   margin: 0 auto;
@@ -122,8 +122,24 @@
   cursor: pointer;
 }
 
+/* Tablet and up → 2  */
+@media (min-width: 768px) {
+  .coursesWrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .coursesWrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra large screens */
 @media (min-width: 1400px) {
   .coursesWrapper {
+    grid-template-columns: repeat(4, 1fr);
     max-width: 1320px;
     gap: 36px;
   }
