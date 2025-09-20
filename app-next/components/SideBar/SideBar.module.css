@@ -13,6 +13,18 @@
   transition: transform 0.3s ease;
 }
 
+.sidebarContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarFooter {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
 .logoWrapper {
   margin-bottom: 1rem;
   text-align: center;
@@ -40,11 +52,39 @@
   align-items: center;
 }
 
+.logoutButton {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  color: #dc2626;
+  font-size: 0.95rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.logoutButton:hover {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
 .icon {
   font-size: 1rem;
   color: #6b7280;
   flex-shrink: 0;
   padding-right: 0.75rem;
+}
+
+.logoutButton .icon {
+  color: #dc2626;
+}
+
+.logoutButton:hover .icon {
+  color: #b91c1c;
 }
 
 .navItem:hover {
@@ -112,5 +152,9 @@
     position: static;
     transform: none;
     height: 100%;
+  }
+
+  .sidebarFooter {
+    display: none;
   }
 }

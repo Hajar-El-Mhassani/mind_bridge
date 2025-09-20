@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useRouter } from "next/navigation";
 import styles from "./SideBar.module.css";
 import {
   FaUser,
@@ -11,12 +13,15 @@ import {
   FaEnvelope,
   FaBars,
   FaTimes,
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { RiBookShelfLine } from "react-icons/ri";
 import Image from "next/image";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { logout } = useAuth();
+  const router = useRouter();
 
   const NAV_ITEMS = [
     {
@@ -40,6 +45,12 @@ export default function SideBar() {
     setIsOpen(false);
   };
 
+  const handleLogout = () => {
+    logout();
+    closeSidebar();
+    router.push("/");
+  };
+
   return (
     <>
       <button
@@ -53,35 +64,46 @@ export default function SideBar() {
       {isOpen && <div className={styles.overlay} onClick={closeSidebar} />}
 
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
-        <div className={styles.logoWrapper}>
-          <Link href="/" className={styles.logo} onClick={closeSidebar}>
-            <Image
-              src="/landingPage/logo.png"
-              alt="Logo"
-              className={styles.logo}
-              width={220}
-              height={40}
-            />
-          </Link>
+        <div className={styles.sidebarContent}>
+          <div className={styles.logoWrapper}>
+            <Link href="/" className={styles.logo} onClick={closeSidebar}>
+              <Image
+                src="/landingPage/logo.png"
+                alt="Logo"
+                className={styles.logo}
+                width={220}
+                height={40}
+              />
+            </Link>
+          </div>
+
+          <nav className={styles.nav} aria-label="Sidebar">
+            {NAV_ITEMS.map((item) => {
+              const active =
+                pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`${styles.navItem} ${active ? styles.active : ""}`}
+                  onClick={closeSidebar}
+                >
+                  <span className={styles.icon}>{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
         </div>
 
-        <nav className={styles.nav} aria-label="Sidebar">
-          {NAV_ITEMS.map((item) => {
-            const active =
-              pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`${styles.navItem} ${active ? styles.active : ""}`}
-                onClick={closeSidebar}
-              >
-                <span className={styles.icon}>{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+        <div className={styles.sidebarFooter}>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            <span className={styles.icon}>
+              <FaSignOutAlt />
+            </span>
+            <span>Logout</span>
+          </button>
+        </div>
       </aside>
     </>
   );
