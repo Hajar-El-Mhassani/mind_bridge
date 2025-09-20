@@ -84,7 +84,8 @@ export async function seed(knex) {
       title: "Web Security Essentials",
       description:
         "Protect apps with XSS/CSRF prevention, secure auth, and OWASP best practices.",
-      image: "/uploads/courses/7.jpg",
+      image:
+        "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758233068/courses/7.jpg",
       price: 0,
       category: "Security",
       status: "published",
