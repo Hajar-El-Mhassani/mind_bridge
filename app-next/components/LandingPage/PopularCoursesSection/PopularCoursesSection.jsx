@@ -15,7 +15,11 @@ function PopularCourseCard({ course }) {
 
   const fetchCreatorName = async (userId) => {
     try {
-      const response = await fetch(
+ * Fetches the creator name for a given user ID.
+ * If the user ID is not a number, it will not fetch the creator name.
+ * If the fetch fails, it will log an error and set the creator name to "Unknown Author".
+ * If the fetch is successful, it will set the creator name to the user's name or "Unknown Author" if the user does not have a name.
+ */
         `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`
       );
       const user = await response.json();
@@ -29,11 +33,14 @@ function PopularCourseCard({ course }) {
   return (
     <div className={styles.courseCard}>
       <Image
-        src={course.image}
+        src={course.image || "/courses/default-course.png"}
         alt={course.title}
         width={406}
         height={192}
         className={styles.courseImage}
+        onError={(e) => {
+          e.target.src = "/courses/default-course.png";
+        }}
       />
       <div className={styles.courseContent}>
         <h3 className={styles.courseTitle}>{course.title}</h3>
