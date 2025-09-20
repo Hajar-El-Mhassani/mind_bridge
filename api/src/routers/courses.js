@@ -273,36 +273,50 @@ coursesRouter.post(
 coursesRouter.put(
   "/my-courses/:id",
   authenticateToken,
-  upload.single("thumbnail"), // handle file upload
+  upload.single("thumbnail"), // Cloudinary upload
   async (req, res) => {
-    console.log("Request body:", req.body);
-
     const id = req.params.id;
+
     try {
       const data = { ...req.body };
 
-      //  Check if user exists
-      const user = await knex("users").where({ id: data.created_by }).first();
-
-      if (!user) {
+      // Enforce that the course belongs to the user
+      const course = await knex("courses").where("id", id).first();
+      if (!course) {
+        return res.status(404).json({ error: "Course not found" });
+      }
+      if (course.created_by !== req.user.id) {
         return res
-          .status(400)
-          .json({ error: "Invalid created_by: user not found" });
+          .status(403)
+          .json({ error: "Not authorized to update this course" });
       }
 
-      if (req.file) {
-        data.image = `/uploads/courses/${req.file.filename}`;
+      // Handle image upload
+      if (req.file && req.file.path) {
+        // Cloudinary middleware will set file.path to secure_url
+        data.image = req.file.path;
       } else {
-        const course = await knex("courses").where("id", id);
+        // Keep old image if no new one uploaded
         data.image = course.image;
       }
 
-      // Insert course
-      await knex("courses").where("id", id).update(data);
+      // Update course
+      await knex("courses")
+        .where("id", id)
+        .update({
+          ...data,
+          updated_at: knex.fn.now(),
+        });
 
-      res.status(201).json({ message: "Course updated successfully" });
+      // Fetch updated course
+      const updatedCourse = await knex("courses").where("id", id).first();
+
+      res.status(200).json({
+        message: "Course updated successfully",
+        course: updatedCourse,
+      });
     } catch (err) {
-      console.error("Error creating course:", err);
+      console.error("Error updating course:", err);
       res.status(500).json({ error: "Internal server error" });
     }
   }
