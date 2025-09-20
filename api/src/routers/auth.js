@@ -17,32 +17,31 @@ router.put("/profile", authenticateToken, uploadUserImage, async (req, res) => {
     const { name, email, date_of_birth } = req.body;
 
     const updateData = {
-      name,
-      email,
       updated_at: knex.fn.now(),
     };
 
-    if (date_of_birth) {
-      updateData.date_of_birth = date_of_birth;
-    }
+    if (name) updateData.name = name;
+    if (email) updateData.email = email;
+    if (date_of_birth) updateData.date_of_birth = date_of_birth;
 
+    // If new image uploaded to Cloudinary
     if (req.file && req.file.path) {
-      // New upload to Cloudinary
       updateData.image = req.file.path;
-    } else if (!req.file) {
-      // fallback only if user has no image at all
+    } else {
+      // If no new image, keep existing one or fallback to Cloudinary default
       const existingUser = await knex("users").where({ id: userId }).first();
       if (!existingUser?.image || existingUser.image.startsWith("/uploads")) {
         updateData.image =
           "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758320998/users/default.jpg";
       }
     }
+
+    // Check if email is already taken by someone else
     if (email) {
       const existingUser = await knex("users")
         .where({ email })
         .whereNot({ id: userId })
         .first();
-
       if (existingUser) {
         return res.status(StatusCodes.CONFLICT).json({
           error: "Email is already taken by another user",
@@ -50,8 +49,17 @@ router.put("/profile", authenticateToken, uploadUserImage, async (req, res) => {
       }
     }
 
-    await knex("users").where({ id: userId }).update(updateData);
+    // Update in DB
+    const updated = await knex("users")
+      .where({ id: userId })
+      .update(updateData);
+    if (updated === 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ error: "User not found" });
+    }
 
+    // ✅ Fetch updated user
     const user = await knex("users")
       .select(
         "id",
@@ -64,7 +72,8 @@ router.put("/profile", authenticateToken, uploadUserImage, async (req, res) => {
       )
       .where({ id: userId })
       .first();
-    //Normalize image: always return a usable Cloudinary HTTPS URL
+
+    // ✅ Normalize image: always return Cloudinary URL
     user.image = user.image?.startsWith("http")
       ? user.image
       : "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1758320998/users/default.jpg";

@@ -1,14 +1,14 @@
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-
-import cloudinary from "../../cloudinary.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
+  cloudinary,
   params: {
-    folder: "users", //all user images stored in /users
+    folder: "users", // all profile images go here
     allowed_formats: ["jpg", "png", "jpeg", "webp"],
-    public_id: `user-${Date.now()}`, // unique name
+    public_id: (req, file) =>
+      `user-${Date.now()}-${Math.round(Math.random() * 1e9)}`,
   },
 });
 
