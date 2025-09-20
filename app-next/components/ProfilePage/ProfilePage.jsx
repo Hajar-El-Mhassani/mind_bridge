@@ -259,7 +259,26 @@ export default function ProfilePage() {
     return <div className={styles.loading}>Redirecting...</div>;
   }
 
-  const getImageUrl = () => user.image;
+  const getImageUrl = () => {
+    if (!user?.image) return "/images/default-avatar.jpg";
+
+    if (user.image.startsWith("http")) {
+      return user.image;
+    }
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (!apiUrl) {
+      return "/images/default-avatar.jpg";
+    }
+
+    const apiBaseUrl = apiUrl.replace("/api", "");
+
+    if (user.image.startsWith("/uploads")) {
+      return `${apiBaseUrl}${user.image}`;
+    }
+
+    return `${apiBaseUrl}/uploads/users/${user.image}`;
+  };
 
   const formatDateOfBirth = () => {
     if (!user.date_of_birth) return "Not provided";
@@ -282,12 +301,15 @@ export default function ProfilePage() {
       <section className={styles.profileTop} aria-labelledby="user-info">
         <div className={styles.userDetails}>
           <Image
-            src={user.image}
-            alt={user.name || "User"}
+            src={getImageUrl()}
+            alt={user?.name || "User"}
             width={100}
             height={100}
             className={styles.profileImage}
-            unoptimized // Add this for Render deployment
+            unoptimized
+            onError={(e) => {
+              e.target.src = "/images/default-avatar.jpg";
+            }}
           />
           <div className={styles.userName}>
             <h2>{user.name || "Unknown User"}</h2>
