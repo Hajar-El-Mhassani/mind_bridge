@@ -18,9 +18,6 @@
   display: flex;
   flex-direction: column;
 }
-  font-family: Arial, sans-serif;
-  font-size:20px;
-  font-weight: 400;
 
 .sidebarFooter {
   margin-top: auto;
@@ -88,8 +85,6 @@
 
 .logoutButton:hover .icon {
   color: #b91c1c;
-.active .icon {
-  color: #fff;
 }
 
 .navItem:hover {
