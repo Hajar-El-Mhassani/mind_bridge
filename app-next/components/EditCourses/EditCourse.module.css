@@ -1,31 +1,31 @@
 .editCourseContainer {
   max-width: 900px;
   margin: 2rem auto;
-  background: #fff;
+  background-color: #f9f9f9;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  font-family: Arial, sans-serif;
+  font-family: lato, sans-serif;
 }
 
 .title {
   font-size: 1.8rem;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 0.5rem;
 }
 .errorInput {
-  border: 1px solid red;
+  border: 1px solid #e53935;
   background-color: #ffecec;
 }
 
 .errorText {
-  color: red;
+  color: #e53935;
   font-size: 0.85rem;
   margin-top: 0.25rem;
 }
 
 .successText {
-  color: green;
+  color: #4caf50;
   font-size: 1rem;
   margin-top: 1rem;
   font-weight: bold;
@@ -52,10 +52,6 @@
   flex-direction: column;
   width: 100%;
   padding: 0.5rem;
-}
-
-.fullWidth {
-  grid-column: span 2;
 }
 
 .formGroup label {
@@ -133,16 +129,21 @@
 }
 
 .saveBtn {
-  padding: 0.6rem 1.2rem;
-  background: #2563eb;
-  color: #fff;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
   border: none;
-  border-radius: 6px;
+  padding: 0.85rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
 .saveBtn:hover {
-  background: #1e4db7;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
 }
 
 @media (min-width: 768px) {

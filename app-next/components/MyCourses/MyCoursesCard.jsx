@@ -10,6 +10,7 @@ export default function MyCourseCard({
   title,
   status,
   courseDeleteRequested,
+  description,
 }) {
   const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
   const router = useRouter();
@@ -22,7 +23,8 @@ export default function MyCourseCard({
 
       <div className={styles.content}>
         <div className={styles.category}>{category}</div>
-        <h3 className={styles.title}>{title}</h3>
+        <h3 className={styles.cardTitle}>{title}</h3>
+        <p className={styles.desc}>{description}</p>
       </div>
       <div className={styles.detailContainer}>
         <div
@@ -38,7 +40,10 @@ export default function MyCourseCard({
         </div>
       </div>
       <div className={styles.btnContainer}>
-        <button className={styles.btnEdit} onClick={(e) => router.push(`/my-courses/${id}/edit`)}>
+        <button
+          className={styles.btnEdit}
+          onClick={(e) => router.push(`/my-courses/${id}/edit`)}
+        >
           <FaEdit /> Edit
         </button>
         <button

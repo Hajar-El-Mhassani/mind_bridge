@@ -75,6 +75,7 @@
 }
 
 .memberName {
+  width:auto;
   font-size: 1.3em;
   color: #333;
   margin-bottom: 5px;
