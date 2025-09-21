@@ -18,9 +18,6 @@
   display: flex;
   flex-direction: column;
 }
-font-family: Arial, sans-serif;
-font-size: 20px;
-font-weight: 400;
 
 .sidebarFooter {
   margin-top: auto;
@@ -88,79 +85,76 @@ font-weight: 400;
 
 .logoutButton:hover .icon {
   color: #b91c1c;
-  .active .icon {
-    color: #fff;
+}
+
+.navItem:hover {
+  background: #e5e7eb;
+}
+
+.active {
+  background: #0b63d3;
+  color: #fff;
+}
+
+.active .icon {
+  color: #fff;
+}
+
+.mobileToggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: #0b63d3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+    height: 100vh;
   }
 
-  .navItem:hover {
-    background: #e5e7eb;
-  }
-
-  .active {
-    background: #0b63d3;
-    color: #fff;
-  }
-
-  .active .icon {
-    color: #fff;
+  .sidebar.open {
+    transform: translateX(0);
   }
 
   .mobileToggle {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    z-index: 1001;
-    background: #0b63d3;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0.75rem;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: block;
   }
 
   .overlay {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .sidebar {
+    position: static;
+    transform: none;
+    height: 100%;
+  }
+
+  .sidebarFooter {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-  }
-
-  @media (max-width: 768px) {
-    .sidebar {
-      transform: translateX(-100%);
-      width: 280px;
-      height: 100vh;
-    }
-
-    .sidebar.open {
-      transform: translateX(0);
-    }
-
-    .mobileToggle {
-      display: block;
-    }
-
-    .overlay {
-      display: block;
-    }
-  }
-
-  @media (min-width: 769px) {
-    .sidebar {
-      position: static;
-      transform: none;
-      height: 100%;
-    }
-
-    .sidebarFooter {
-      display: none;
-    }
   }
 }
