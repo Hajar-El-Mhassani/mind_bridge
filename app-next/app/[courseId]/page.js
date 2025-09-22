@@ -1,15 +1,18 @@
-import CourseDetailsComponent from '@/components/CourseDetails/CourseDetailsComponent.jsx';
-import Navbar from '@/components/NavBar/Navbar.jsx';
-import TopBar from '@/components/TopBar/TopBar.jsx';
-import Footer from '@/components/Footer/Footer.js'; 
+import CourseDetailsComponent from "@/components/CourseDetails/CourseDetailsComponent.jsx";
+import Navbar from "@/components/NavBar/Navbar.jsx";
+import TopBar from "@/components/TopBar/TopBar.jsx";
+import Footer from "@/components/Footer/Footer.js";
 
 export default async function CourseDetailPage({ params }) {
   const { courseId } = params;
   let course = null;
 
   try {
-    const res = await fetch(`http://localhost:3001/api/courses/${courseId}`, { cache: 'no-store' });
-
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+    const res = await fetch(`${apiUrl}/courses/${courseId}`, {
+      cache: "no-store",
+    });
     if (res.ok) {
       course = await res.json();
     } else {
@@ -21,9 +24,9 @@ export default async function CourseDetailPage({ params }) {
 
   if (!course) {
     return (
-      <div style={{ color: 'red', textAlign: 'center', marginTop: '50px' }}>
-      
-      </div>
+      <div
+        style={{ color: "red", textAlign: "center", marginTop: "50px" }}
+      ></div>
     );
   }
 
@@ -32,7 +35,7 @@ export default async function CourseDetailPage({ params }) {
       <TopBar />
       <Navbar />
 
-      <main style={{ padding: '20px' }}>
+      <main style={{ padding: "20px" }}>
         <CourseDetailsComponent course={course} />
       </main>
 
